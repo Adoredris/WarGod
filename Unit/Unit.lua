@@ -76,7 +76,7 @@ setmetatable(unitsByGUID, {
                         if UnitGUID(v) == self.guid then
                             return v
                         else
-                            print(frames[v])
+                            --print(frames[v])
                             frames[v]:Update(v)
                         end
                     end
@@ -91,10 +91,10 @@ setmetatable(unitsByGUID, {
             end
         })
 
-        self.buff = Auras.NewTable(self, "HELPFUL|PLAYER")
-        self.debuff = Auras.NewTable(self, "HARMFUL|PLAYER")
-        self.buffAnyone = Auras.NewTable(self, "HELPFUL")
-        self.debuffAnyone = Auras.NewTable(self, "HARMFUL")
+        self.buff = Auras:NewTable(self, "HELPFUL|PLAYER")
+        self.debuff = Auras:NewTable(self, "HARMFUL|PLAYER")
+        self.buffAnyone = Auras:NewTable(self, "HELPFUL")
+        self.debuffAnyone = Auras:NewTable(self, "HARMFUL")
 
         return self
     end

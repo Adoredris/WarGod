@@ -8,36 +8,56 @@ local simcName = {}
 setfenv(1, WarGod.Unit)
 
 local function UpdateAura(self)
+    local filter = self.parent.filter
+    local unitid = self.parent.unit.unitid
+    local slots = {select(2,UnitAuraSlots(unitid, filter))}
+    for _,slotNo in ipairs(slots) do
+        local t = GetAuraDataBySlot(unitid, slotNo)
+        if simcName[t.name] == self.simcName then
+            -- auraParentTable, unitAuraInfo
+            --print(t.auraInstanceID)
+            Auras:UpdateUnitsAura(self.parent, t)
+        end
+    end
+    self.upToDate = true
+    --Auras:UpdateUnitsAura(unit.debuffAnyone, t)
 
 end
 
 local function Stacks(self)
     printdebug('test stacks')
-    local unitid = self.parent.unit.unitid
-    if unitid == "" then return 0 end
     if not self.upToDate then
         self:UpdateAura()
     end
+    if not self.auraInstanceID then return 0 end
+    local unitid = self.parent.unit.unitid
+    if unitid == "" then return 0 end
+
     return self.stacks
 end
 
 local function Remains(self)
-    printdebug('test Remains')
-    local unitid = self.parent.unit.unitid
-    if unitid == "" then return 0 end
+    --printdebug('test Remains')
     if not self.upToDate then
         self:UpdateAura()
     end
-    return self.expiresAt - GetTime()
+    --print(self.auraInstanceID)
+    if not self.auraInstanceID then return 0 end
+    local unitid = self.parent.unit.unitid
+    if unitid == "" then return 0 end
+
+    return self.expirationTime - GetTime()
 end
 
 local function Duration(self)
     printdebug('test Duration')
-    local unitid = self.parent.unit.unitid
-    if unitid == "" then return 0 end
     if not self.upToDate then
         self:UpdateAura()
     end
+    if not self.auraInstanceID then return 0 end
+    local unitid = self.parent.unit.unitid
+    if unitid == "" then return 0 end
+
     return self.duration
 end
 
@@ -59,7 +79,13 @@ function Auras:NewTable(unit, filter)
             --self.filter = parent[filter]
             self.simcName = simcAuraName
             self.parent = parent
-            self.upToDate = false
+            self.expirationTime = 0
+            self.duration = 0
+            self.charges = 0
+            self.maxCharges = 0
+            self.points = 0
+            --self.upToDate = false
+
             self.Up = Up
             self.Down = Down
 
@@ -77,7 +103,7 @@ function Auras:NewTable(unit, filter)
 end
 
 function Auras:RemoveUnitsAura(unit, auraInstanceID)
-    printdebug("implement RemoveUnitsAura")
+    --printdebug("implement RemoveUnitsAura")
     for k,v in pairs(unit.buffAnyone) do
         if type(v) == "table" then
             --print(v.auraInstanceID)
@@ -89,15 +115,24 @@ function Auras:RemoveUnitsAura(unit, auraInstanceID)
                 v.points = 0
                 v.auraInstanceID = nil
                 v.upToDate = true
-                unit.buff[k].expirationTime = 0
-                unit.buff[k].duration = 0
-                unit.buff[k].charges = 0
-                unit.buff[k].maxCharges = 0
-                unit.buff[k].points = 0
-                unit.debuff[k].auraInstanceID = nil
-                unit.buff[k].upToDate = true
                 printdebug("removed " .. unit.name .. "'s " .. v.name .. " buff")
-                return
+                --return
+            end
+        end
+    end
+    for k,v in pairs(unit.buff) do
+        if type(v) == "table" then
+            --print(v.auraInstanceID)
+            if v.auraInstanceID == auraInstanceID then
+                v.expirationTime = 0
+                v.duration = 0
+                v.charges = 0
+                v.maxCharges = 0
+                v.points = 0
+                v.auraInstanceID = nil
+                v.upToDate = true
+                printdebug("removed " .. unit.name .. "'s " .. v.name .. " buff")
+                --return
             end
         end
     end
@@ -112,15 +147,24 @@ function Auras:RemoveUnitsAura(unit, auraInstanceID)
                 v.points = 0
                 v.auraInstanceID = nil
                 v.upToDate = true
-                unit.debuff[k].expirationTime = 0
-                unit.debuff[k].duration = 0
-                unit.debuff[k].charges = 0
-                unit.debuff[k].maxCharges = 0
-                unit.debuff[k].points = 0
-                unit.debuff[k].auraInstanceID = nil
-                unit.debuff[k].upToDate = true
                 printdebug("removed " .. unit.name .. "'s " .. v.name .. " debuff")
-                return
+                --return
+            end
+        end
+    end
+    for k,v in pairs(unit.debuff) do
+        if type(v) == "table" then
+            --print(v.auraInstanceID)
+            if v.auraInstanceID == auraInstanceID then
+                v.expirationTime = 0
+                v.duration = 0
+                v.charges = 0
+                v.maxCharges = 0
+                v.points = 0
+                v.auraInstanceID = nil
+                v.upToDate = true
+                printdebug("removed " .. unit.name .. "'s " .. v.name .. " debuff")
+                --return
             end
         end
     end
@@ -152,12 +196,13 @@ function Unit:UNIT_AURA(event, unitid, updateTable)
     if updateTable.removedAuraInstanceIDs then
         for k, instanceId in pairs(updateTable.removedAuraInstanceIDs) do
             -- when the remove event occurs, you can't query the info
+            --print('removing ' .. instanceId)
             Auras:RemoveUnitsAura(unit, instanceId)
         end
     end
     if updateTable.updatedAuraInstanceIDs then
         for k, instanceId in pairs(updateTable.updatedAuraInstanceIDs) do
-            print('updated on ' .. unitid)
+            --print('updated on ' .. unitid)
             local t = GetAuraDataByAuraInstanceID(unitid, instanceId)
             if t.isHarmful then
                 Auras:UpdateUnitsAura(unit.debuffAnyone, t)
@@ -177,7 +222,7 @@ function Unit:UNIT_AURA(event, unitid, updateTable)
     -- added seems to be a table of a table
     if updateTable.addedAuras then
         for k, t in pairs(updateTable.addedAuras) do
-            print('added to ' .. unitid)
+            --print('added to ' .. unitid)
             if t.isHarmful then
                 Auras:UpdateUnitsAura(unit.debuffAnyone, t)
                 if t.sourceUnit == "player" then

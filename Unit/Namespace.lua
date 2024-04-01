@@ -43,13 +43,15 @@ Unit.UnitName = UnitName
 Unit.UnitExists = UnitExists
 Unit.UnitLevel = UnitLevel
 Unit.UnitAura = UnitAura
-Unit.UnitIsDeadOrGhost = UnitIsDeadOrGhost
-Unit.UnitGroupRolesAssigned = UnitGroupRolesAssigned
-
+Unit.UnitAuraSlots = UnitAuraSlots
 Unit.GetAuraDataByAuraInstanceID = C_UnitAuras.GetAuraDataByAuraInstanceID
 Unit.GetAuraDataBySlot = C_UnitAuras.GetAuraDataBySlot
 Unit.GetCooldownAuraBySpellID = C_UnitAuras.GetCooldownAuraBySpellID
 Unit.GetPlayerAuraBySpellID = C_UnitAuras.GetPlayerAuraBySpellID
+Unit.UnitIsDeadOrGhost = UnitIsDeadOrGhost
+Unit.UnitGroupRolesAssigned = UnitGroupRolesAssigned
+
+
 --Unit.GetAuraDataBySlot = C_UnitAuras.IsAuraFilteredOutByInstanceID
 --Unit.GetAuraDataBySlot = C_UnitAuras.WantsAlteredForm
 
@@ -62,7 +64,7 @@ Unit.tremove = tremove
 Unit.tsort = table.sort
 Unit.GetTime = GetTime
 
-Unit.debug = true
+Unit.debug = false
 
 --setmetatable(Units, m)
 
