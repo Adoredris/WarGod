@@ -1,0 +1,8 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <Script file="BindNamespace.lua"/>
+    <Script file="Reserved.lua"/>
+    <Script file="Binds.lua"/>
+    <Script file="BindGroups.lua"/>
+    <Script file="BindQueue.lua"/>
+    <Script file="BindLoadLast.lua"/>
+</Ui>

@@ -146,7 +146,7 @@ function Unit:RemoveUnitMapping(guid, unitid)
     if unit then
         for i,unitIdIter in ipairs(unit.unitIds) do
             if unitIdIter == unitid then
-                printdebug("removing mapping to " .. unitid)
+                --printdebug("removing mapping to " .. unitid)
                 tremove(unit.unitIds, i)
 
                 Unit:RemoveUnitFromGroups(unit, unitid)

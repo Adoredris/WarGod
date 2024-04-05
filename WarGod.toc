@@ -6,3 +6,4 @@
 
 WarGod.lua
 Unit\Unit.xml
+Rotation\Rotation.xml

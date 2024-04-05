@@ -64,7 +64,7 @@ Unit.tremove = tremove
 Unit.tsort = table.sort
 Unit.GetTime = GetTime
 
-Unit.debug = false
+Unit.debug = true
 
 --setmetatable(Units, m)
 

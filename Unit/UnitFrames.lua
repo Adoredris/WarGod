@@ -19,10 +19,10 @@ local function FrameUpdate(t, unitid, event)
             Unit:RemoveUnitMapping(t.guid, t.unitid)
             Unit:AddUnitMapping(guid, t.unitid)
         elseif guid ~= nil then
-            printdebug(t.unitid .. " has changed to " .. UnitName(t.unitid))
+            --printdebug(t.unitid .. " has changed to " .. UnitName(t.unitid))
             Unit:AddUnitMapping(guid, t.unitid)
         else
-            printdebug(t.unitid .. " no longer exists")
+            --printdebug(t.unitid .. " no longer exists")
             Unit:RemoveUnitMapping(t.guid, t.unitid)
         end
         t.guid = guid
@@ -96,7 +96,7 @@ do
     FrameRegister(frames, "player", nil); --frames["player"]:Update("player")--tinsert(guidsToUnits[frames["player"].guid].unitIds, "player")
     FrameRegister(frames, "target", {"PLAYER_TARGET_CHANGED"})
     FrameRegister(frames, "focus", {"PLAYER_FOCUS_CHANGED"})
-    printdebug("TODO - IMPLEMENT nameplates")
+    --printdebug("TODO - IMPLEMENT nameplates")
     for i = 1, 40 do
         FrameRegister(frames, "nameplate" .. i, {"NAME_PLATE_UNIT_ADDED", "NAME_PLATE_UNIT_REMOVED"})--; frames["nameplate" .. i]:Update()
     end
