@@ -1,0 +1,17 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+..\FrameXML\UI.xsd">
+
+
+
+    <Script file="1_Tarragrue.lua"/>
+    <Script file="2_Eye.lua"/>
+    <Script file="3_Nine.lua"/>
+    <Script file="4_Remnant.lua"/>
+    <Script file="5_Soulrender.lua"/>
+    <Script file="6_Painsmith.lua"/>
+    <Script file="7_Guardian.lua"/>
+    <Script file="8_Fatescribe.lua"/>
+    <Script file="9_Kelthuzad.lua"/>
+    <Script file="10_Sylvanas.lua"/>
+    <Script file="Trash.lua"/>
+</Ui>

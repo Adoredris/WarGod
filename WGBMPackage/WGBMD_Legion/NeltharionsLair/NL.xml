@@ -1,0 +1,7 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <Script file="1_Rokmora.lua"/>
+    <Script file="2_Cragshaper.lua"/>
+    <Script file="3_Naraxas.lua"/>
+    <Script file="4_Dargrul.lua"/>
+    <Script file="NL_Trash.lua"/>
+</Ui>

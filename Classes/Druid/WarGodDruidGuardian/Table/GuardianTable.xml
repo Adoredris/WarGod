@@ -1,0 +1,14 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <Script file="Utility.lua"/>
+    <Script file="Tagging.lua"/>
+    <Script file="Standard.lua"/>
+
+    <Script file="Mitigation.lua"/>
+
+    <Script file="LastResort.lua"/>
+    <Script file="ForcedOnly.lua"/>
+
+    <Script file="Cat.lua"/>
+    <!--<Script file="Moonkin.lua"/>-->
+    <Script file="NoForm.lua"/>
+</Ui>

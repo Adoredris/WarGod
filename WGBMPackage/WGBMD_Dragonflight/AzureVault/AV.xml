@@ -1,0 +1,7 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <Script file="1_Leymor.lua"/>
+    <Script file="2_Azureblade.lua"/>
+    <Script file="3_Greywing.lua"/>
+    <Script file="4_Umbrelskul.lua"/>
+    <Script file="AV_Trash.lua"/>
+</Ui>

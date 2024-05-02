@@ -1,0 +1,7 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <Script file="1_Sadana.lua"/>
+    <Script file="2_Nhallish.lua"/>
+    <Script file="3_Bonemaw.lua"/>
+    <Script file="4_Nerzhul.lua"/>
+    <Script file="SBG_Trash.lua"/>
+</Ui>

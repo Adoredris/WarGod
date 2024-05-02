@@ -1,0 +1,20 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <Script file="RotationNamespace.lua"/>
+    <Script file="Pixel.lua"/>
+    <Script file="NagaToggles.lua"/>
+    <Script file="FunctionsAdd.lua"/>
+    <Script file="FunctionsHelper.lua"/>
+    <Script file="FunctionsReady.lua"/>
+    <Script file="FunctionsUnitValidity.lua"/>
+    <Script file="Delegates.lua"/>
+    <Script file="Delegates/Auras.lua"/>
+    <Script file="Delegates/Healing.lua"/>
+    <Script file="Delegates/Important.lua"/>
+    <Script file="Delegates/Role.lua"/>
+    <Script file="Delegates/Tanking.lua"/>
+    <Script file="Delegates/Wrappers.lua"/>
+    <Script file="Vehicles.lua"/>
+    <Script file="ForceCasts.lua"/>
+    <Script file="Setup.lua"/>
+    <Script file="Events.lua"/>
+</Ui>

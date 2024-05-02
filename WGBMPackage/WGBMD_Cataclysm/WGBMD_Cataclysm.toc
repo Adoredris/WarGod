@@ -1,0 +1,9 @@
+## Title: WGBMD_Cataclysm
+## Version: 1.0
+## Author: Ikevink
+## Dependencies: WarGodBossMods
+## LoadOnDemand: 1
+## Interface: 90001
+## X-Child-Of: WarGodBossMods
+
+Cataclysm_Modules.xml

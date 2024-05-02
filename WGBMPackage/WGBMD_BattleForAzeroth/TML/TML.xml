@@ -1,0 +1,8 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <Script file="1_Pummeler.lua"/>
+    <Script file="2_Azerokk.lua"/>
+    <Script file="2_Azerokk.lua"/>
+    <Script file="4_Mogul.lua"/>
+
+    <Script file="TML_Trash.lua"/>
+</Ui>

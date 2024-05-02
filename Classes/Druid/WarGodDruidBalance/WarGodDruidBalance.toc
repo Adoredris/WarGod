@@ -1,0 +1,14 @@
+## Interface: 90001
+## Title: WarGod Druid Balance
+## Author: Ikevink
+## Version: 1.0
+## Dependencies: WarGodDruid
+## X-Child-Of: WarGod
+
+## LoadManagers: AddonLoader
+
+
+DruidBalance.lua
+PowerInfusion.lua
+#KindredSpirits.lua
+Table-SL\BalanceTable.xml

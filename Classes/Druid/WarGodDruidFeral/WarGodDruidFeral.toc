@@ -1,0 +1,12 @@
+## Interface: 90001
+## Title: WarGod Druid Feral
+## Author: Ikevink
+## Version: 1.0
+## Dependencies: WarGodDruid
+## X-Child-Of: WarGod
+
+## LoadManagers: AddonLoader
+
+
+DruidFeral.lua
+#Table\FeralTable.xml

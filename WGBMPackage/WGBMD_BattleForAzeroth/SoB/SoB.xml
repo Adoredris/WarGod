@@ -1,0 +1,7 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <Script file="1_Redhook.lua"/>
+    <Script file="2_Lockwood.lua"/>
+    <Script file="3_Hadal.lua"/>
+    <Script file="4_ViqGoth.lua"/>
+    <Script file="SoB_Trash.lua"/>
+</Ui>

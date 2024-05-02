@@ -1,0 +1,7 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <Script file="1_Granyth.lua"/>
+    <Script file="2_Tempest.lua"/>
+    <Script file="3_Centaurs.lua"/>
+    <Script file="4_Khan.lua"/>
+    <Script file="NO_Trash.lua"/>
+</Ui>

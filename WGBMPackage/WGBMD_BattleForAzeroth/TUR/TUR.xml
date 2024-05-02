@@ -1,0 +1,7 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <Script file="1_Leaxa.lua"/>
+    <Script file="2_Cragmaw.lua"/>
+    <Script file="3_Sporecaller.lua"/>
+    <Script file="4_Abom.lua"/>
+    <Script file="TUR_Trash.lua"/>
+</Ui>

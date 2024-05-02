@@ -1,0 +1,7 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <Script file="1_Chargath.lua"/>
+    <Script file="2_Forgemaster.lua"/>
+    <Script file="3_Magmatusk.lua"/>
+    <Script file="4_Warlord.lua"/>
+    <Script file="Nelth_Trash.lua"/>
+</Ui>

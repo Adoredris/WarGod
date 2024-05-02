@@ -1,0 +1,7 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <Script file="1_Watcher.lua"/>
+    <Script file="2_Frog.lua"/>
+    <Script file="3_Khajin.lua"/>
+    <Script file="4_Tsunami.lua"/>
+    <Script file="HoI_Trash.lua"/>
+</Ui>

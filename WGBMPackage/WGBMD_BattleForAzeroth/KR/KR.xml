@@ -1,0 +1,7 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <Script file="1_GoldenSerpent.lua"/>
+    <Script file="2_Mchimba.lua"/>
+    <Script file="3_Council.lua"/>
+    <Script file="4_Dazar.lua"/>
+    <Script file="KR_Trash.lua"/>
+</Ui>

@@ -1,0 +1,9 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <Script file="1_Blightbone.lua"/>
+    <Script file="2_Amarth.lua"/>
+    <Script file="3_Surgeon.lua"/>
+    <Script file="4_Nalthor.lua"/>
+
+    <Script file="TNW_Trash.lua"/>
+
+</Ui>

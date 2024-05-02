@@ -1,0 +1,12 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <Script file="1_Gobbamak.lua"/>
+    <Script file="2_Gunker.lua"/>
+    <Script file="3_Trixie.lua"/>
+    <Script file="4_HK8.lua"/>
+    <Script file="5_Tonks.lua"/>
+    <Script file="6_Kujo.lua"/>
+    <Script file="7_Garden.lua"/>
+    <Script file="8_Mechagon.lua"/>
+
+    <Script file="OM_Trash.lua"/>
+</Ui>

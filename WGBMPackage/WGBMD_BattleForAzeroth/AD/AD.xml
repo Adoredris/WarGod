@@ -1,0 +1,7 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <Script file="1_Priestess.lua"/>
+    <Script file="2_Volkaal.lua"/>
+    <Script file="3_Rezan.lua"/>
+    <Script file="4_Yazma.lua"/>
+    <Script file="AD_Trash.lua"/>
+</Ui>

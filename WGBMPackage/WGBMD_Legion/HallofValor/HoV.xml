@@ -1,0 +1,8 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <Script file="1_Hymdall.lua"/>
+    <Script file="2_Hyrja.lua"/>
+    <Script file="3_Fenryr.lua"/>
+    <Script file="4_Skovald.lua"/>
+    <Script file="5_Odyn.lua"/>
+    <Script file="HoV_Trash.lua"/>
+</Ui>

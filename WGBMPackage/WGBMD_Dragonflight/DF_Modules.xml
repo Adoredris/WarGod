@@ -1,0 +1,10 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <Include file="Academy\AA.xml"/>
+    <Include file="Brackenhide\BH.xml"/>
+    <Include file="HallsOfInfusion\HoI.xml"/>
+    <Include file="Neltharus\Nelth.xml"/>
+    <Include file="RubyLifePools\RLP.xml"/>
+    <Include file="AzureVault\AV.xml"/>
+    <Include file="NokhudOffensive\NO.xml"/>
+    <Include file="Uldaman\Ulda.xml"/>
+</Ui>

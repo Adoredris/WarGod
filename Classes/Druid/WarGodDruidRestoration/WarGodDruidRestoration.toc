@@ -1,0 +1,12 @@
+## Interface: 90001
+## Title: WarGod Druid Restoration
+## Author: Ikevink
+## Version: 1.0
+## Dependencies: WarGodDruid
+## X-Child-Of: WarGod
+
+## LoadManagers: AddonLoader
+
+
+DruidResto.lua
+Table\RestoTable.xml

@@ -1,0 +1,12 @@
+## Interface: 90001
+## Title: WarGod Druid
+## Author: Ikevink
+## Version: 1.0
+## Dependencies: WarGodClass, WarGodDruidBinds
+## X-Child-Of: WarGod
+
+## LoadManagers: AddonLoader
+
+Druid.lua
+KindredSpirits.lua
+Table\DruidTable.xml

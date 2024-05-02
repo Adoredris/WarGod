@@ -1,0 +1,9 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <Script file="1_Kryxis.lua"/>
+    <Script file="2_Executor.lua"/>
+    <Script file="3_Grand.lua"/>
+    <Script file="4_General.lua"/>
+
+    <Script file="SD_Trash.lua"/>
+
+</Ui>

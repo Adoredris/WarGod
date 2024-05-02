@@ -1,0 +1,12 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Script file="1_Kazzara.lua"/>
+  <Script file="2_Amalgamation.lua"/>
+  <Script file="3_Experiments.lua"/>
+  <Script file="4_Assault.lua"/>
+  <Script file="5_Rashok.lua"/>
+  <Script file="6_Steward.lua"/>
+  <Script file="7_Magmorax.lua"/>
+  <Script file="8_Neltharion.lua"/>
+  <Script file="9_Sarkareth.lua"/>
+  <Script file="Aberrus_Trash.lua"/>
+</Ui>

@@ -1,0 +1,8 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <Script file="1_Kin.lua"/>
+    <Script file="2_Ventunax.lua"/>
+    <Script file="3_Oryphrion.lua"/>
+    <Script file="4_Devos.lua"/>
+
+    <Script file="SoA_Trash.lua"/>
+</Ui>

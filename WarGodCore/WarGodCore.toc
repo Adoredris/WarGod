@@ -1,0 +1,14 @@
+## Title: WarGod Core
+## Version: 1.0
+## Author: Flora
+## Interface: 100205
+## Dependencies: LibRangeCheck-2.0, LibSpellRange-1.0, WarGod
+## X-Child-Of: WarGod
+
+## LoadManagers: AddonLoader
+
+## X-LoadOn-Always: delayed
+## X-LoadOn-Combat: true
+
+Unit\Unit.xml
+Rotation\Rotation.xml

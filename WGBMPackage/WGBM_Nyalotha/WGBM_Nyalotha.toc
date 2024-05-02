@@ -1,0 +1,9 @@
+## Title: WGBM Nyalotha
+## Version: 1.0
+## Author: Ikevink
+## Dependencies: WarGodBossMods
+## LoadOnDemand: 1
+## Interface: 83000
+## X-Child-Of: WarGodBossMods
+
+modules.xml

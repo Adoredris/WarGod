@@ -1,0 +1,14 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <Include file="AD\AD.xml"/>
+    <Include file="FH\FH.xml"/>
+    <Include file="KR\KR.xml"/>
+    <Include file="SoB\SoB.xml"/>
+    <Include file="SotS\SotS.xml"/>
+    <Include file="TD\TD.xml"/>
+    <Include file="TML\TML.xml"/>
+    <Include file="ToS\ToS.xml"/>
+    <Include file="TUR\TUR.xml"/>
+    <Include file="WCM\WCM.xml"/>
+    <Include file="OM\OM.xml"/>
+
+</Ui>

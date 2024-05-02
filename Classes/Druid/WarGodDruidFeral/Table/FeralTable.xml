@@ -1,0 +1,17 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+    <Script file="Openers.lua"/>            <!--9000-->
+    <Script file="Boomy.lua"/>              <!--8000-->
+    <Script file="CDs.lua"/>                <!--7000-->
+    <Script file="AoE.lua"/>                <!--6000-->
+    <Script file="Finishers.lua"/>          <!--5000-->
+    <Script file="Bloodtalons.lua"/>        <!--4000-->
+    <Script file="GeneratorsBerserk.lua"/>  <!--3000-->
+    <Script file="Generators.lua"/>         <!--2000-->
+
+
+    <Script file="Utility.lua"/>
+    <!--<Script file="Vulnerability.lua"/>
+    <Script file="Burst.lua"/>-->
+    <Script file="ForcedOnly.lua"/>
+</Ui>

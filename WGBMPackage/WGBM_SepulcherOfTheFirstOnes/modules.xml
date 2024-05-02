@@ -1,0 +1,18 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+..\FrameXML\UI.xsd">
+
+
+
+    <Script file="1_Guardian.lua"/>
+    <Script file="2_Skolex.lua"/>
+    <Script file="3_Artificer.lua"/>
+    <Script file="4_Dausegne.lua"/>
+    <Script file="5_Prototype.lua"/>
+    <Script file="6_Architect.lua"/>
+    <Script file="7_Reclaimer.lua"/>
+    <Script file="8_Anduin.lua"/>
+    <Script file="9_Lords.lua"/>
+    <Script file="10_Rygelon.lua"/>
+    <Script file="11_Jailer.lua"/>
+    <Script file="Trash.lua"/>
+</Ui>

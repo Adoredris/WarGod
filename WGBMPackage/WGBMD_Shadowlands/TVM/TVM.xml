@@ -1,0 +1,9 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <Script file="1_Challengers.lua"/>
+    <Script file="2_Gorechop.lua"/>
+    <Script file="3_Xav.lua"/>
+    <Script file="4_Kul.lua"/>
+    <Script file="5_Mordretha.lua"/>
+
+    <Script file="TVM_Trash.lua"/>
+</Ui>

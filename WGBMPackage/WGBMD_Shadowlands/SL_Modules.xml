@@ -1,0 +1,11 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <Include file="DOS\DOS.xml"/>
+    <Include file="HoA\HoA.xml"/>
+    <Include file="MoTS\MoTS.xml"/>
+    <Include file="PF\PF.xml"/>
+    <Include file="SD\SD.xml"/>
+    <Include file="SoA\SoA.xml"/>
+    <Include file="TNW\TNW.xml"/>
+    <Include file="ToP\ToP.xml"/>
+
+</Ui>

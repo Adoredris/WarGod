@@ -1,0 +1,7 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <Script file="1_Kragg.lua"/>
+    <Script file="2_Council.lua"/>
+    <Script file="3_Booty.lua"/>
+    <Script file="4_Harlan.lua"/>
+    <Script file="FH_Trash.lua"/>
+</Ui>

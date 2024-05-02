@@ -1,0 +1,9 @@
+## Title: WGBMD_Legion
+## Version: 1.0
+## Author: Ikevink
+## Dependencies: WarGodBossMods
+## LoadOnDemand: 1
+## Interface: 90001
+## X-Child-Of: WarGodBossMods
+
+Legion_Modules.xml

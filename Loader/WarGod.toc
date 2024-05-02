@@ -1,0 +1,9 @@
+## Title: WarGod
+## Version: 1.0
+## Author: Flora
+## Interface: 100205
+## Dependencies: LibRangeCheck-2.0, LibSpellRange-1.0
+
+WarGod.lua
+
+Binder\Binder.xml

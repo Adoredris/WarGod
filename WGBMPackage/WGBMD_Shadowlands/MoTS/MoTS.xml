@@ -1,0 +1,7 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <Script file="1_Ingra.lua"/>
+    <Script file="2_Mistcaller.lua"/>
+    <Script file="3_Tred.lua"/>
+
+    <Script file="MoTS_Trash.lua"/>
+</Ui>

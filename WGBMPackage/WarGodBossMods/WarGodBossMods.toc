@@ -1,0 +1,12 @@
+## Title: WarGod Boss Mods
+## Version: 1.0
+## Author: Ikevink
+## Dependencies: Ace3,LibRangeCheck-2.0,BigWigs, BigWigs_Core
+## Interface: 90001
+
+## LoadManagers: AddonLoader
+
+Init.lua
+Core.lua
+Defaults.lua
+Torghast.lua

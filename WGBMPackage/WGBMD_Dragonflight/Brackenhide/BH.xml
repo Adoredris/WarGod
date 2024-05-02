@@ -1,0 +1,7 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <Script file="1_Hackclaw.lua"/>
+    <Script file="2_Treemouth.lua"/>
+    <Script file="3_Gutshot.lua"/>
+    <Script file="4_Wratheye.lua"/>
+    <Script file="BH_Trash.lua"/>
+</Ui>

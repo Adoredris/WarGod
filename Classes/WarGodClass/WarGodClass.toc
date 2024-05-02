@@ -1,0 +1,14 @@
+## Interface: 90001
+## Title: WarGod Class
+## Author: Ikevink
+## Version: 1.0
+## Dependencies: WarGodCore
+## X-Child-Of: WarGod
+
+## LoadManagers: AddonLoader
+
+## X-LoadOn-Always: delayed
+## X-LoadOn-Combat: true
+
+Class.lua
+GlobalItemFunctions.lua
