@@ -1,6 +1,15 @@
 local Class = LibStub("AceAddon-3.0"):NewAddon("WarGodClass", "AceConsole-3.0", "AceEvent-3.0")
+Class.random = random
+Class.CombatLogGetCurrentEventInfo = CombatLogGetCurrentEventInfo
+Class.UnitClass = UnitClass
+Class.UnitInRaid = UnitInRaid
+Class.UnitGroupRolesAssigned = UnitGroupRolesAssigned
+Class.GetSpecialization = GetSpecialization
+Class.strmatch = strmatch
+
 
 local player = WarGod.Unit:GetPlayer()
+
 
 local upairs = WarGod.Unit.upairs
 WarGod.Class = Class

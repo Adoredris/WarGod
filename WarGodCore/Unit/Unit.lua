@@ -68,6 +68,7 @@ setmetatable(unitsByGUID, {
         self.AuraRemaining = AuraRemaining
         self.BuffRemaining = AuraRemaining
         self.DebuffRemaining = AuraRemaining
+        self.AuraStacks = AuraStacks
         self.BuffStacks = AuraStacks
         self.BuffCount = self.BuffStacks
         self.DebuffStacks = self.BuffStacks

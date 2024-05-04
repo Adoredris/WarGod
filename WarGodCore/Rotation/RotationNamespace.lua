@@ -64,7 +64,7 @@ Rotation.UnitExists = UnitExists
 Rotation.CheckInteractDistance = CheckInteractDistance
 Rotation.UnitGetIncomingHeals = UnitGetIncomingHeals
 
-Rotation.IsItemInRange = IsItemInRange
+--Rotation.IsItemInRange = IsItemInRange
 Rotation.IsSpellInRange = LibStub("SpellRange-1.0").IsSpellInRange
 Rotation.IsInInstance = IsInInstance
 Rotation.GetInstanceInfo = GetInstanceInfo
@@ -85,6 +85,7 @@ Rotation.GetZoneText = GetZoneText
 Rotation.upairs = WarGod.Unit.upairs
 Rotation.SimcraftifyString = WarGod.SimcraftifyString
 Rotation.UnitThreatSituation = UnitThreatSituation
+Rotation.UnitVehicleSeatCount = UnitVehicleSeatCount
 
 Rotation.groups = WarGod.Unit.groups
 

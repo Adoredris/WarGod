@@ -5,40 +5,11 @@ local Druid = Class
 local WarGod = WarGod
 
 local player = WarGod.Unit:GetPlayer()
-local UnitPower = UnitPower
-local UnitPowerMax = UnitPowerMax
-local GetSpellInfo = GetSpellInfo
-local strmatch = strmatch
-local strlen = strlen
-local strlower = strlower
-local strsplit = strsplit
-local GetTime = GetTime
-local SendChatMessage = SendChatMessage
-local IsSpellInRange = IsSpellInRange
-local floor = floor
-local UnitInRaid = UnitInRaid
-local DoEmote = DoEmote
-local WarGodRotations = WarGod.Rotation
-local CombatLogGetCurrentEventInfo = CombatLogGetCurrentEventInfo
-local UnitExists = UnitExists
-local random = random
-local UnitBuff = UnitBuff
-local UnitClass = UnitClass
-local UnitIsDeadOrGhost = UnitIsDeadOrGhost
-local IsItemInRange = IsItemInRange
-local GetSpecialization = GetSpecialization
-local UnitGroupRolesAssigned = UnitGroupRolesAssigned
-local ActivateSoulbind = C_Soulbinds.ActivateSoulbind
-local GetActiveCovenantID = C_Covenants.GetActiveCovenantID
-local GetActiveSoulbindID = C_Soulbinds.GetActiveSoulbindID
-local GetShapeshiftForm = GetShapeshiftForm
-local GetShapeshiftFormInfo = GetShapeshiftFormInfo
-local IsResting = IsResting
-local UnitCastingInfo = UnitCastingInfo
-local GetUnitSpeed = GetUnitSpeed
+player.maxHelpRangeSpell = "Regrowth"
+player.maxHarmRangeSpell = "Moonfire"
 local WarGodSpells = WarGod.Rotation.rotationFrames[select(2,GetSpecializationInfo(GetSpecialization()))]
-
-local Delegates = WarGodRotations.Delegates
+local Rotation = WarGod.Rotation
+local Delegates = Rotation.Delegates
 
 local print = print
 
@@ -170,7 +141,7 @@ function Delegates:IsKindredSpiritsInRange()
             if name == nil then return end     -- this is wrong
             if name == "Kindred Spirits" then
                 --print(unitid)
-                if (not UnitIsDeadOrGhost(unitid)) and IsItemInRange(41058, unitid) then
+                if (not UnitIsDeadOrGhost(unitid))--[[ and IsItemInRange(41058, unitid)]] then
                     return true
                 end
             end
@@ -326,17 +297,17 @@ end
 --player.maxHarmRangeSpell = "Moonfire"
 player.maxHelpRangeSpell = "Regrowth"
 
-WarGodRotations:RegisterForceCast("Typhoon")
-WarGodRotations:RegisterForceCast("Barkskin")
+Rotation:RegisterForceCast("Typhoon")
+Rotation:RegisterForceCast("Barkskin")
 
-WarGodRotations:RegisterForceCast("Mount Form")
-WarGodRotations:RegisterForceCast("Ursol's Vortex", "cursor")
+Rotation:RegisterForceCast("Mount Form")
+Rotation:RegisterForceCast("Ursol's Vortex", "cursor")
 
-WarGodRotations:RegisterForceCast("Swiftmend", "player")
-WarGodRotations:RegisterForceCast("Rebirth", "mouseover")
-WarGodRotations:RegisterForceCast("Soothe", "target")
-WarGodRotations:RegisterForceCast("Travel Form")
-WarGodRotations:RegisterForceCast("Cat Form")
-WarGodRotations:RegisterForceCast("Bear Form")
-WarGodRotations:RegisterForceCast("Wild Charge")
-WarGodRotations:RegisterForceCast("Dash")
+Rotation:RegisterForceCast("Swiftmend", "player")
+Rotation:RegisterForceCast("Rebirth", "mouseover")
+Rotation:RegisterForceCast("Soothe", "target")
+Rotation:RegisterForceCast("Travel Form")
+Rotation:RegisterForceCast("Cat Form")
+Rotation:RegisterForceCast("Bear Form")
+Rotation:RegisterForceCast("Wild Charge")
+Rotation:RegisterForceCast("Dash")

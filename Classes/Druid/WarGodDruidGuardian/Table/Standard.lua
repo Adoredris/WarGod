@@ -2,25 +2,9 @@ local Rotations = WarGod.Rotation
 local Class = WarGod.Class
 local groups = WarGod.Unit.groups
 local player = WarGod.Unit:GetPlayer()
-local talent = player.trait
 local buff = player.buff
 local covenant = player.covenant
-local runeforge = player.runeforge
-
-
-local UnitInRaid = UnitInRaid
-local InCombatLockdown = InCombatLockdown
-
-local upairs = upairs
-local select = select
-local UnitThreatSituation = UnitThreatSituation
-local UnitChannelInfo = UnitChannelInfo
-local IsSpellInRange = LibStub("SpellRange-1.0").IsSpellInRange
-local UnitAffectingCombat = UnitAffectingCombat
-local GetShapeshiftForm = GetShapeshiftForm
-local GetNumGroupMembers = GetNumGroupMembers
-
-local GetSpellInfo = GetSpellInfo
+local talent = player.trait
 
 ---------TEMP-------------
 local WGBM = WarGod.BossMods

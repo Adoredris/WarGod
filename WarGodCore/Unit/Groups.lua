@@ -74,7 +74,7 @@ function Unit:RemoveUnitFromGroups(unit, oldUnitId)
             if firstChar == "n" then
                 groups.targetableAndPlates[unit.guid] = nil
                 groups.targetable[unit.guid] = nil
-            elseif groups.targetable[unit.guid].unitid == "" then
+            elseif groups.targetable[unit.guid] and groups.targetable[unit.guid].unitid == "" then
                 groups.targetableOrPlates[unit.guid] = nil
                 groups.targetable[unit.guid] = nil
             end

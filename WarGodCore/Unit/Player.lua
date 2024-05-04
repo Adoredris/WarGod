@@ -1,3 +1,4 @@
+local WarGod = WarGod
 local Unit = WarGod.Unit
 setfenv(1, Unit)
 

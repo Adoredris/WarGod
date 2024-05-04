@@ -55,8 +55,8 @@ local ccList = {
 
 function Delegates:UnitIsBreakableCrowdControlled(spell, unit, args)
 
-    if 1==1 then return false end
-    print('need to fix breakable cc')
+    --if 1==1 then return false end
+    --print('need to fix breakable cc')
     for i=1,40 do
         local name = UnitDebuff(unit.unitid, i)
         if not name then
@@ -72,7 +72,7 @@ function Delegates:UnitIsBreakableCrowdControlled(spell, unit, args)
 end
 
 function Delegates:UnitIsFriend(spell, unit, args)
-    if unit and IsItemInRange(34471, unit.unitId) then
+    if unit and IsSpellInRange(args.spell or spell, unit.unitId) then
         return true
     end
 end
@@ -80,7 +80,7 @@ end
 function Delegates:UnitIsEnemy(spell, unit, args)
     --print(spell)
     --print(unit.unitid)
-    if unit and IsItemInRange(116139, unit.unitId) then
+    if unit and IsSpellInRange(args.spell or spell, unit.unitId) then
         return true
     end
 end
@@ -93,8 +93,8 @@ end
 
 function Delegates:HasSpellToCleanse(spell, unit, args)
 
-    print('need to fix HasSpellToCleanse')
-    if 1==1 then return false end
+    --print('need to fix HasSpellToCleanse')
+    --if 1==1 then return false end
     local unitid = unit.unitid
     if UnitIsFriend("player", unitid) then
         for i=1,40 do
@@ -125,8 +125,8 @@ function Delegates:UnitInCombat(spell, unit)
 end
 
 function Delegates:HasEnrageMagicEffect(spell, unit, args)
-    print('need to fix HasEnrageMagicEffect')
-    if 1==1 then return false end
+    --print('need to fix HasEnrageMagicEffect')
+    --if 1==1 then return false end
     local unitid = unit.unitid
     local score = 0
     for i=1,40 do
@@ -151,8 +151,8 @@ function Delegates:HasEnrageMagicEffect(spell, unit, args)
 end
 
 function Delegates:HasMagicEffect(spell, unit, args)
-    print('need to fix HasMagicEffect')
-    if 1==1 then return false end
+    --print('need to fix HasMagicEffect')
+    --if 1==1 then return false end
     local unitid = unit.unitid
     local score = 0
     for i=1,40 do
@@ -177,8 +177,8 @@ function Delegates:HasMagicEffect(spell, unit, args)
 end
 
 function Delegates:HasEnrageEffect(spell, unit, args)
-    print('need to fix HasEnrageEffect')
-    if 1==1 then return false end
+    --print('need to fix HasEnrageEffect')
+    --if 1==1 then return false end
     local unitid = unit.unitid
     if unitid ~= "" then
         local score = 0

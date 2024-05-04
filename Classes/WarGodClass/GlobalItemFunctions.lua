@@ -13,7 +13,7 @@ local buff_ca_inc = player.buff_ca_inc
 
 local WarGodUnit = WarGod.Unit
 local UnitExists = UnitExists
-local IsItemInRange = IsItemInRange
+--local IsItemInRange = IsItemInRange
 local UnitInRaid = UnitInRaid
 
 local upairs = upairs

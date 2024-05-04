@@ -52,8 +52,8 @@ end
 setfenv(1, Rotations)
 
 function Delegates:StacksLT(spell, unit, args)
-    local remains, stacks = unit:AuraRemaining(args and args.aura or spell, "HARMFUL|PLAYER")
-    return remains > 0 and stacks < (args and args:Stacks() or 4)
+    local stacks = unit:AuraStacks(args and args.aura or spell, "HARMFUL|PLAYER")
+    return stacks > 0 and stacks < (args and args.stacks or 4)
 end
 
 do
