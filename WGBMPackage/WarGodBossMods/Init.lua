@@ -6,6 +6,8 @@ WarGod.BossMods.default = {}
 --  General (local) functions  --
 ---------------------------------
 --local bossName = ""
+local printTo = WarGod.printTo
+
 function PrintBossName()
     printTo(3,bossName)
 end

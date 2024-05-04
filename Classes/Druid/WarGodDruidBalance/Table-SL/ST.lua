@@ -96,7 +96,7 @@ do
         end,
         units = groups.targetable,
         label = "Moonfire Refresh (C)",
-        ["andDelegates"] = {Delegates.IsSpellInRange, Delegates.DoT_Pandemic, Delegates.DoT_TTD_Estimate, Delegates.NotDotBlacklisted--[[, Delegates.SunfireTargetCondition, ]]},
+        ["andDelegates"] = {Delegates.UnitIsEnemy, Delegates.IsSpellInRange, Delegates.DoT_Pandemic, Delegates.DoT_TTD_Estimate, Delegates.NotDotBlacklisted--[[, Delegates.SunfireTargetCondition, ]]},
         ["scorer"] = ScoreByInvertedDebuffTimeRemaining,
         args = {--[[aura = "sunfire", ]]threshold = 4.95, ttd = 12},
         Castable = function(self) return Delegates:EnoughTimeToCastWrapper(self.spell, player, {}) end,
@@ -115,7 +115,7 @@ do
         end,
         units = groups.targetable,
         label = "Sunfire Refresh",
-        ["andDelegates"] = {Delegates.IsSpellInRange, Delegates.DoT_Pandemic, Delegates.DoT_TTD_Estimate, Delegates.NotDotBlacklisted--[[, Delegates.SunfireTargetCondition, ]]},
+        andDelegates = {Delegates.UnitIsEnemy, Delegates.IsSpellInRange, Delegates.DoT_Pandemic, Delegates.DoT_TTD_Estimate, Delegates.NotDotBlacklisted--[[, Delegates.SunfireTargetCondition, ]]},
         ["scorer"] = ScoreByInvertedDebuffTimeRemaining,
         args = {--[[aura = "sunfire", ]]threshold = 4.05, ttd = 12},
         Castable = function(self) return Delegates:EnoughTimeToCastWrapper(self.spell, player, {}) end,
@@ -140,6 +140,7 @@ do
         IsUsable = function(self) return talent.stellar_flare.enabled and (buff.moonkin_form:Stacks() > 0 or GetShapeshiftForm() == 0) end,
         helpharm = "harm",
         maxRange = 45,
+        andDelegates = {Delegates.UnitIsEnemy},
         quick = true,
     })
 
@@ -155,6 +156,7 @@ do
             end
         end,
         units = groups.targetable,
+        andDelegates = {Delegates.UnitIsEnemy},
         label = "Wrath (Enter Lunar)",
     })
 
@@ -176,6 +178,7 @@ do
             end
         end,
         units = groups.targetable,
+        andDelegates = {Delegates.UnitIsEnemy},
         label = "Starfire (Enter Solar)",
     })
 
@@ -384,7 +387,7 @@ do
                     (not IsMoving() and Delegates:EnoughTimeToCastWrapper(self.spell, player, {}) and Delegates:MoveInWrapper(self.spell, player, {}) > CastTimeFor(self.spell)) end,
         IsUsable = function(self) return buff.moonkin_form:Stacks() > 0 or GetShapeshiftForm() == 0 end,
         Interrupt = function(other) return other.spell == "Solar Beam" end,
-        andDelegates = {Delegates.IsSpellInRange},
+        andDelegates = {Delegates.UnitIsEnemy, Delegates.IsSpellInRange},
         helpharm = "harm",
         maxRange = 45,
         quick = true,
@@ -404,7 +407,7 @@ do
         end,
         IsUsable = function(self) return buff.moonkin_form:Stacks() > 0 or GetShapeshiftForm() == 0 end,
         Interrupt = function(other) return other.spell == "Solar Beam" end,
-        andDelegates = {Delegates.IsSpellInRange},
+        andDelegates = {Delegates.UnitIsEnemy, Delegates.IsSpellInRange},
         helpharm = "harm",
         maxRange = 45,
         quick = true,
@@ -417,6 +420,7 @@ do
             return eclipse:In_Lunar() or buff_ca_inc:Up()
         end,
         units = groups.targetable,
+        andDelegates = {Delegates.UnitIsEnemy},
         label = "Starfire",
     })
 

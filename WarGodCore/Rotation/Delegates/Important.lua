@@ -78,6 +78,8 @@ function Delegates:UnitIsFriend(spell, unit, args)
 end
 
 function Delegates:UnitIsEnemy(spell, unit, args)
+    --print(spell)
+    --print(unit.unitid)
     if unit and IsItemInRange(116139, unit.unitId) then
         return true
     end

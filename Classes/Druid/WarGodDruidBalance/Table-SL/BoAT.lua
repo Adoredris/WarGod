@@ -280,7 +280,7 @@ do
                     talent.stellar_drift.enabled and castTime <= buff.starfall:Remains() and Delegates:EnoughTimeToCastWrapper(self.spell, player, {}) or
                     (not IsMoving()) and Delegates:EnoughTimeToCastWrapper(self.spell, player, {}) and Delegates:MoveInWrapper(self.spell, player, {}) > CastTimeFor(self.spell) end,]]
         Interrupt = function(other) return other.spell == "Solar Beam" end,
-        andDelegates = {Delegates.IsSpellInRange},
+        andDelegates = {Delegates.UnitIsEnemy, Delegates.IsSpellInRange},
         helpharm = "harm",
         maxRange = 45,
         quick = true,
@@ -305,7 +305,7 @@ do
                     (not IsMoving()) and Delegates:EnoughTimeToCastWrapper(self.spell, player, {}) and Delegates:MoveInWrapper(self.spell, player, {}) > CastTimeFor(self.spell)
         end,]]
         Interrupt = function(other) return other.spell == "Solar Beam" end,
-        andDelegates = {Delegates.IsSpellInRange},
+        andDelegates = {Delegates.UnitIsEnemy, Delegates.IsSpellInRange},
         helpharm = "harm",
         maxRange = 45,
         quick = true,
@@ -317,6 +317,7 @@ do
             return true
         end,
         units = groups.targetable,
+        andDelegates = {Delegates.UnitIsEnemy},
         label = "Starfire Filler",
     })
 

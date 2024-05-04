@@ -105,7 +105,7 @@ function RefreshSpell(self)
                         tentativeScore = score
 
                         self.bestUnit = bestUnit
-                        printTo(3, self.spell .. "@" .. bestUnit.name)
+                        --printTo(3, self.spell .. "@" .. bestUnit.name)
                         if self.bestUnitId ~= bestUnitIdSoFar then
 
 

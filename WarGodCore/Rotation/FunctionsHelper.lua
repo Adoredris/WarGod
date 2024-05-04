@@ -15,6 +15,9 @@ function AllTrue(spellname, unitid, args, t)
     return true
 end
 
+IsEnemyDelegateTable = {Delegates.UnitIsEnemy}
+IsFriendDelegateTable = {Delegates.UnitIsFriend}
+
 function LustRemaining()
     --[[for i=1,40 do
         local name, _, _, _, duration, expiresAt, _, _, _, spellId = UnitBuff("player", i)
@@ -29,6 +32,10 @@ function LustRemaining()
             return expiresAt - GetTime()
         end
     end]]
-    print('implement lust')
-    return 0
+    local lustRemains = max(player.buff.time_warp:Remains(),
+            player.buff.primal_rage:Remains(),
+            player.buff.heroism:Remains(),
+            player.buff.bloodlust:Remains(),
+            player.buff.fury_of_the_aspects:Remains())
+    return lustRemains
 end

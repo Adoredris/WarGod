@@ -25,7 +25,7 @@ local function UpdateAura(self)
 end
 
 local function Stacks(self)
-    printdebug('test stacks')
+    --printdebug('test stacks')
     if not self.upToDate then
         self:UpdateAura()
     end
@@ -50,7 +50,7 @@ local function Remains(self)
 end
 
 local function Duration(self)
-    printdebug('test Duration')
+    --printdebug('test Duration')
     if not self.upToDate then
         self:UpdateAura()
     end
@@ -115,7 +115,7 @@ function Auras:RemoveUnitsAura(unit, auraInstanceID)
                 v.points = 0
                 v.auraInstanceID = nil
                 v.upToDate = true
-                printdebug("removed " .. unit.name .. "'s " .. v.name .. " buff")
+                --printdebug("removed " .. unit.name .. "'s " .. v.name .. " buff")
                 --return
             end
         end
@@ -131,7 +131,7 @@ function Auras:RemoveUnitsAura(unit, auraInstanceID)
                 v.points = 0
                 v.auraInstanceID = nil
                 v.upToDate = true
-                printdebug("removed " .. unit.name .. "'s " .. v.name .. " buff")
+                --printdebug("removed " .. unit.name .. "'s " .. v.name .. " buff")
                 --return
             end
         end
@@ -147,7 +147,7 @@ function Auras:RemoveUnitsAura(unit, auraInstanceID)
                 v.points = 0
                 v.auraInstanceID = nil
                 v.upToDate = true
-                printdebug("removed " .. unit.name .. "'s " .. v.name .. " debuff")
+                --printdebug("removed " .. unit.name .. "'s " .. v.name .. " debuff")
                 --return
             end
         end
@@ -163,7 +163,7 @@ function Auras:RemoveUnitsAura(unit, auraInstanceID)
                 v.points = 0
                 v.auraInstanceID = nil
                 v.upToDate = true
-                printdebug("removed " .. unit.name .. "'s " .. v.name .. " debuff")
+                --printdebug("removed " .. unit.name .. "'s " .. v.name .. " debuff")
                 --return
             end
         end
@@ -171,13 +171,14 @@ function Auras:RemoveUnitsAura(unit, auraInstanceID)
 end
 
 function Auras:UpdateUnitsAura(auraParentTable, unitAuraInfo)
-    printdebug("implement UpdateUnitsAura")
+    --printdebug("implement UpdateUnitsAura")
     --local name = simcName[unitAuraInfo.name]
     --print(unitAuraInfo.name)
-    if not simcName[unitAuraInfo.name] then
-        simcName[unitAuraInfo.name] = SimcraftifyString(unitAuraInfo.name)
-    end
-    local aura = auraParentTable[simcName[unitAuraInfo.name]]
+    --if not simcName[unitAuraInfo.name] then
+        --simcName[unitAuraInfo.name] = SimcraftifyString(unitAuraInfo.name)
+    --end
+    --local aura = auraParentTable[simcName[unitAuraInfo.name]]
+    local aura = auraParentTable[SimcraftifyString(unitAuraInfo.name)]
     aura.name = unitAuraInfo.name
     aura.simcName = simcName[unitAuraInfo.name]
     aura.auraInstanceID = unitAuraInfo.auraInstanceID
@@ -187,8 +188,89 @@ function Auras:UpdateUnitsAura(auraParentTable, unitAuraInfo)
     aura.duration = unitAuraInfo.duration
     aura.expirationTime = unitAuraInfo.expirationTime
     aura.points = unitAuraInfo.points
+    --[[if aura.name == "Primordial Arcanic Pulsar" then
+        for k,v in pairs(aura.points) do
+            print(k .. ": " .. v)
+        end
+    end]]
     aura.spellId = unitAuraInfo.spellId
     aura.upToDate = true
+end
+
+function Auras:UpdateAllUnitsAuras(unit)
+    printdebug("UpdateAllUnitsAuras testing")
+    local unitid = unit.unitid
+    do
+        local slots = {select(2,UnitAuraSlots(unitid, "HARMFUL"))}
+        for _,slotNo in ipairs(slots) do
+            local unitAuraInfo = GetAuraDataBySlot(unitid, slotNo)
+            do
+                local aura = unit.debuffAnyone[SimcraftifyString(unitAuraInfo.name)]
+                aura.name = unitAuraInfo.name
+                aura.simcName = simcName[unitAuraInfo.name]
+                aura.auraInstanceID = unitAuraInfo.auraInstanceID
+                aura.applications = unitAuraInfo.applications
+                aura.charges = unitAuraInfo.charges
+                aura.maxCharges = unitAuraInfo.maxCharges
+                aura.duration = unitAuraInfo.duration
+                aura.expirationTime = unitAuraInfo.expirationTime
+                aura.points = unitAuraInfo.points
+                aura.spellId = unitAuraInfo.spellId
+                aura.upToDate = true
+            end
+            if unitAuraInfo.sourceUnit == "player" then
+                --print('player cast this debuff')
+                local aura = unit.debuff[SimcraftifyString(unitAuraInfo.name)]
+                aura.name = unitAuraInfo.name
+                aura.simcName = simcName[unitAuraInfo.name]
+                aura.auraInstanceID = unitAuraInfo.auraInstanceID
+                aura.applications = unitAuraInfo.applications
+                aura.charges = unitAuraInfo.charges
+                aura.maxCharges = unitAuraInfo.maxCharges
+                aura.duration = unitAuraInfo.duration
+                aura.expirationTime = unitAuraInfo.expirationTime
+                aura.points = unitAuraInfo.points
+                aura.spellId = unitAuraInfo.spellId
+                aura.upToDate = true
+            end
+        end
+    end
+    do
+        local slots = {select(2,UnitAuraSlots(unitid, "HELPFUL"))}
+        for _,slotNo in ipairs(slots) do
+            local unitAuraInfo = GetAuraDataBySlot(unitid, slotNo)
+            do
+                local aura = unit.buffAnyone[SimcraftifyString(unitAuraInfo.name)]
+                aura.name = unitAuraInfo.name
+                aura.simcName = simcName[unitAuraInfo.name]
+                aura.auraInstanceID = unitAuraInfo.auraInstanceID
+                aura.applications = unitAuraInfo.applications
+                aura.charges = unitAuraInfo.charges
+                aura.maxCharges = unitAuraInfo.maxCharges
+                aura.duration = unitAuraInfo.duration
+                aura.expirationTime = unitAuraInfo.expirationTime
+                aura.points = unitAuraInfo.points
+                aura.spellId = unitAuraInfo.spellId
+                aura.upToDate = true
+            end
+            if unitAuraInfo.sourceUnit == "player" then
+                --print('player cast this buff')
+                local aura = unit.buff[SimcraftifyString(unitAuraInfo.name)]
+                aura.name = unitAuraInfo.name
+                aura.simcName = simcName[unitAuraInfo.name]
+                aura.auraInstanceID = unitAuraInfo.auraInstanceID
+                aura.applications = unitAuraInfo.applications
+                aura.charges = unitAuraInfo.charges
+                aura.maxCharges = unitAuraInfo.maxCharges
+                aura.duration = unitAuraInfo.duration
+                aura.expirationTime = unitAuraInfo.expirationTime
+                aura.points = unitAuraInfo.points
+
+                aura.spellId = unitAuraInfo.spellId
+                aura.upToDate = true
+            end
+        end
+    end
 end
 
 function Unit:UNIT_AURA(event, unitid, updateTable)
@@ -204,15 +286,17 @@ function Unit:UNIT_AURA(event, unitid, updateTable)
         for k, instanceId in pairs(updateTable.updatedAuraInstanceIDs) do
             --print('updated on ' .. unitid)
             local t = GetAuraDataByAuraInstanceID(unitid, instanceId)
-            if t.isHarmful then
-                Auras:UpdateUnitsAura(unit.debuffAnyone, t)
-                if t.sourceUnit == "player" then
-                    Auras:UpdateUnitsAura(unit.debuff, t)
-                end
-            elseif t.isHelpful then
-                Auras:UpdateUnitsAura(unit.buffAnyone, t)
-                if t.sourceUnit == "player" then
-                    Auras:UpdateUnitsAura(unit.buff, t)
+            if t then
+                if t.isHarmful then
+                    Auras:UpdateUnitsAura(unit.debuffAnyone, t)
+                    if t.sourceUnit == "player" then
+                        Auras:UpdateUnitsAura(unit.debuff, t)
+                    end
+                elseif t.isHelpful then
+                    Auras:UpdateUnitsAura(unit.buffAnyone, t)
+                    if t.sourceUnit == "player" then
+                        Auras:UpdateUnitsAura(unit.buff, t)
+                    end
                 end
             end
             --print(GetAuraDataByAuraInstanceID(unitid, instanceId))
@@ -238,6 +322,6 @@ function Unit:UNIT_AURA(event, unitid, updateTable)
         end
     end
     if updateTable.isFullUpdate then
-        printdebug("Should iterate all unit auras and dump their instanceIDs")
+        Auras:UpdateAllUnitsAuras(unit)
     end
 end

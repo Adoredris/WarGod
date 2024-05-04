@@ -41,6 +41,7 @@ Rotation.print = print
 Rotation.strmatch = strmatch
 Rotation.strsub = strsub
 Rotation.strfind = strfind
+Rotation.strlen = strlen
 Rotation.tostring = tostring
 Rotation.setmetatable = setmetatable
 Rotation.random = random
@@ -56,10 +57,12 @@ Rotation.HasOverrideActionBar = HasOverrideActionBar
 Rotation.UnitHasVehicleUI = UnitHasVehicleUI
 Rotation.UnitIsDeadOrGhost = UnitIsDeadOrGhost
 Rotation.UnitHealth = UnitHealth
+Rotation.UnitHealthMax = UnitHealthMax
 Rotation.UnitIsPlayer = UnitIsPlayer
 Rotation.UnitName = UnitName
 Rotation.UnitExists = UnitExists
 Rotation.CheckInteractDistance = CheckInteractDistance
+Rotation.UnitGetIncomingHeals = UnitGetIncomingHeals
 
 Rotation.IsItemInRange = IsItemInRange
 Rotation.IsSpellInRange = LibStub("SpellRange-1.0").IsSpellInRange
@@ -81,8 +84,13 @@ Rotation.GetShapeshiftFormInfo = GetShapeshiftFormInfo
 Rotation.GetZoneText = GetZoneText
 Rotation.upairs = WarGod.Unit.upairs
 Rotation.SimcraftifyString = WarGod.SimcraftifyString
+Rotation.UnitThreatSituation = UnitThreatSituation
+
+Rotation.groups = WarGod.Unit.groups
 
 Rotation.player = WarGod.Unit:GetPlayer()
+
+Rotation.printdebug = WarGod.printdebug
 
 setfenv(1, Rotation)
 rotationFrames = {}

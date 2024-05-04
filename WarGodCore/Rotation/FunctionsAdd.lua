@@ -137,7 +137,7 @@ function AddSpellFunction(spec, spell, score, t)
     self.label = t.label or spell
     self.func = t.func or AlwaysTrue
     self.units = t.units
-    self.andDelegates = t.andDelegates or AlwaysTrue
+    self.andDelegates = t.andDelegates or AlwaysTrue-- or t.harm and IsEnemyDelegateTable or t.help and IsFriendDelegateTable
     self.args = t.args or {}
 
     self.BestTargetFunc = t.BestTargetFunc or AlwaysTrue

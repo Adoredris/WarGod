@@ -138,6 +138,7 @@ do
             end
         end,
         units = groups.targetable,
+        andDelegates = {Delegates.UnitIsEnemy},
         label = "Starfire (Enter Eclipse AoE)",
     })
 
@@ -151,6 +152,7 @@ do
             end
         end,
         units = groups.targetable,
+        andDelegates = {Delegates.UnitIsEnemy},
         label = "Wrath (Enter Eclipse AoE)",
     })
 
@@ -165,7 +167,7 @@ do
         end,
         units = groups.targetable,
         label = "FoE (AoE)",
-        andDelegates = {Delegates.IsSpellInRange},
+        andDelegates = {Delegates.UnitIsEnemy, Delegates.IsSpellInRange},
         IsUsable = function(self) return talent.fury_of_elune.enabled and Delegates:DamageCDWrapper(self.spell, WarGodUnit:GetTarget(), {8, 60}) and (buff.moonkin_form:Stacks() > 0 or GetShapeshiftForm() == 0) end,
         helpharm = "harm",
         maxRange = 45,
@@ -213,7 +215,7 @@ do
         end,
         units = groups.targetable,
         label = "Starsurge (Weft AoE)",
-        andDelegates = {Delegates.IsSpellInRange},
+        andDelegates = {Delegates.IsSpellInRange,Delegates.UnitIsEnemy},
     })
 
     -- Stellar Flare
@@ -240,7 +242,7 @@ do
         end,
         units = groups.targetable,
         label = "Starsurge (Weft AoE)",
-        andDelegates = {Delegates.IsSpellInRange},
+        andDelegates = {Delegates.IsSpellInRange, Delegates.UnitIsEnemy},
     })
 
     AddSpellFunction("Balance","Starfall",baseScore + 400,{
@@ -275,7 +277,7 @@ do
         end,
         units = groups.targetable,
         label = "Starfire (AoE Filler)",
-        andDelegates = {Delegates.IsSpellInRange},
+        andDelegates = { Delegates.UnitIsEnemy, Delegates.IsSpellInRange},
     })
 
 
@@ -292,7 +294,7 @@ do
         end,
         units = groups.targetable,
         label = "Wrath AOE",
-        andDelegates = {Delegates.IsSpellInRange},
+        andDelegates = {Delegates.UnitIsEnemy, Delegates.IsSpellInRange},
     })
     --actions.aoe+=/starfire
 
@@ -302,7 +304,7 @@ do
         end,
         units = groups.targetable,
         label = "Starfire Override AOE",
-        andDelegates = {Delegates.IsSpellInRange},
+        andDelegates = {Delegates.UnitIsEnemy, Delegates.IsSpellInRange},
     })
 
     AddSpellFunction("Balance","Wrath",baseScore + 320,{
@@ -320,7 +322,7 @@ do
         end,
         units = groups.targetable,
         label = "Wrath Filler AOE",
-        andDelegates = {Delegates.IsSpellInRange},
+        andDelegates = {Delegates.UnitIsEnemy, Delegates.IsSpellInRange},
     })
 
     AddSpellFunction("Balance","Starfire",baseScore + 310,{
@@ -329,7 +331,7 @@ do
         end,
         units = groups.targetable,
         label = "Starfire Filler AOE",
-        andDelegates = {Delegates.IsSpellInRange},
+        andDelegates = {Delegates.UnitIsEnemy, Delegates.IsSpellInRange},
     })
 
     AddSpellFunction("Balance","Wrath",baseScore + 300,{
@@ -338,7 +340,7 @@ do
         end,
         units = groups.targetable,
         label = "Wrath Filler AOE",
-        andDelegates = {Delegates.IsSpellInRange},
+        andDelegates = {Delegates.UnitIsEnemy, Delegates.IsSpellInRange},
     })
 
 
@@ -353,7 +355,7 @@ do
         end,
         units = groups.targetable,
         label = "Sunfire AoE",
-        andDelegates = {Delegates.IsSpellInRange, Delegates.DoT_Pandemic, Delegates.NotDotBlacklisted},
+        andDelegates = {Delegates.UnitIsEnemy, Delegates.IsSpellInRange, Delegates.DoT_Pandemic, Delegates.NotDotBlacklisted},
         scorer = ScoreByInvertedDebuffTimeRemaining,
         args = {--[[aura = "sunfire", ]]threshold = 5.4, ttd = 8},
     })
@@ -367,7 +369,7 @@ do
         end,
         units = groups.targetable,
         label = "Moonfire AoE",
-        andDelegates = {Delegates.IsSpellInRange, Delegates.DoT_Pandemic, Delegates.NotDotBlacklisted},
+        andDelegates = {Delegates.UnitIsEnemy, Delegates.IsSpellInRange, Delegates.DoT_Pandemic, Delegates.NotDotBlacklisted},
         scorer = ScoreByInvertedDebuffTimeRemaining,
         args = {--[[aura = "sunfire", ]]threshold = 6.6, ttd = 8},
     })
@@ -382,7 +384,7 @@ do
         end,
         units = groups.targetable,
         label = "Starsurge Filler AOE",
-        andDelegates = {Delegates.IsSpellInRange},
+        andDelegates = {Delegates.UnitIsEnemy, Delegates.IsSpellInRange},
     })
     --actions.fallthru+=/sunfire,target_if=dot.moonfire.remains>remains
     AddSpellFunction("Balance","Sunfire",baseScore + 90,{
@@ -393,7 +395,7 @@ do
         end,
         units = groups.targetable,
         label = "Sunfire MF > SF AOE",
-        andDelegates = {Delegates.IsSpellInRange, Delegates.MoonfireRemainsGTSunfireRemains},
+        andDelegates = {Delegates.UnitIsEnemy, Delegates.IsSpellInRange, Delegates.MoonfireRemainsGTSunfireRemains},
     })
 
     --actions.fallthru+=/moonfire
@@ -405,7 +407,7 @@ do
         end,
         units = groups.targetable,
         label = "Moonfire Filler AOE",
-        andDelegates = {Delegates.IsSpellInRange},
+        andDelegates = {Delegates.UnitIsEnemy, Delegates.IsSpellInRange},
     })
 
     AddSpellFunction("Balance","Sunfire",baseScore + 30,{
@@ -416,7 +418,7 @@ do
         end,
         units = groups.targetable,
         label = "Sunfire Filler AOE",
-        andDelegates = {Delegates.IsSpellInRange},
+        andDelegates = {Delegates.UnitIsEnemy, Delegates.IsSpellInRange},
     })
 
 end

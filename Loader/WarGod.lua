@@ -2,9 +2,14 @@ WarGod = LibStub("AceAddon-3.0"):NewAddon("WarGod", "AceConsole-3.0", "AceEvent-
 local strlower = strlower
 local gsub = gsub
 
+local simcraftifyMap = {}
+
 WarGod.SimcraftifyString = function(text)
     if text == nil then return "" end
-    return strlower(gsub(gsub(text, "%p", ""), "%s+", "_"))
+    if not simcraftifyMap[text] then
+        simcraftifyMap[text] = strlower(gsub(gsub(text, "%p", ""), "%s+", "_"))
+    end
+    return simcraftifyMap[text]
 end
 
 WarGod.printTo = function(index, ...)
@@ -22,5 +27,13 @@ WarGod.printTo = function(index, ...)
 
         --end
 
+    end
+end
+
+local debug = true
+
+function WarGod.printdebug(msg)
+    if debug then
+        WarGod.printTo(4, msg)
     end
 end

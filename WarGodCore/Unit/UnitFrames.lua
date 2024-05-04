@@ -76,7 +76,7 @@ end
 local function UnregisterFrame(t)
     --printdebug(t.unitid)
     t:Hide()
-    printdebug("TODO - Mess with unitsByGUID")
+    --printdebug("TODO - Mess with unitsByGUID")
     if (t.guid) then
         -- mapping lost cause group size shrank
         Unit:RemoveUnitMapping(t.guid, t.unitid)

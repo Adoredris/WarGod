@@ -10,6 +10,7 @@ player.channels = {}
 player.variable = {}
 player.prev_cast_times = {}
 player.maxRange = 5
+Auras:UpdateAllUnitsAuras(player)
 
 function Unit:UNIT_SPELL_HASTE()
     player.haste_percent = UnitSpellHaste("player")
@@ -38,7 +39,7 @@ Unit:RegisterEvent("MASTERY_UPDATE")
 
 -- covenant
 do
-    local Covenant = LibStub("AceAddon-3.0"):NewAddon("SkyUnitPlayerCovenants", "AceConsole-3.0", "AceEvent-3.0")
+    local Covenant = LibStub("AceAddon-3.0"):NewAddon("WarGodUnitPlayerCovenants", "AceConsole-3.0", "AceEvent-3.0")
     local covenant = {}
 
 
@@ -75,7 +76,7 @@ end
 
 -- charges
 do
-    local Charges = LibStub("AceAddon-3.0"):NewAddon("SkyUnitPlayerCharges", "AceConsole-3.0", "AceEvent-3.0")
+    local Charges = LibStub("AceAddon-3.0"):NewAddon("WarGodUnitPlayerCharges", "AceConsole-3.0", "AceEvent-3.0")
     local charges = {}
     local function Update(self)
         local chargesCur, chargesMax, start, duration = GetSpellCharges(self.id)
@@ -235,7 +236,7 @@ do
 end
 
 do
-    local Traits = LibStub("AceAddon-3.0"):NewAddon("SkyUnitPlayerTraits", "AceConsole-3.0", "AceEvent-3.0")
+    local Traits = LibStub("AceAddon-3.0"):NewAddon("WarGodUnitPlayerTraits", "AceConsole-3.0", "AceEvent-3.0")
     local trait = {}
 
     setmetatable(trait, {
@@ -333,7 +334,7 @@ end
 
 -- talent
 if 1==0 then
-    local Talents = LibStub("AceAddon-3.0"):NewAddon("SkyUnitPlayerTalents", "AceConsole-3.0", "AceEvent-3.0")
+    local Talents = LibStub("AceAddon-3.0"):NewAddon("WarGodUnitPlayerTalents", "AceConsole-3.0", "AceEvent-3.0")
     local talent = {}
 
     setmetatable(talent, {
@@ -387,7 +388,7 @@ end
 
 -- power
 do
-    local Power = LibStub("AceAddon-3.0"):NewAddon("SkyUnitPlayerPower", "AceConsole-3.0", "AceEvent-3.0")
+    local Power = LibStub("AceAddon-3.0"):NewAddon("WarGodUnitPlayerPower", "AceConsole-3.0", "AceEvent-3.0")
 
     local powerMappings = {}
     local function LookupPowerType(powerType)
@@ -522,7 +523,7 @@ end
 
 -- azerite
 do
-    local Azerite = LibStub("AceAddon-3.0"):NewAddon("SkyUnitPlayerAzerite", "AceConsole-3.0", "AceEvent-3.0")
+    local Azerite = LibStub("AceAddon-3.0"):NewAddon("WarGodUnitPlayerAzerite", "AceConsole-3.0", "AceEvent-3.0")
     local azerite = {}
 
 
@@ -643,7 +644,7 @@ end
 
 -- cast history
 do
-    local History = LibStub("AceAddon-3.0"):NewAddon("SkyUnitPlayerHistory", "AceConsole-3.0", "AceEvent-3.0")
+    local History = LibStub("AceAddon-3.0"):NewAddon("WarGodUnitPlayerHistory", "AceConsole-3.0", "AceEvent-3.0")
     player.prev_gcd = ""
     local damageSpells = {}
     local prev_prev_gcd = "none"
@@ -825,7 +826,7 @@ do
     local errorObscured = "Your vision of the target is obscured"
     local errorRange = "Out of range."
 
-    local Blacklist = LibStub("AceAddon-3.0"):NewAddon("SkyUnitPlayerBlacklist", "AceConsole-3.0", "AceEvent-3.0")
+    local Blacklist = LibStub("AceAddon-3.0"):NewAddon("WarGodUnitPlayerBlacklist", "AceConsole-3.0", "AceEvent-3.0")
     local blacklist = {}
     local behind = {}
     local spells = {}
@@ -833,14 +834,14 @@ do
         if unitid == "player" then
             local spec = select(2, GetSpecializationInfo(GetSpecialization())) or "none"
             if spec ~= "none" then
-                spells = Sky.Rotations and Sky.Rotations.rotationFrames[spec]-- or {}
+                spells = WarGod.Rotations and WarGod.Rotations.rotationFrames[spec]-- or {}
                 --print("spells")
             end
         end
     end
     Blacklist:RegisterEvent("PLAYER_SPECIALIZATION_CHANGED")
     function Blacklist:ADDON_LOADED(event,addon)
-        if addon == "SkyRotations" then
+        if addon == "WarGodRotations" then
             Blacklist:PLAYER_SPECIALIZATION_CHANGED("PLAYER_SPECIALIZATION_CHANGED","player")
         end
     end
@@ -895,7 +896,7 @@ do
             --removedSomething = true
         end
         --[[if (removedSomething) then
-            SkyCore:TriggerRefreshSpell()
+            WarGodCore:TriggerRefreshSpell()
         end]]
     end
 
@@ -910,7 +911,7 @@ do
         if (guid and blacklist[guid] == nil) then
             --printTo(3,"Blacklisted " .. guid)
             blacklist[guid] = GetTime()
-            --SkyCore:ResetBestRotation()
+            --WarGodCore:ResetBestRotation()
         end
     end
 
@@ -922,7 +923,7 @@ do
         if (guid and behind[guid] == nil) then
             --print("behind " .. guid)
             behind[guid] = GetTime()
-            --SkyCore:ResetBestRotation()
+            --WarGodCore:ResetBestRotation()
         end
 
     end
@@ -974,7 +975,7 @@ do
                 lastError = arg2
 
             elseif (arg2 == errorRange) then
-                Sky.Rotations:RefreshRotation()
+                WarGod.Rotations:RefreshRotation()
             end
         end
     end
@@ -1097,7 +1098,7 @@ do
 end
 
 do
-    local Runeforge = LibStub("AceAddon-3.0"):NewAddon("SkyUnitPlayerRuneforge", "AceConsole-3.0", "AceEvent-3.0")
+    local Runeforge = LibStub("AceAddon-3.0"):NewAddon("WarGodUnitPlayerRuneforge", "AceConsole-3.0", "AceEvent-3.0")
     local runeforge = {}
 
     local function SetEquipped(self, slotIndex)
@@ -1158,7 +1159,7 @@ do
 end
 
 do
-    local Soulbind = LibStub("AceAddon-3.0"):NewAddon("SkyUnitPlayerSoulbind", "AceConsole-3.0", "AceEvent-3.0")
+    local Soulbind = LibStub("AceAddon-3.0"):NewAddon("WarGodUnitPlayerSoulbind", "AceConsole-3.0", "AceEvent-3.0")
     local soulbind = {}
 
     function FindSoulbindName(simcName)
@@ -1202,7 +1203,7 @@ do
 end
 
 do
-    local Conduit = LibStub("AceAddon-3.0"):NewAddon("SkyUnitPlayerConduit", "AceConsole-3.0", "AceEvent-3.0")
+    local Conduit = LibStub("AceAddon-3.0"):NewAddon("WarGodUnitPlayerConduit", "AceConsole-3.0", "AceEvent-3.0")
     local conduit = {}
 
     function FindConduitName(simcName)
@@ -1233,7 +1234,7 @@ do
 end
 
 do
-    local Equipped = LibStub("AceAddon-3.0"):NewAddon("SkyUnitPlayerEquipped", "AceConsole-3.0", "AceEvent-3.0")
+    local Equipped = LibStub("AceAddon-3.0"):NewAddon("WarGodUnitPlayerEquipped", "AceConsole-3.0", "AceEvent-3.0")
     local equipped = {}
 
     local function SetEquipped()

@@ -2,11 +2,12 @@
     <Script file="RotationNamespace.lua"/>
     <Script file="Pixel.lua"/>
     <Script file="NagaToggles.lua"/>
+    <Script file="Delegates.lua"/>
     <Script file="FunctionsAdd.lua"/>
     <Script file="FunctionsHelper.lua"/>
     <Script file="FunctionsReady.lua"/>
     <Script file="FunctionsUnitValidity.lua"/>
-    <Script file="Delegates.lua"/>
+
     <Script file="Delegates/Auras.lua"/>
     <Script file="Delegates/Healing.lua"/>
     <Script file="Delegates/Important.lua"/>

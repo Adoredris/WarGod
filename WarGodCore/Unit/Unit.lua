@@ -22,6 +22,7 @@ function upairs(t)
 end
 
 local function AuraRemaining(self, auraName, filter)
+    auraName = SimcraftifyString(auraName)
     if filter == "HARMFUL|PLAYER" then
         return self.debuff[auraName]:Remains()
     end
@@ -39,6 +40,7 @@ local function AuraRemaining(self, auraName, filter)
 end
 
 local function AuraStacks(self, auraName, filter)
+    auraName = SimcraftifyString(auraName)
     if filter == "HARMFUL|PLAYER" then
         return self.debuff[auraName]:Stacks()
     end
@@ -63,7 +65,7 @@ setmetatable(unitsByGUID, {
             t[guid] = self
         end
 
-
+        self.AuraRemaining = AuraRemaining
         self.BuffRemaining = AuraRemaining
         self.DebuffRemaining = AuraRemaining
         self.BuffStacks = AuraStacks

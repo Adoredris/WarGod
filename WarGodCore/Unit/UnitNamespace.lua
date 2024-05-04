@@ -93,7 +93,7 @@ Unit.tsort = table.sort
 Unit.GetTime = GetTime
 Unit.next = next
 
---Unit.debug = true
+Unit.printdebug = WarGod.printdebug
 
 --setmetatable(Units, m)
 
@@ -116,11 +116,7 @@ function GetTarget()
     end
 end
 
-function printdebug(msg)
-    if debug then
-        print(msg)
-    end
-end
+
 
 function Unit:OnInitialize()
     -- Code that you want to run when the addon is first loaded goes here.

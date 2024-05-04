@@ -236,10 +236,10 @@ frame:SetScript("OnEvent", function(self, event, ...)
 
     --end
     if nagaStates[nagaStrings.NUMPAD4] == true and IsInInstance() then
-        if UnitClass("player") == "Druid" and WarGod.Unit.player.covenant.venthyr then
+        --[[if UnitClass("player") == "Druid" and WarGod.Unit.player.covenant.venthyr then
             nagaStates[nagaStrings.NUMPAD4] = false
             print("Disabling Cooldowns : Left combat")
-        end
+        end]]
     end
     if nagaStates[nagaStrings.NUMPADMINUS] == false then
         nagaStates[nagaStrings.NUMPADMINUS] = true

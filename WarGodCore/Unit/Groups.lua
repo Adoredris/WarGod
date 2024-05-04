@@ -8,6 +8,7 @@ local Auras = WarGod.Unit.Auras
 
 groups.noone = {name = "noone"}
 groups.player = {name = "player"}
+groups.cursor = {name = "cursor"}
 
 groups.targetable = {name = "targetable"}            -- @unit possible
 groups.targetableOrPlates = {name = "targetableOrPlates"}    -- every single hostile unit

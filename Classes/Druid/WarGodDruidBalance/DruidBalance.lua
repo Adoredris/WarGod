@@ -178,18 +178,13 @@ function buff_kindred_empowerment_energize:Remains()
     return buff.lone_empowerment:Remains()
 end
 
-buff.eclipse_solar.Empowerment = function()
-    --print('hi')
+--[[buff.eclipse_solar.Empowerment = function(self)
     local remains = eclipse:SolarRemains()
     if remains == 15 then
         return 20
     elseif remains > 0 then
-        for i=1,40 do
-            local buff, id,  _, _, _, _, _, _, _, _, _, _, _, _, _, _, num = UnitBuff("player", i)
-            if buff == nil then return 0 end
-            if id == 236152 then
-                return num
-            end
+        for k,v in pairs (buff.eclipse_solar.points) do
+            print(k .. ": " .. v)
         end
     end
     return 0
@@ -209,17 +204,13 @@ buff.eclipse_lunar.Empowerment = function()
         end
     end
     return 0
-end
+end]]
 
-buff.primordial_arcanic_pulsar.Value = function()
-    for i=1,40 do
-        local buff, id,  _, _, _, _, _, _, _, _, _, _, _, _, _, value = UnitBuff("player", i)
-        if buff == nil then return 0 end
-        if id == 135730 then
-            --print(value)
-            return value
-        end
+buff.primordial_arcanic_pulsar.Value = function(self)
+    if self.points == 0 then
+        return 0
     end
+    return self.points[1]
 end
 
 --eclipse.starfireCount = 0
@@ -568,7 +559,7 @@ function player:Setup()
     local modStarsurge = floor(buff.starsurge_empowerment:Stacks() / 4)
     --print(modStarsurge)
     --actions.aoe+=/variable,name=starfire_in_solar,value=spell_targets.starfire>4+floor(mastery_value%20)+floor(buff.starsurge_empowerment.stack%4)
-    variable.starfire_in_solar = WarGodUnit.active_enemies > 4 + floor(buff.eclipse_solar.Empowerment() / 4)
+    variable.starfire_in_solar = WarGodUnit.active_enemies > 4--[[ + floor(buff.eclipse_solar.Empowerment() / 4)]]
     -- need to work out what is going on with spell_targets
 
     --actions.boat+=/variable,name=dot_requirements,value=(buff.ca_inc.remains>5&(buff.ravenous_frenzy.remains>5|!buff.ravenous_frenzy.up)|!buff.ca_inc.up|astral_power<30)&(!buff.kindred_empowerment_energize.up|astral_power<30)&(buff.eclipse_solar.remains>gcd.max|buff.eclipse_lunar.remains>gcd.max)
