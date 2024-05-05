@@ -88,7 +88,7 @@ WGBM[bossString].Defensive = function(spell, unit, args)
             end
         end
     elseif spell == "Nature's Vigil" then
-        if --[[WarGod.Unit.boss1:BuffRemaining("Stormsurge","HELPFUL") > 0 or ]]WarGod.Unit:GetPlayer().buff.incarnation_avatar_of_ashamane:Up() then
+        if --[[WarGod.Unit:GetUnit("boss1"):BuffRemaining("Stormsurge","HELPFUL") > 0 or ]]WarGod.Unit:GetPlayer().buff.incarnation_avatar_of_ashamane:Up() then
             return true
         end
     end

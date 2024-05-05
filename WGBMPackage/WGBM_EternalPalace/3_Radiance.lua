@@ -70,7 +70,7 @@ WGBM[bossString].Taunt = function(spell, unit, args)
     if unit.name == bossString then
         if UnitCastingInfo(unitid) == "Bestial Smash" then
             if WarGod.Unit:GetPlayer():DebuffRemaining("Crushed", "HARMFUL") <= 0 then
-                if WarGod.Unit.boss1target:DebuffRemaining("Crushed", "HARMFUL") > 0 then
+                if WarGod.Unit:GetUnit("boss1target"):DebuffRemaining("Crushed", "HARMFUL") > 0 then
                     print("Should Taunt")
                     --return true
 
@@ -105,7 +105,7 @@ end
 
 WGBM[bossString].Interrupt = function(spell, unit, args)
     local unitid = unit.unitid
-    if WarGod.Rotations.Delegates:HasSpellToInterrupt_LatestPossibleInterrupt(spell, unit, args) then
+    if WarGod.Rotation.Delegates:HasSpellToInterrupt_LatestPossibleInterrupt(spell, unit, args) then
         if UnitIsUnit(unitid, "target") then
             return true
         end

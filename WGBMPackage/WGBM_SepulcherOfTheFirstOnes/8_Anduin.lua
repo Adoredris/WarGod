@@ -26,7 +26,7 @@ WGBM[bossString].DPSBlacklist = function(spell, unit, args)
             return true
         end
     end
-    if WarGod.Rotations.Delegates:UnitIsBreakableCrowdControlled(spell, unit, args) then
+    if WarGod.Rotation.Delegates:UnitIsBreakableCrowdControlled(spell, unit, args) then
         return true
     end
     if name == "Grim Reflection"  then

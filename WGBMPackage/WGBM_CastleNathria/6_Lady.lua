@@ -6,7 +6,7 @@ WGBM[bossString] = {}
     local unitid = unit.unitid
     if unit.name == bossString then
 
-        if WarGod.Rotations.Delegates:IAmTankingUnit(spell, unit, args) then return end
+        if WarGod.Rotation.Delegates:IAmTankingUnit(spell, unit, args) then return end
 
         local playerRemains, playerStacks = WarGod.Unit:GetPlayer():BuffRemaining("Warped Desires", "HARMFUL")
         if playerStacks == 0 then
@@ -133,7 +133,7 @@ end
 WGBM[bossString].HealCD = function(spell, unit, args)
     local unitid = unit.unitid
     local combatTime = WarGod.Unit:GetPlayer():TimeInCombat()
-    if WarGod.Unit.boss1.health_percent < 0.65 then
+    if WarGod.Unit:GetUnit("boss1").health_percent < 0.65 then
         return
     end
 end

@@ -20,13 +20,13 @@ WGBM[bossString].Taunt = function(spell, unit, args)
     local unitid = unit.unitid
     if unit.name == bossString then
         if WarGod.Unit:GetPlayer():DebuffRemaining("Nullifying Strike", "HARMFUL") <= 0 then
-            if WarGod.Unit.boss1target:DebuffRemaining("Nullifying Strike", "HARMFUL") > 0 then
+            if WarGod.Unit:GetUnit("boss1target"):DebuffRemaining("Nullifying Strike", "HARMFUL") > 0 then
                 print("Should Taunt")
                 --return true
             end
         end
         if WarGod.Unit:GetPlayer():DebuffRemaining("Decaying Wound", "HARMFUL") <= 0 then
-            if WarGod.Unit.boss1target:DebuffRemaining("Decaying Wound", "HARMFUL") > 0 then
+            if WarGod.Unit:GetUnit("boss1target"):DebuffRemaining("Decaying Wound", "HARMFUL") > 0 then
                 print("Should Taunt")
                 --return true
             end
@@ -87,7 +87,7 @@ WGBM[bossString].FriendlyBlacklist = function(spell, unit, args)
         return true
 
     elseif UnitGroupRolesAssigned("player") == "TANK" then
-        --[[if WarGod.Unit.boss1:health_percent < 0.4 then
+        --[[if WarGod.Unit:GetUnit("boss1"):health_percent < 0.4 then
 
         end]]
     end

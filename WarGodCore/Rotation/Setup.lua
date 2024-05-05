@@ -6,7 +6,7 @@ local curScore = 0
 
 function RefreshSpell(self)
     local forceUpdatePixel = true
-    --local debug = self.spell == "Sunfire"
+    --local debug = self.spell == "Celestial Alignment"
     self.timeSinceLastUpdate = 0
     --print('hi')
     -- what is this section I commented out 3/8/21
@@ -17,7 +17,7 @@ function RefreshSpell(self)
     end
     --if self.spell == "Moonfire" then print(self.spell .. " " .. tostring(GetTime())) end
     local tentativeScore = 0
-    --if debug then print('abc') end
+    if debug then print('abc') end
     if (self.spell == "Nothing" or --[[ReadyToCastNewSpell() and self:Ready() and]] self:IsUsable() and self:Castable()) then
         if debug then print('a') end
         for score,condition in pairs(self.conditions) do
@@ -511,5 +511,7 @@ do
     updateFrame:RegisterEvent("CHAT_MSG_MONSTER_SAY")
     --updateFrame:RegisterEvent("RAID_BOSS_WHISPER")
     --updateFrame:RegisterEvent("RAID_BOSS_EMOTE")
-    
+    function ForceRefreshRotation()
+        RefreshRotation()
+    end
 end

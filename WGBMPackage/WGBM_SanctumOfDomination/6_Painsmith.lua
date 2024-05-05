@@ -116,7 +116,7 @@ WGBM[bossString].DamageCD = function(spell, unit, args)
     if DoingMythic() then
         --local timeInCombat = WarGod.Unit:GetPlayer():TimeInCombat()
         if args[2] == 60 then
-            local bossHpPercent = WarGod.Unit.boss1.health_percent
+            local bossHpPercent = WarGod.Unit:GetUnit("boss1").health_percent
             if bossHpPercent > 0.75 then
                 return true
             elseif bossHpPercent < 0.39 then
@@ -195,7 +195,7 @@ end]]
     --if UnitIsUnit("boss1target", "player") then
     if bossCasting == "Ice Shard" then
         local bossThreat = UnitThreatSituation("player","boss1")
-        if bossThreat and bossThreat >= 3 and WarGod.Rotations.Delegates:IsItemInRange(spell, unit, {itemId = 10645}) then
+        if bossThreat and bossThreat >= 3 and WarGod.Rotation.Delegates:IsItemInRange(spell, unit, {itemId = 10645}) then
             return true
         end
     end

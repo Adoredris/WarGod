@@ -22,7 +22,7 @@ WGBM[bossString].DPSBlacklist = function(spell, unit, args)
 
 
     if name == "Incorporeal Being" then return true end
-    if WarGod.Rotations.Delegates:UnitIsBreakableCrowdControlled(spell, unit, args) then return true end
+    if WarGod.Rotation.Delegates:UnitIsBreakableCrowdControlled(spell, unit, args) then return true end
     if (name == "Spirit Drain Totem") then
         return true
     elseif unit:BuffRemaining("Infested", "HELPFUL") > 0 then

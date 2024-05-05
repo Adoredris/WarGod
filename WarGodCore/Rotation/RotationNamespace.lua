@@ -61,6 +61,7 @@ Rotation.UnitHealthMax = UnitHealthMax
 Rotation.UnitIsPlayer = UnitIsPlayer
 Rotation.UnitName = UnitName
 Rotation.UnitExists = UnitExists
+Rotation.UnitIsFriend = UnitIsFriend
 Rotation.CheckInteractDistance = CheckInteractDistance
 Rotation.UnitGetIncomingHeals = UnitGetIncomingHeals
 
@@ -86,6 +87,8 @@ Rotation.upairs = WarGod.Unit.upairs
 Rotation.SimcraftifyString = WarGod.SimcraftifyString
 Rotation.UnitThreatSituation = UnitThreatSituation
 Rotation.UnitVehicleSeatCount = UnitVehicleSeatCount
+Rotation.UnitVehicleSeatInfo = UnitVehicleSeatInfo
+Rotation.UnitIsUnit = UnitIsUnit
 
 Rotation.groups = WarGod.Unit.groups
 

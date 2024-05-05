@@ -14,8 +14,10 @@ function upairs(t)
     local function stateless_iter(tbl, k)
         local v
         repeat
+            --if tbl.name == "targetable" and k ~= "name" then print(k);print(v) end
             k, v = next(tbl, k)
-        until (not k or type(v) == "table")
+        until ((not k) or type(v) == "table"--[[ or not tbl[k] ]])
+        --if tbl.name == "targetable" then print(v) end
         if v then return k,v end
     end
     return stateless_iter, t, nil
@@ -57,6 +59,33 @@ local function AuraStacks(self, auraName, filter)
     return 0
 end
 
+local function RecentDamageTaken(self, howRecent)
+    local damage = 0
+    local now = GetTime()
+    for k,v in pairs(self.recentDamageTakenTable) do
+        if (GetTime() - v[1] > 60) then
+            self.recentDamageTakenTable[k] = nil
+        end
+        if (GetTime() - v[1] > (howRecent or 5)) then
+        else
+            damage = damage + v[2]
+        end
+    end
+    return damage
+end
+
+local function PercentHealthPredictedDamage(self)
+    local unitId = self.unitid
+    if unitId ~= "" and unitId then
+        return (self.health - (WarGod.Rotation and WarGod.Rotation.Delegates:ExtraHealthMissingWrapper("", self, {}) or 0)) / self.health_max
+    else
+        return 1
+        --print('not unitid Delegates:UnitUnderXPercentHealthPredicted')
+        --print(...)
+        --print(unit.name)
+    end
+end
+
 setmetatable(unitsByGUID, {
     __index = function(t, guid)
         local self = {}
@@ -84,27 +113,25 @@ setmetatable(unitsByGUID, {
             __index = function(t,key)
                 key = strlower(key)
                 if key == "unitid" then
-                    --print(self.guid)
                     for k,v in pairs(self.unitIds) do
-                        --print(v)
                         if UnitGUID(v) == self.guid then
                             return v
                         else
-                            --print(frames[v])
-                            frames[v]:Update(v)
+                            --print("Update forced")
+                            --frames[v]:Update(v)
                         end
                     end
                     return ""
                 elseif key == "level" then
-                    return UnitLevel(self.unitid)
+                    return UnitLevel(self.unitid) or -1
                 elseif key == "name" then
-                    return UnitName(self.unitid)
+                    return UnitName(self.unitid) or ""
                 elseif key == "health" then
-                    return UnitHealth(self.unitid)
+                    return UnitHealth(self.unitid) or 0
                 elseif key == "health_max" then
-                    return UnitHealthMax(self.unitid)
+                    return UnitHealthMax(self.unitid) or 1
                 elseif key == "health_percent" then
-                    return UnitHealth(self.unitid) / UnitHealthMax(self.unitid)
+                    return self.health / self.health_max
                 end
 
             end
@@ -134,17 +161,19 @@ setmetatable(unitIdToUnitsByGUID, {
 
 local unitIdPriority = {
     player = 1,
-    target = 4,
-    focus = 8,
-    mouseover = 12,
+    target = 2,
+    focus = 4,
+    mouseover = 8,
 }
 
 setmetatable(unitIdPriority, {
     __index = function(t, unitid)
         local val = 20
-        if strmatch(unitid, "^party") then
-            return 20 + tonumber(strsub(unitid, 6, 6))-- * 2
+        if strmatch(unitid, "^boss") then
+            return 10 + tonumber(strsub(unitid,5,5))
 
+        elseif strmatch(unitid, "^party") then
+            return 20 + tonumber(strsub(unitid, 6, 6))-- * 2
         elseif strmatch(unitid, "^raid") then
             return 40 + tonumber(strsub(unitid,5,5))
         elseif strmatch(unitid, "^nameplate") then

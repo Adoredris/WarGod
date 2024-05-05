@@ -62,7 +62,7 @@ WGBM[bossString].Priority = function(spell, unit, args)
     local name = unit.name
     local targetName = unit.name
     if DoingMythic() then
-        if name == bossString and WarGod.Unit.boss1.health_percent >= 0.4 then
+        if name == bossString and WarGod.Unit:GetUnit("boss1").health_percent >= 0.4 then
             score = 0
         elseif name == "Corruption Corpuscle" then
             if targetName == name or IsMoving() or targetName == bossString or targetName == nil then

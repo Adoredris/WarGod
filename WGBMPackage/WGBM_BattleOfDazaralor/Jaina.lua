@@ -132,7 +132,7 @@ WGBM[bossString].Mitigation = function(spell, unit, args)
     --if UnitIsUnit("boss1target", "player") then
     if bossCasting == "Ice Shard" then
         local bossThreat = UnitThreatSituation("player","boss1")
-        if bossThreat and bossThreat >= 3 and WarGod.Rotations.Delegates:IsItemInRange(spell, unit, {itemId = 10645}) then
+        if bossThreat and bossThreat >= 3 and WarGod.Rotation.Delegates:IsItemInRange(spell, unit, {itemId = 10645}) then
             return true
         end
     end

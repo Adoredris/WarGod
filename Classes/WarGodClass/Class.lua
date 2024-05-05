@@ -6,6 +6,15 @@ Class.UnitInRaid = UnitInRaid
 Class.UnitGroupRolesAssigned = UnitGroupRolesAssigned
 Class.GetSpecialization = GetSpecialization
 Class.strmatch = strmatch
+Class.GetTime = GetTime
+Class.UnitPower = UnitPower
+Class.UnitPowerMax = UnitPowerMax
+Class.UnitExists = UnitExists
+Class.DoEmote = DoEmote
+Class.CreateFrame = CreateFrame
+Class.ActivateSoulbind = C_Soulbinds.ActivateSoulbind
+Class.GetActiveCovenantID = C_Covenants.GetActiveCovenantID
+Class.GetActiveSoulbindID = C_Soulbinds.GetActiveSoulbindID
 
 
 local player = WarGod.Unit:GetPlayer()
@@ -16,7 +25,7 @@ WarGod.Class = Class
 WarGod[UnitClass("player")] = Class
 local WarGodRotation = WarGod.Rotation
 local WarGodUnit = WarGod.Unit
-WarGodUnit.active_enemies = 0
+WarGodUnit.active_enemies = 1
 local WarGodControl = WarGod.Control
 local Delegates = WarGod.Rotation.Delegates
 
@@ -74,7 +83,7 @@ Class:RegisterEvent("PLAYER_SPECIALIZATION_CHANGED")
 end
 Class:RegisterEvent("ADDON_LOADED")]]
 
---[[do
+do
     local frame = CreateFrame("Frame")
     frame.updateDelay = 0.05
     frame.timeSinceLastUpdate = 0
@@ -86,7 +95,7 @@ Class:RegisterEvent("ADDON_LOADED")]]
             local focusFire = (not WarGodControl:CleaveMode()) and (not WarGodControl:AOEMode())
             local active_enemies = 0
             for k,unit in upairs(WarGodUnit.groups.targetableOrPlates) do
-                if (WarGodRotation.IsValidEnemy(unit)) and Delegates:PriorityWrapper("", unit, {}) > 0 and (not Delegates:AoeBlacklistedWrapper("", unit, {})) then
+                if (WarGodRotation.IsValidEnemy(self,unit, {})) and Delegates:PriorityWrapper("", unit, {}) > 0 and (not Delegates:AoeBlacklistedWrapper("", unit, {})) then
                     --print('checking and stuff')
                     if (IsInInstance() or UnitAffectingCombat(unit.unitid)) or IsResting() then
                         active_enemies = active_enemies + 1
@@ -99,7 +108,7 @@ Class:RegisterEvent("ADDON_LOADED")]]
             self.timeSinceLastUpdate = 0
         end
     end)
-end]]
+end
 
 function IsMoving()
     return GetUnitSpeed("player") > 0 or IsFalling()

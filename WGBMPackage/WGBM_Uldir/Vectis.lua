@@ -23,7 +23,7 @@ WGBM[bossString].Taunt = function(spell, unit, args)
     local unitid = unit.unitid
     if unit.name == "Vectis" then
         if player:DebuffRemaining("Evolving Affliction", "HARMFUL") == 0 then
-            if WarGod.Unit.boss1target:DebuffRemaining("Evolving Affliction", "HARMFUL") > 0 then
+            if WarGod.Unit:GetUnit("boss1target"):DebuffRemaining("Evolving Affliction", "HARMFUL") > 0 then
                 print("Should Taunt")
                 --return true
             end

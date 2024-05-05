@@ -125,7 +125,7 @@ end
 
 WGBM[bossString].Mitigation = function(spell, unit, args)
     local bossThreat = UnitThreatSituation("player","boss1")
-    if bossThreat and bossThreat >= 3--[[ and WarGod.Rotations.Delegates:IsItemInRange(spell, unit, {itemId = 10645})]] then
+    if bossThreat and bossThreat >= 3--[[ and WarGod.Rotation.Delegates:IsItemInRange(spell, unit, {itemId = 10645})]] then
         return true
     end
     --end
@@ -230,7 +230,7 @@ WGBM[bossString].DPSBlacklist = function(spell, unit, args)
         elseif unit:BuffRemaining("Divine Protection","HELPFUL") > 0 then
             return true
         elseif name ~= altName then
-            if (not WarGod.Control:SafeMode()) and WarGod.Unit.boss1:BuffRemaining("Seal of Retribution", "HELPFUL") > 0 then
+            if (not WarGod.Control:SafeMode()) and WarGod.Unit:GetUnit("boss1"):BuffRemaining("Seal of Retribution", "HELPFUL") > 0 then
                 return true
             end
         end

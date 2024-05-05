@@ -1,5 +1,6 @@
 local Unit = LibStub("AceAddon-3.0"):NewAddon("WarGodUnit", "AceConsole-3.0", "AceEvent-3.0")
 WarGod.Unit = Unit
+Unit.WarGod = WarGod
 Unit.frames = {}
 Unit.print = print
 Unit.UnitName = UnitName
@@ -8,6 +9,7 @@ Unit.tinsert = tinsert
 Unit.pairs = pairs
 Unit.max = max
 Unit.tonumber = tonumber
+
 
 
 Unit.setmetatable = setmetatable
@@ -66,6 +68,7 @@ Unit.GetMastery = GetMastery
 Unit.LibStub = LibStub
 Unit.C_Covenants = C_Covenants
 Unit.C_Item = C_Item
+Unit.GetSpellCooldown = GetSpellCooldown
 
 Unit.GetSpellInfo = GetSpellInfo
 Unit.ItemLocation = ItemLocation
@@ -78,6 +81,8 @@ Unit.GetTreeNodes = C_Traits.GetTreeNodes
 Unit.GetNodeInfo = C_Traits.GetNodeInfo
 Unit.GetEntryInfo = C_Traits.GetEntryInfo
 Unit.GetDefinitionInfo = C_Traits.GetDefinitionInfo
+Unit.GetSpellBookItemName = GetSpellBookItemName
+Unit.GetSpellCharges = GetSpellCharges
 
 --Unit.GetAuraDataBySlot = C_UnitAuras.IsAuraFilteredOutByInstanceID
 --Unit.GetAuraDataBySlot = C_UnitAuras.WantsAlteredForm
@@ -111,6 +116,14 @@ setfenv(1, WarGod.Unit)
 
 function GetTarget()
     local guid = UnitGUID("target")
+    if guid then
+        return unitsByGUID[guid]
+    end
+end
+
+function GetUnit(unitid)
+    print(unitid)
+    local guid = UnitGUID(unitid)
     if guid then
         return unitsByGUID[guid]
     end

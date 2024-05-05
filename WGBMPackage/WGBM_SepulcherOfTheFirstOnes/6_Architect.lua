@@ -19,7 +19,7 @@ WGBM[bossString].DPSBlacklist = function(spell, unit, args)
             return true
         end
     end
-    if WarGod.Rotations.Delegates:UnitIsBreakableCrowdControlled(spell, unit, args) then
+    if WarGod.Rotation.Delegates:UnitIsBreakableCrowdControlled(spell, unit, args) then
         return true
 
     end
@@ -32,7 +32,7 @@ WGBM[bossString].DPSBlacklist = function(spell, unit, args)
         return true
     end
     --[[if name == "Necrotic Ritualist" then
-        if WarGod.Unit.boss1.health_percent < 0.45 or WarGod.Unit.boss2.health_percent < 0.45 or WarGod.Unit.boss3.health_percent < 0.45 or WarGod.Unit.boss4.health_percent < 0.45 then
+        if WarGod.Unit:GetUnit("boss1").health_percent < 0.45 or WarGod.Unit:GetUnit("boss2").health_percent < 0.45 or WarGod.Unit.boss3.health_percent < 0.45 or WarGod.Unit.boss4.health_percent < 0.45 then
 
         end
     end]]

@@ -40,7 +40,6 @@ local floor = floor
 local ceil = ceil
 local max = max
 
-local upairs = upairs
 local KSPartnerHasCDUp = KSPartnerHasCDUp
 
 ---------TEMP-------------

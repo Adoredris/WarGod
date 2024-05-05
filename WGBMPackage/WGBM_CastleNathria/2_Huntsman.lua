@@ -141,7 +141,7 @@ end
 
 WGBM[bossString].DamageCD = function(spell, unit, args)
     if args[2] > 120 and DoingMythic() then
-        if WarGod.Unit.boss1:BuffRemaining("Obsidian Skin","HELPFUL") == 0 then
+        if WarGod.Unit:GetUnit("boss1"):BuffRemaining("Obsidian Skin","HELPFUL") == 0 then
             return
         else
             return true

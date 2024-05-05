@@ -53,7 +53,7 @@ WGBM[bossString].Priority = function(spell, unit, args)
     end
     if unit.name == "Potent Spark" then
         if spell == "Vampiric Touch" or spell == "Shadow Word: Pain" then
-            if (unit.health_percent < 0.5 or WarGod.Unit:GetPlayer().buff.twist_of_fate.remains > 6.5) and WarGod.Unit.boss2.health_percent < 0.35 then
+            if (unit.health_percent < 0.5 or WarGod.Unit:GetPlayer().buff.twist_of_fate.remains > 6.5) and WarGod.Unit:GetUnit("boss2").health_percent < 0.35 then
                 score = 0
             end
         else
@@ -68,11 +68,11 @@ WGBM[bossString].Priority = function(spell, unit, args)
             else
                 score = 50 - max(unit:DebuffRemaining("Shadow Word: Pain", "HARMFUL|PLAYER"), unit:DebuffRemaining("Vampiric Touch", "HARMFUL|PLAYER"))
                 if UnitIsUnit("boss1", unitid) then
-                    if unit.health_percent < 0.35 and WarGod.Unit.boss2.health_percent > 0.45 then
+                    if unit.health_percent < 0.35 and WarGod.Unit:GetUnit("boss2").health_percent > 0.45 then
                         score = 1
                     end
                 elseif UnitIsUnit("boss2", unitid) then
-                    if unit.health_percent < 0.35 and WarGod.Unit.boss1.health_percent > 0.45 then
+                    if unit.health_percent < 0.35 and WarGod.Unit:GetUnit("boss1").health_percent > 0.45 then
                         score = 1
                     end
                 end

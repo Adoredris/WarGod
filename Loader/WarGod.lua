@@ -12,7 +12,8 @@ WarGod.SimcraftifyString = function(text)
     return simcraftifyMap[text]
 end
 
-WarGod.printTo = function(index, ...)
+local lastMessages = {}
+function WarGod.printTo(index, ...)
     --print(index)
     local frame = _G["ChatFrame" .. (index > 2 and index + 1 or index)]
     if (frame) then
@@ -21,11 +22,11 @@ WarGod.printTo = function(index, ...)
             printResult = printResult .. tostring(v) .. " "
         end
         --printResult = printResult .. "\n"
-        --if lastMessages[index] ~= printResult then
-        --lastMessages[index] = printResult
-        frame:AddMessage(printResult)
+        if lastMessages[index] ~= printResult then
+            lastMessages[index] = printResult
+            frame:AddMessage(printResult)
 
-        --end
+        end
 
     end
 end

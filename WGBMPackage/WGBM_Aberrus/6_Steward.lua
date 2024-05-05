@@ -110,7 +110,7 @@ WGBM[bossString].DamageCD = function(spell, unit, args)
         end
     else
         if args[2] > 150 then
-            return UnitName("target") == "Kurog Grimtotem" and WarGod.Unit.boss1:BuffRemaining("Primal Barrier", "HELPFUL") == 0
+            return UnitName("target") == "Kurog Grimtotem" and WarGod.Unit:GetUnit("boss1"):BuffRemaining("Primal Barrier", "HELPFUL") == 0
         else
             return true
         end

@@ -835,7 +835,7 @@ do
         if unitid == "player" then
             local spec = select(2, GetSpecializationInfo(GetSpecialization())) or "none"
             if spec ~= "none" then
-                spells = WarGod.Rotations and WarGod.Rotations.rotationFrames[spec]-- or {}
+                spells = WarGod.Rotation and WarGod.Rotation.rotationFrames[spec]-- or {}
                 --print("spells")
             end
         end
@@ -976,7 +976,7 @@ do
                 lastError = arg2
 
             elseif (arg2 == errorRange) then
-                WarGod.Rotations:RefreshRotation()
+                WarGod.Rotation:ForceRefreshRotation()
             end
         end
     end

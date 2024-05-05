@@ -22,7 +22,7 @@ end
 WGBM[bossString].DamageCD = function(spell, unit, args)
     --print('experiments')
     if args[2] <= 60 then return true end
-    if WarGod.Rotations.SatedRemaining() > 0 then
+    if WarGod.Rotation.SatedRemaining() > 0 then
         return true
     end
 end

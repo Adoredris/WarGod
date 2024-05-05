@@ -170,7 +170,6 @@ do
     WarGod.BossMods.default.DamageCD = function(spell, unit, args)
         --print('default ' .. spell)
         --local unitid = unit.unitid
-        --print(...)
         return InCombatLockdown()
         --return true
     end

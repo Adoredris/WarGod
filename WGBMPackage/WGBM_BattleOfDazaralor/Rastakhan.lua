@@ -97,7 +97,7 @@ end
 WGBM[bossString].HealCD = function(spell, unit, args)
     if UnitName("target") == "Bwonsamdi" and GetUnitpeed(unit.unitid) == 0 then
         return true
-    elseif WarGod.Unit.boss1.health_percent < 0.4 then
+    elseif WarGod.Unit:GetUnit("boss1").health_percent < 0.4 then
         return true
     end
 end
@@ -133,7 +133,7 @@ WGBM[bossString].DotQuick = function(spell, unit, args)
 end
 --
 WGBM[bossString].DamageCD = function(spell, unit, args)
-    local bossHp = WarGod.Unit.boss1.health_percent
+    local bossHp = WarGod.Unit:GetUnit("boss1").health_percent
     if bossHp > 0.55 and bossHp < 0.75 and args[2] > 30 then
         return
     end

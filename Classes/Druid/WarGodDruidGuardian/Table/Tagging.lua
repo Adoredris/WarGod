@@ -10,7 +10,6 @@ local azerite = player.azerite
 local UnitInRaid = UnitInRaid
 local InCombatLockdown = InCombatLockdown
 
-local upairs = upairs
 local select = select
 local UnitThreatSituation = UnitThreatSituation
 local UnitChannelInfo = UnitChannelInfo

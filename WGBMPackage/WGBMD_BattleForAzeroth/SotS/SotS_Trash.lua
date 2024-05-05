@@ -1,5 +1,5 @@
 local WGBM = WarGod.BossMods
---local Delegates = WarGod.Rotations.Delegates
+--local Delegates = WarGod.Rotation.Delegates
 local bossString = "Shrine of the Storm"
 printTo(3,bossString)
 WGBM[bossString] = {}
@@ -19,7 +19,7 @@ end
 
 WGBM[bossString].Interrupt = function(spell, unit, args)
     local unitid = unit.unitid
-    if WarGod.Rotations.Delegates:HasSpellToInterrupt_LatestPossibleInterrupt(spell, unit, args) then
+    if WarGod.Rotation.Delegates:HasSpellToInterrupt_LatestPossibleInterrupt(spell, unit, args) then
         return true
     end
     if UnitCastingInfo(unitid) == "Consume Essence" then
