@@ -49,9 +49,8 @@ WGBM[bossString].Defensive = function(spell, unit, args)
         if WarGod.Unit:GetPlayer().health_percent < 0.8 and args[2] <= 60 then
             if WarGod.Unit:GetPlayer():BuffRemaining("Overcharged","HARMFUL") ~= 0 then
                 return true
-            elseif WarGod.Unit.boss1:BuffRemaining("Elder's Conduit","HELPFUL") ~= 0 then
-                    return true
-
+            elseif WarGod.Unit:GetUnit("boss1"):BuffRemaining("Elder's Conduit","HELPFUL") ~= 0 then
+                return true
             end
         end
     end
@@ -61,7 +60,7 @@ end
     --local npcId = GetNPCId("target")
     --if npcId then print(npcId) end
     if DoingMythic() then
-        local boss1 = WarGod.Unit.boss1
+        local boss1 = WarGod.Unit:GetUnit("boss1")
         if boss1.health_percent > 0.5 then
             return true
             elseif boss1:BuffRemaining() ~= nil

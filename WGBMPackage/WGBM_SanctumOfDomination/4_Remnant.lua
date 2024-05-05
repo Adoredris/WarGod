@@ -48,7 +48,7 @@ WGBM[bossString].Defensive = function(spell, unit, args)
     local unitid = unit.unitid
     local player_health_percent = WarGod.Unit:GetPlayer().health_percent
     if UnitCastingInfo("boss1") == "Shatter" then
-        local bossHpPercent = WarGod.Unit.boss1.health_percent
+        local bossHpPercent = WarGod.Unit:GetUnit("boss1").health_percent
         if bossHpPercent < 0.8 and bossHpPercent > 0.75 and player_health_percent < 0.9 or bossHpPercent < 0.6 and bossHpPercent > 0.55 or bossHpPercent < 0.3 and bossHpPercent > 0.25 then
             --print('defensive big shatter')
             return args[2] <= 60
@@ -138,13 +138,13 @@ WGBM[bossString].DamageCD = function(spell, unit, args)
     --print('boo')
     if DoingMythic() then
         if args[2] >= 300 then
-            if WarGod.Rotations.LustRemaining() > 0 then
+            if WarGod.Rotation.LustRemaining() > 0 then
                 return true
             else
                 return
             end
         end
-        if WarGod.Rotations.LustRemaining() > 0 then
+        if WarGod.Rotation.LustRemaining() > 0 then
             return true
         end
         if args[2] > 120 then
@@ -152,11 +152,11 @@ WGBM[bossString].DamageCD = function(spell, unit, args)
             if WarGod.Unit:GetPlayer():TimeInCombat() < 20 then
                 return true
             end
-            if WarGod.Rotations.LustRemaining() > 0 then
+            if WarGod.Rotation.LustRemaining() > 0 then
                 return true
             end
         else
-            if WarGod.Unit.boss1.health_percent > 0.35 or WarGod.Unit.boss1.health_percent < 0.25 then
+            if WarGod.Unit:GetUnit("boss1").health_percent > 0.35 or WarGod.Unit:GetUnit("boss1").health_percent < 0.25 then
                 return WarGod.Unit:GetPlayer():TimeInCombat() > 5
             end
         end

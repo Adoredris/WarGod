@@ -107,12 +107,12 @@ end
 WGBM[bossString].DamageCD = function(spell, unit, args)
     if WarGod.Unit.active_enemies > 0 then
         if args[2] >= 150 then
-            if WarGod.Unit.boss1.health_percent < 0.55 and WarGod.Unit.boss1.health_percent > 0.39 then
+            if WarGod.Unit:GetUnit("boss1").health_percent < 0.55 and WarGod.Unit:GetUnit("boss1").health_percent > 0.39 then
                 return
             end
             return true
         elseif args[2] >= 90 then
-            if WarGod.Unit.boss1.health_percent < 0.45 and WarGod.Unit.boss1.health_percent > 0.39 then
+            if WarGod.Unit:GetUnit("boss1").health_percent < 0.45 and WarGod.Unit:GetUnit("boss1").health_percent > 0.39 then
                 return
             end
             return true

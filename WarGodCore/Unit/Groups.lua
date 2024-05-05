@@ -65,16 +65,22 @@ function Unit:RemoveUnitFromGroups(unit, oldUnitId)
         elseif oldIdAbrv == "m" then
             groups.mouseover[unit.guid] = nil
         end
-        if not groups.plates[unit.guid] then
+
+        --print('unitid')
+        --print(groups.targetable[unit.guid].unitid)
+        if (not groups.plates[unit.guid]) then
             -- this should get destroyed if necessary by the calling function which should clean it up here?
-            groups.targetable[unit.guid] = nil
-            groups.targetableOrPlates[unit.guid] = nil
+            if groups.targetable[unit.guid] and groups.targetable[unit.guid].unitid == "" then
+                groups.targetable[unit.guid] = nil
+                groups.targetableOrPlates[unit.guid] = nil
+            end
         else
             local firstChar = substr(unit.unitIds[1], 1, 1)
             if firstChar == "n" then
                 groups.targetableAndPlates[unit.guid] = nil
                 groups.targetable[unit.guid] = nil
             elseif groups.targetable[unit.guid] and groups.targetable[unit.guid].unitid == "" then
+                --print('targetable destroyed')
                 groups.targetableOrPlates[unit.guid] = nil
                 groups.targetable[unit.guid] = nil
             end

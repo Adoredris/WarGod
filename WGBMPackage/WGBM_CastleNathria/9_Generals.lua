@@ -43,7 +43,7 @@ WGBM[bossString].Priority = function(spell, unit, args)
 end
 
 WGBM[bossString].DamageCD = function(spell, unit, args)
-    if --[[WarGod.Unit.active_enemies == 1 and ]]WarGod.Unit.boss1:BuffRemaining("Hardened Stone Form", "HELPFUL") > 0 then
+    if --[[WarGod.Unit.active_enemies == 1 and ]]WarGod.Unit:GetUnit("boss1"):BuffRemaining("Hardened Stone Form", "HELPFUL") > 0 then
         return args and args[2] and args[2] <= 60
     end
     return WarGod.Unit:GetPlayer():TimeInCombat() > 5

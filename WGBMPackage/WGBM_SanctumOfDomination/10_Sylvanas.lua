@@ -62,15 +62,15 @@ WGBM[bossString].DamageCD = function(spell, unit, args)
     if WarGod.Unit.active_enemies > 0 then
         if args[2] < 90 then
             return true
-        elseif WarGod.Unit.boss1.health_percent > 0.9 then
+        elseif WarGod.Unit:GetUnit("boss1").health_percent > 0.9 then
             return args[2] <= 180
-        elseif WarGod.Unit.boss1.health_percent < 0.75 and GetZoneText() ~= "Edge of the Abyss" then
+        elseif WarGod.Unit:GetUnit("boss1").health_percent < 0.75 and GetZoneText() ~= "Edge of the Abyss" then
             return true
         elseif GetZoneText() == "Edge of the Abyss" then
             if args[2] < 180 then
                 return true
             elseif args[2] >= 180 then
-                if WarGod.Unit.boss1:BuffRemaining("Banshee Shroud","HELPFUL") == 0 then
+                if WarGod.Unit:GetUnit("boss1"):BuffRemaining("Banshee Shroud","HELPFUL") == 0 then
                     return true
                 end
             end

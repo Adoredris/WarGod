@@ -198,17 +198,33 @@ function Auras:UpdateUnitsAura(auraParentTable, unitAuraInfo)
 end
 
 function Auras:UpdateAllUnitsAuras(unit)
-    printdebug("UpdateAllUnitsAuras testing")
+    --printdebug("UpdateAllUnitsAuras testing")
     local unitid = unit.unitid
     do
         local slots = {select(2,UnitAuraSlots(unitid, "HARMFUL"))}
         for _,slotNo in ipairs(slots) do
             local unitAuraInfo = GetAuraDataBySlot(unitid, slotNo)
-            do
-                local aura = unit.debuffAnyone[SimcraftifyString(unitAuraInfo.name)]
-                aura.name = unitAuraInfo.name
-                aura.simcName = simcName[unitAuraInfo.name]
-                aura.auraInstanceID = unitAuraInfo.auraInstanceID
+            if unitAuraInfo then
+                do
+                    local aura = unit.debuffAnyone[SimcraftifyString(unitAuraInfo.name)]
+                    aura.name = unitAuraInfo.name
+                    aura.simcName = simcName[unitAuraInfo.name]
+                    aura.auraInstanceID = unitAuraInfo.auraInstanceID
+                    aura.applications = unitAuraInfo.applications
+                    aura.charges = unitAuraInfo.charges
+                    aura.maxCharges = unitAuraInfo.maxCharges
+                    aura.duration = unitAuraInfo.duration
+                    aura.expirationTime = unitAuraInfo.expirationTime
+                    aura.points = unitAuraInfo.points
+                    aura.spellId = unitAuraInfo.spellId
+                    aura.upToDate = true
+                end
+                if unitAuraInfo.sourceUnit == "player" then
+                    --print('player cast this debuff')
+                    local aura = unit.debuff[SimcraftifyString(unitAuraInfo.name)]
+                    aura.name = unitAuraInfo.name
+                    aura.simcName = simcName[unitAuraInfo.name]
+                    aura.auraInstanceID = unitAuraInfo.auraInstanceID
                 aura.applications = unitAuraInfo.applications
                 aura.charges = unitAuraInfo.charges
                 aura.maxCharges = unitAuraInfo.maxCharges
@@ -218,20 +234,6 @@ function Auras:UpdateAllUnitsAuras(unit)
                 aura.spellId = unitAuraInfo.spellId
                 aura.upToDate = true
             end
-            if unitAuraInfo.sourceUnit == "player" then
-                --print('player cast this debuff')
-                local aura = unit.debuff[SimcraftifyString(unitAuraInfo.name)]
-                aura.name = unitAuraInfo.name
-                aura.simcName = simcName[unitAuraInfo.name]
-                aura.auraInstanceID = unitAuraInfo.auraInstanceID
-                aura.applications = unitAuraInfo.applications
-                aura.charges = unitAuraInfo.charges
-                aura.maxCharges = unitAuraInfo.maxCharges
-                aura.duration = unitAuraInfo.duration
-                aura.expirationTime = unitAuraInfo.expirationTime
-                aura.points = unitAuraInfo.points
-                aura.spellId = unitAuraInfo.spellId
-                aura.upToDate = true
             end
         end
     end
@@ -239,35 +241,37 @@ function Auras:UpdateAllUnitsAuras(unit)
         local slots = {select(2,UnitAuraSlots(unitid, "HELPFUL"))}
         for _,slotNo in ipairs(slots) do
             local unitAuraInfo = GetAuraDataBySlot(unitid, slotNo)
-            do
-                local aura = unit.buffAnyone[SimcraftifyString(unitAuraInfo.name)]
-                aura.name = unitAuraInfo.name
-                aura.simcName = simcName[unitAuraInfo.name]
-                aura.auraInstanceID = unitAuraInfo.auraInstanceID
-                aura.applications = unitAuraInfo.applications
-                aura.charges = unitAuraInfo.charges
-                aura.maxCharges = unitAuraInfo.maxCharges
-                aura.duration = unitAuraInfo.duration
-                aura.expirationTime = unitAuraInfo.expirationTime
-                aura.points = unitAuraInfo.points
-                aura.spellId = unitAuraInfo.spellId
-                aura.upToDate = true
-            end
-            if unitAuraInfo.sourceUnit == "player" then
-                --print('player cast this buff')
-                local aura = unit.buff[SimcraftifyString(unitAuraInfo.name)]
-                aura.name = unitAuraInfo.name
-                aura.simcName = simcName[unitAuraInfo.name]
-                aura.auraInstanceID = unitAuraInfo.auraInstanceID
-                aura.applications = unitAuraInfo.applications
-                aura.charges = unitAuraInfo.charges
-                aura.maxCharges = unitAuraInfo.maxCharges
-                aura.duration = unitAuraInfo.duration
-                aura.expirationTime = unitAuraInfo.expirationTime
-                aura.points = unitAuraInfo.points
+            if unitAuraInfo then
+                do
+                    local aura = unit.buffAnyone[SimcraftifyString(unitAuraInfo.name)]
+                    aura.name = unitAuraInfo.name
+                    aura.simcName = simcName[unitAuraInfo.name]
+                    aura.auraInstanceID = unitAuraInfo.auraInstanceID
+                    aura.applications = unitAuraInfo.applications
+                    aura.charges = unitAuraInfo.charges
+                    aura.maxCharges = unitAuraInfo.maxCharges
+                    aura.duration = unitAuraInfo.duration
+                    aura.expirationTime = unitAuraInfo.expirationTime
+                    aura.points = unitAuraInfo.points
+                    aura.spellId = unitAuraInfo.spellId
+                    aura.upToDate = true
+                end
+                if unitAuraInfo.sourceUnit == "player" then
+                    --print('player cast this buff')
+                    local aura = unit.buff[SimcraftifyString(unitAuraInfo.name)]
+                    aura.name = unitAuraInfo.name
+                    aura.simcName = simcName[unitAuraInfo.name]
+                    aura.auraInstanceID = unitAuraInfo.auraInstanceID
+                    aura.applications = unitAuraInfo.applications
+                    aura.charges = unitAuraInfo.charges
+                    aura.maxCharges = unitAuraInfo.maxCharges
+                    aura.duration = unitAuraInfo.duration
+                    aura.expirationTime = unitAuraInfo.expirationTime
+                    aura.points = unitAuraInfo.points
 
-                aura.spellId = unitAuraInfo.spellId
-                aura.upToDate = true
+                    aura.spellId = unitAuraInfo.spellId
+                    aura.upToDate = true
+                end
             end
         end
     end

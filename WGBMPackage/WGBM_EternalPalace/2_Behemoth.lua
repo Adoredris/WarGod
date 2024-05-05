@@ -117,7 +117,7 @@ WGBM[bossString].DamageCD = function(spell, unit, args)
     local unitId = unit.unitid
     local targetName = UnitName("target")
 
-    if WarGod.Unit.boss1.health <= 5 then
+    if WarGod.Unit:GetUnit("boss1").health <= 5 then
         return true
     elseif DoingMythic() then
         local damageBuffRemains, damageBuffStacks = WarGod.Unit:GetPlayer():DebuffRemaining("Successful Defense", "HARMFUL")

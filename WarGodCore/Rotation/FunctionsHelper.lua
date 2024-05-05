@@ -19,23 +19,18 @@ IsEnemyDelegateTable = {Delegates.UnitIsEnemy}
 IsFriendDelegateTable = {Delegates.UnitIsFriend}
 
 function LustRemaining()
-    --[[for i=1,40 do
-        local name, _, _, _, duration, expiresAt, _, _, _, spellId = UnitBuff("player", i)
-        if not spellId then return 0 end
-        if (spellId == 80353                -- time warp
-                or spellId == 264667        -- primal rage
-                or spellId == 32182   -- heroism
-                or spellId == 2825 -- bloodlust
-                or spellId == 390386) then  -- evoker hero
-            return expiresAt - GetTime()
-        elseif (spellId == 309658) then     -- drums
-            return expiresAt - GetTime()
-        end
-    end]]
-    local lustRemains = max(player.buff.time_warp:Remains(),
-            player.buff.primal_rage:Remains(),
-            player.buff.heroism:Remains(),
-            player.buff.bloodlust:Remains(),
-            player.buff.fury_of_the_aspects:Remains())
+    local lustRemains = max(player.buffAnyone.time_warp:Remains(),
+            player.buffAnyone.primal_rage:Remains(),
+            player.buffAnyone.heroism:Remains(),
+            player.buffAnyone.bloodlust:Remains(),
+            player.buffAnyone.fury_of_the_aspects:Remains())
     return lustRemains
+end
+
+function SatedRemaining()
+    local satedRemains = max(player.debuffAnyone.sated:Remains(),
+            player.debuffAnyone.exhaustion:Remains(),
+            player.debuffAnyone.temporal_displacement:Remains(),
+            player.debuffAnyone.fatigued:Remains())
+    return satedRemains
 end

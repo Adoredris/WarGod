@@ -77,11 +77,11 @@ WGBM[bossString].DamageCD = function(spell, unit, args)
     if DoingMythic() then
         --local timeInCombat = WarGod.Unit:GetPlayer():TimeInCombat()
         if args[2] == 60 then
-            local bossHpPercent = WarGod.Unit.boss1.health_percent
+            local bossHpPercent = WarGod.Unit:GetUnit("boss1").health_percent
             if bossHpPercent > 0.42 then
                 return true
 
-            elseif WarGod.Rotations:LustRemaining() > 0 then
+            elseif WarGod.Rotation:LustRemaining() > 0 then
                 return true
 
             elseif bossHpPercent < 0.35 then
@@ -98,10 +98,10 @@ WGBM[bossString].DamageCD = function(spell, unit, args)
             end
         elseif args[2] == 180 then
             local timeInCombat = WarGod.Unit:GetPlayer():TimeInCombat()
-            local bossHpPercent = WarGod.Unit.boss1.health_percent
+            local bossHpPercent = WarGod.Unit:GetUnit("boss1").health_percent
             if timeInCombat <= 30 then
                 return true
-            elseif WarGod.Rotations:LustRemaining() > 0 then
+            elseif WarGod.Rotation:LustRemaining() > 0 then
                 return true
             end
         else

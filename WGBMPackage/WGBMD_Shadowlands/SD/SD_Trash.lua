@@ -63,7 +63,7 @@ WGBM[bossString].DPSBlacklist = function(spell, unit, args)
     if name == "Animated Weapon" then
         return true
     end
-    if WarGod.Rotations.Delegates:UnitIsBreakableCrowdControlled(spell, unit, args) then
+    if WarGod.Rotation.Delegates:UnitIsBreakableCrowdControlled(spell, unit, args) then
         return true
     elseif name == "General Kaal" then
         if UnitAffectingCombat(unit.unitid) == true then

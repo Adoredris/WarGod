@@ -223,9 +223,14 @@ do
         quick = true,
         offgcd = true,
         IsUsable = function(self)
-            if not talent.celestial_alignment.enabled then return end
+            if not talent.celestial_alignment.enabled then --[[print("don't have CA") ]]return end
+
             if WarGodControl:AllowCDs() or LustRemaining() > 0 and (LustRemaining() < 32 or eclipse:In_Any())  or player:BuffRemaining("Power Infusion", "HELPFUL") > 0 then
-                return Delegates:DamageCDWrapper(self.spell, WarGodUnit:GetTarget(), {15, 180}) and player.combat and WarGodUnit.active_enemies > 0 and buff_ca_inc:Down() and (buff.moonkin_form:Stacks() > 0 or GetShapeshiftForm() == 0)
+                --print('2/3 usable')
+                if Delegates:DamageCDWrapper(self.spell, WarGodUnit:GetTarget(), {15, 180}) and player.combat and WarGodUnit.active_enemies > 0 and buff_ca_inc:Down() and (buff.moonkin_form:Stacks() > 0 or GetShapeshiftForm() == 0) then
+                    --print('usable')
+                    return true
+                end
             end
         end,
     })

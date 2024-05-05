@@ -27,7 +27,7 @@ WGBM[bossString].DPSBlacklist = function(spell, unit, args)
     end
 
     if name == "Incorporeal Being" then return true end
-    if WarGod.Rotations.Delegates:UnitIsBreakableCrowdControlled(spell, unit, args) then return true end
+    if WarGod.Rotation.Delegates:UnitIsBreakableCrowdControlled(spell, unit, args) then return true end
 end
 
 WGBM[bossString].Priority = function(spell, unit, args)

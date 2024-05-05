@@ -16,7 +16,6 @@ local WarGodUnit = WarGod.Unit
 local WarGodControl = WarGod.Control
 
 
-local upairs = upairs
 local pairs = pairs
 local InCombatLockdown = InCombatLockdown
 local GetShapeshiftForm = GetShapeshiftForm

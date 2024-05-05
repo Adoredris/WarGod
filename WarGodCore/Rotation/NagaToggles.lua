@@ -108,7 +108,7 @@ local function BindMacro (MacroText, Keybind, optIcon)
     NagaButtons[Keybind] = CreateFrame("Button", Keybind, UIParent, "SecureActionButtonTemplate");
     NagaButtons[Keybind]:SetAttribute("type","macro");
     SetOverrideBindingClick(NagaButtons[Keybind], true, Keybind, Keybind);
-    --MacroText = MacroText .. "\n/run WarGod.Rotations:RefreshRotation()"
+    --MacroText = MacroText .. "\n/run WarGod.Rotation:RefreshRotation()"
     NagaButtons[Keybind]:SetAttribute("macrotext",MacroText);
 end
 

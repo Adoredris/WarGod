@@ -26,7 +26,7 @@ WGBM[bossString].DPSBlacklist = function(spell, unit, args)
             return true
         end
     end
-    if WarGod.Rotations.Delegates:UnitIsBreakableCrowdControlled(spell, unit, args) then
+    if WarGod.Rotation.Delegates:UnitIsBreakableCrowdControlled(spell, unit, args) then
         return true
     end
 end
@@ -98,14 +98,14 @@ WGBM[bossString].DamageCD = function(spell, unit, args)
         end
         return totalPercent >= 0.8
     end
-    --[[if WarGod.Unit.boss1.health_percent < 0.68 and WarGod.Unit.boss1.health_percent > 0.66 then
+    --[[if WarGod.Unit:GetUnit("boss1").health_percent < 0.68 and WarGod.Unit:GetUnit("boss1").health_percent > 0.66 then
         return
     end
-    if WarGod.Unit.boss1.health_percent < 0.35 and WarGod.Unit.boss1.health_percent > 0.33 then
+    if WarGod.Unit:GetUnit("boss1").health_percent < 0.35 and WarGod.Unit:GetUnit("boss1").health_percent > 0.33 then
         return
     end
     return true]]
-    --if WarGod.Unit.boss1.health_percent < 0.68 and WarGod. then
+    --if WarGod.Unit:GetUnit("boss1").health_percent < 0.68 and WarGod. then
 
     --end
 end

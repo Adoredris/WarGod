@@ -33,7 +33,7 @@ WGBM[bossString].DamageCD = function(spell, unit, args)
     --local targetName = UnitName("target")
 
     if DoingMythic() and (args[2] > 120) then
-        if WarGod.Unit.boss1:DebuffRemaining("Hardened Carapace","HELPFUL") == 0
+        if WarGod.Unit:GetUnit("boss1"):DebuffRemaining("Hardened Carapace","HELPFUL") == 0
                 or WarGod.Unit:GetPlayer():BuffRemaining("Time Warp","HELPFUL") > 0
                 or WarGod.Unit:GetPlayer():BuffRemaining("Heroism","HELPFUL") > 0 then
             return true

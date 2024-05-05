@@ -57,7 +57,7 @@ end
 WGBM[bossString].HealCD = function(spell, unit, args)
     local unitid = unit.unitid
     local combatTime = WarGod.Unit:GetPlayer():TimeInCombat()
-    if WarGod.Unit.boss1.health_percent < 0.65 then
+    if WarGod.Unit:GetUnit("boss1").health_percent < 0.65 then
         return
     end
 end

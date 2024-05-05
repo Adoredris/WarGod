@@ -17,7 +17,7 @@ WGBM[bossString].DPSBlacklist = function(spell, unit, args)
     local name = unit.unitid
 
     if name == "Incorporeal Being" then return true end
-    if WarGod.Rotations.Delegates:UnitIsBreakableCrowdControlled(spell, unit, args) then return true end
+    if WarGod.Rotation.Delegates:UnitIsBreakableCrowdControlled(spell, unit, args) then return true end
     if name == "Primalist Ravager" or name == "Primalist Geomancer" or name == "Primalist Defender" or name == "Containment Apparatus" then -- mobs fighting at entrance
         --if unit.health_percent < 0.80 then return end
         --if UnitThreatSituation(unitid .. "target", unitid) then return end

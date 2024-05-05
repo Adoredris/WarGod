@@ -59,7 +59,7 @@ WGBM[bossString].DPSBlacklist = function(spell, unit, args)
         end
         return true
     end
-    if name == "Remornia" and WarGod.Unit.boss1.health_percent < 0.4 then
+    if name == "Remornia" and WarGod.Unit:GetUnit("boss1").health_percent < 0.4 then
         return true
     end
 end

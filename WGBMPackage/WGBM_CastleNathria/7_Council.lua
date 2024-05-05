@@ -144,7 +144,7 @@ WGBM[bossString].Taunt = function(spell, unit, args)
     local unitid = unit.unitid
     if unit.name == bossString then
         if WarGod.Unit:GetPlayer():DebuffRemaining("Volatile Seed", "HARMFUL") <= 0 then
-            if WarGod.Unit.boss1target:DebuffRemaining("Volatile Seed", "HARMFUL") > 0 then
+            if WarGod.Unit:GetUnit("boss1target"):DebuffRemaining("Volatile Seed", "HARMFUL") > 0 then
                 print("Should Taunt")
                 --return true
             end

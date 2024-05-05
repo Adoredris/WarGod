@@ -44,21 +44,21 @@ end
 WGBM[bossString].DamageCD = function(spell, unit, args)
     local unitid = unit.unitid
     if UnitName("target") == "Deathseeker Eye" then
-        if WarGod.Unit.boss1.health_percent < 0.35 then
+        if WarGod.Unit:GetUnit("boss1").health_percent < 0.35 then
             if args[2] >= 120 then
                 return
             end
         end
         return true
     end
-    if WarGod.Unit.boss1.health_percent < 0.68 and WarGod.Unit.boss1.health_percent > 0.66 then
+    if WarGod.Unit:GetUnit("boss1").health_percent < 0.68 and WarGod.Unit:GetUnit("boss1").health_percent > 0.66 then
         return
     end
-    if WarGod.Unit.boss1.health_percent < 0.35 and WarGod.Unit.boss1.health_percent > 0.33 then
+    if WarGod.Unit:GetUnit("boss1").health_percent < 0.35 and WarGod.Unit:GetUnit("boss1").health_percent > 0.33 then
         return
     end
     return true
-    --if WarGod.Unit.boss1.health_percent < 0.68 and WarGod. then
+    --if WarGod.Unit:GetUnit("boss1").health_percent < 0.68 and WarGod. then
 
     --end
 end
@@ -66,7 +66,7 @@ end
 --[[WGBM[bossString].DamageCD = function(spell, unit, args)
     local unitid = unit.unitid
     if UnitName("target") == "Deathseeker Eye" then
-        if WarGod.Unit.boss1.health_percent < 0.35 then
+        if WarGod.Unit:GetUnit("boss1").health_percent < 0.35 then
             if args[2] >= 120 then
                 return
             end

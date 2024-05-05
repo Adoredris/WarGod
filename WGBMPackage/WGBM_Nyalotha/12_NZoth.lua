@@ -27,12 +27,12 @@ WGBM[bossString].DPSBlacklist = function(spell, unit, args)
         if (not UnitIsUnit(unitid, "target")) and (not UnitIsUnit(unitid, "mouseover")) then
             return true
         end
-    --[[elseif WarGod.Unit.boss1:BuffRemaining("Psychic Shell", "HELPFUL") == 0 then
+    --[[elseif WarGod.Unit:GetUnit("boss1"):BuffRemaining("Psychic Shell", "HELPFUL") == 0 then
         if name ~= "N'Zoth the Corruptor" and name ~= "Basher Tentacle" then
             return true
         end]]
     elseif name == "Psychophage" then
-        if CanPersonallySeeUnit(unit) or WarGod.Unit.boss1:BuffRemaining("Psychic Shell", "HELPFUL") == 0 then
+        if CanPersonallySeeUnit(unit) or WarGod.Unit:GetUnit("boss1"):BuffRemaining("Psychic Shell", "HELPFUL") == 0 then
             return
         else
             return true

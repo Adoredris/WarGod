@@ -43,7 +43,7 @@ end
         elseif unit:BuffRemaining("Divine Protection","HELPFUL") > 0 then
             return true
         elseif name ~= altName then
-            if (not WarGod.Control:SafeMode()) and WarGod.Unit.boss1:BuffRemaining("Seal of Retribution", "HELPFUL") > 0 then
+            if (not WarGod.Control:SafeMode()) and WarGod.Unit:GetUnit("boss1"):BuffRemaining("Seal of Retribution", "HELPFUL") > 0 then
                 return true
             end
         end
@@ -99,7 +99,7 @@ WGBM[bossString].Priority = function(spell, unit, args)
             elseif unit:BuffRemaining("Divine Protection","HELPFUL") > 0 then
                 return 0
             elseif name ~= altName then
-                if (not WarGod.Control:SafeMode()) and WarGod.Unit.boss1:BuffRemaining("Seal of Retribution", "HELPFUL") > 0 then
+                if (not WarGod.Control:SafeMode()) and WarGod.Unit:GetUnit("boss1"):BuffRemaining("Seal of Retribution", "HELPFUL") > 0 then
                     if unit.health_percent < 0.5 or name ~= "Zandalari Crusader" then
                         return 0
                     end

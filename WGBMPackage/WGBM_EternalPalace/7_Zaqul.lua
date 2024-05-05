@@ -31,7 +31,7 @@ WGBM[bossString].DPSBlacklist = function(spell, unit, args)
         print(name .. " not in phase")
         return true
     end
-    local bosshppercent = WarGod.Unit.boss1.health_percent
+    local bosshppercent = WarGod.Unit:GetUnit("boss1").health_percent
     if --[[bosshppercent < 0.8 and ]]unit.name == "Horrific Summoner" then
         if UnitChannelInfo(unitid) == "Fear's Gate" then
             if WarGod.Unit:GetPlayer():DebuffRemaining("Fear Realm","HARMFUL") <= 0 then
@@ -139,12 +139,12 @@ end
 WGBM[bossString].DamageCD = function(spell, unit, args)
     if WarGod.Unit.active_enemies > 0 then
         if args[2] >= 150 then
-            if WarGod.Unit.boss1.health_percent < 0.55 and WarGod.Unit.boss1.health_percent > 0.39 then
+            if WarGod.Unit:GetUnit("boss1").health_percent < 0.55 and WarGod.Unit:GetUnit("boss1").health_percent > 0.39 then
                 return
             end
             return true
         elseif args[2] >= 90 then
-            if WarGod.Unit.boss1.health_percent < 0.45 and WarGod.Unit.boss1.health_percent > 0.39 then
+            if WarGod.Unit:GetUnit("boss1").health_percent < 0.45 and WarGod.Unit:GetUnit("boss1").health_percent > 0.39 then
                 return
             end
             return true

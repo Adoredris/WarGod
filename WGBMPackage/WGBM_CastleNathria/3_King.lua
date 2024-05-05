@@ -20,13 +20,13 @@ WGBM[bossString].Priority = function(spell, unit, args)
         return 0
     end
     if name == "Reborn Phoenix" then
-        local boss1hpPercent = UnitExists("boss1") and WarGod.Unit.boss1.health_percent or 1
-        local boss2hpPercent = UnitExists("boss2") and WarGod.Unit.boss2.health_percent or 1
+        local boss1hpPercent = UnitExists("boss1") and WarGod.Unit:GetUnit("boss1").health_percent or 1
+        local boss2hpPercent = UnitExists("boss2") and WarGod.Unit:GetUnit("boss2").health_percent or 1
         if unit.health_percent > 0.9 then
             return 0
         end
-        local boss1hpPercent = UnitExists("boss1") and WarGod.Unit.boss1.health_percent or 1
-        local boss2hpPercent = UnitExists("boss2") and WarGod.Unit.boss2.health_percent or 1
+        local boss1hpPercent = UnitExists("boss1") and WarGod.Unit:GetUnit("boss1").health_percent or 1
+        local boss2hpPercent = UnitExists("boss2") and WarGod.Unit:GetUnit("boss2").health_percent or 1
         if boss2hpPercent > 0.4 and boss2hpPercent < 0.47 then
             return 0
         end
@@ -90,7 +90,7 @@ WGBM[bossString].DPSBlacklist = function(spell, unit, args)
     if name == "Reborn Phoenix" and unit.health_percent > 0.90 then
         return true
     end
-    if WarGod.Unit.boss2:BuffRemaining("Cloak of Flames", "HELPFUL") > 0 then
+    if WarGod.Unit:GetUnit("boss2"):BuffRemaining("Cloak of Flames", "HELPFUL") > 0 then
         if name == "Shade of Kael'thas" then
             return
         else
@@ -102,9 +102,9 @@ end
 
 WGBM[bossString].DamageCD = function(spell, unit, args)
     if DoingMythic() then
-        if WarGod.Unit.boss2:BuffRemaining("Cloak of Flames", "HELPFUL") > 0 then
+        if WarGod.Unit:GetUnit("boss2"):BuffRemaining("Cloak of Flames", "HELPFUL") > 0 then
             if UnitClass("player") == "Druid" and GetSpecialization() == 1 then
-                if WarGod.Rotations.rotationFrames["Balance"]["Celestial Alignment"]:CDRemaining() <= 0.5 then
+                if WarGod.Rotation.rotationFrames["Balance"]["Celestial Alignment"]:CDRemaining() <= 0.5 then
                     return true, true
                 end
             else

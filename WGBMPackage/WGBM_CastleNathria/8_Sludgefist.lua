@@ -48,10 +48,10 @@ end
 
 WGBM[bossString].DamageCD = function(spell, unit, args)
     local now = GetTime()
-    if WarGod.Unit.boss1:BuffRemaining("Destructive Impact","HELPFUL") > 0 then
+    if WarGod.Unit:GetUnit("boss1"):BuffRemaining("Destructive Impact","HELPFUL") > 0 then
         return true
     end
-    if WarGod.Unit.boss1.health_percent < 0.2 then
+    if WarGod.Unit:GetUnit("boss1").health_percent < 0.2 then
         return true
     end
     --[[for msg,time in pairs(WGBM.timers) do
@@ -95,7 +95,7 @@ end
 WGBM[bossString].BurstUnit = function(spell, unit, args)
     local unitid = unit.unitid
     local name = unit.name
-    local remains = WarGod.Unit.boss1:BuffRemaining("Destructive Impact","HELPFUL")
+    local remains = WarGod.Unit:GetUnit("boss1"):BuffRemaining("Destructive Impact","HELPFUL")
     if remains > 0 and remains < 4 then
         return true
     end

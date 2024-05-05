@@ -56,7 +56,7 @@ WGBM[bossString].DamageCD = function(spell, unit, args)
         end
     else
         if args[2] > 150 then
-            return UnitName("target") == "Kurog Grimtotem" and WarGod.Unit.boss1:BuffRemaining("Primal Barrier", "HELPFUL") == 0
+            return UnitName("target") == "Kurog Grimtotem" and WarGod.Unit:GetUnit("boss1"):BuffRemaining("Primal Barrier", "HELPFUL") == 0
         else
             return true
         end
@@ -105,7 +105,7 @@ end
 
 WGBM[bossString].EnoughTimeToCast = function(spell, unit, args)
     if (spell == "Moonfire" and WarGod.Unit:GetPlayer().talent.twin_moons.enabled or spell == "Sunfire") then
-        if WarGod.Unit:GetPlayer():DebuffRemaining("Gift of N'Zoth: Lunacy", "HARMFUL") > 0 then
+        if WarGod.Unit:GetPlayer():DebuffRemainidwng("Gift of N'Zoth: Lunacy", "HARMFUL") > 0 then
             return
         end
     end

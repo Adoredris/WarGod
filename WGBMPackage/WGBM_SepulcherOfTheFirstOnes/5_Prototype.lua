@@ -33,7 +33,7 @@ WGBM[bossString].DPSBlacklist = function(spell, unit, args)
             return
         elseif WarGod.Unit:GetPlayer():TimeInCombat() > 180 then
             if DoingMythic() then
-                if WarGod.Unit.boss1.health_percent > 0.5 and WarGod.Unit.boss2.health_percent > 0.5 and WarGod.Unit.boss3.health_percent > 0.5 and WarGod.Unit.boss4.health_percent > 0.5 then
+                if WarGod.Unit:GetUnit("boss1").health_percent > 0.5 and WarGod.Unit:GetUnit("boss2").health_percent > 0.5 and WarGod.Unit.boss3.health_percent > 0.5 and WarGod.Unit.boss4.health_percent > 0.5 then
                     return true
                 end
             else

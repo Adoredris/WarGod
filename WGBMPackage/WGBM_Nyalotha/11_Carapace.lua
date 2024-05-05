@@ -55,7 +55,7 @@ WGBM[bossString].DPSBlacklist = function(spell, unit, args)
         if UnitIsUnit(unitid, "target") or UnitIsUnit(unitid, "mouseover") then
             return
         elseif name == "Fury of N'Zoth" then
-            if WarGod.Unit.boss1:DebuffRemaining("Synthesis","HELPFUL") > 0 or unit.health_percent > 0.5 then
+            if WarGod.Unit:GetUnit("boss1"):DebuffRemaining("Synthesis","HELPFUL") > 0 or unit.health_percent > 0.5 then
                 return true
             end
         elseif name == "Mycelial Cyst" then
