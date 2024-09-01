@@ -107,6 +107,7 @@ end
 local function BindMacro (MacroText, Keybind, optIcon)
     NagaButtons[Keybind] = CreateFrame("Button", Keybind, UIParent, "SecureActionButtonTemplate");
     NagaButtons[Keybind]:SetAttribute("type","macro");
+    NagaButtons[Keybind]:RegisterForClicks("AnyDown","AnyUp")
     SetOverrideBindingClick(NagaButtons[Keybind], true, Keybind, Keybind);
     --MacroText = MacroText .. "\n/run WarGod.Rotation:RefreshRotation()"
     NagaButtons[Keybind]:SetAttribute("macrotext",MacroText);
@@ -251,3 +252,4 @@ frame:SetScript("OnEvent", function(self, event, ...)
     end
 end)
 frame:RegisterEvent("PLAYER_REGEN_ENABLED")
+--print('NAGA SHIT LOADED')

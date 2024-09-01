@@ -1,4 +1,9 @@
 local Rotation = WarGod.Rotation
+local function IsItemInRange()
+    print('please define a player.maxHarmRangeSpell')
+    print('please define a player.maxHelpRangeSpell')
+end
+
 setfenv(1, Rotation)
 
 function IsValidEnemy(self, unit, args)

@@ -4,7 +4,8 @@ setfenv(1, WarGod.Binder)
 
 QueueSpellBind("Potion of Spectral Intellect", groups.noone, {prefix = "/use"})
 
-QueueSpellBind("Celestial Alignment", groups.noone, {suffix = "\n/cqs", prefix = "/cancelaura Starlord\n/stopmacro [channeling:Convoke the Spirits]\n/cast [talent:5/3] Ravenous Frenzy\n/cast Kindred Spirits\n/cast ", when = {[MatchesSpec]=1}})
+QueueSpellBind("Celestial Alignment", groups.cursor, {suffix = "\n/cqs", prefix = "/cancelaura Starlord\n/stopmacro [channeling:Convoke the Spirits]\n/cast [talent:5/3] Ravenous Frenzy\n/cast Kindred Spirits\n/cast ", when = {[MatchesSpec]=1}})
+QueueSpellBind("Incarnation: Chosen of Elune", groups.cursor, {suffix = "\n/cqs", prefix = "/cancelaura Starlord\n/stopmacro [channeling:Convoke the Spirits]\n/cast [talent:5/3] Ravenous Frenzy\n/cast Kindred Spirits\n/cast ", when = {[MatchesSpec]=1}})
 --QueueSpellBind("Celestial Alignment", groups.noone, {suffix = "\n/cqs\n/use 14", prefix = "/cancelaura Starlord\n/stopmacro [channeling:Convoke the Spirits]\n/cast Berserking\n/cast ", when = {[MatchesSpec]=1}})
 --QueueSpellBind("Celestial Alignment", groups.noone, {prefix = "/cast Berserking\n/use 13\n/use 14\n/cast ", when = {[MatchesSpec]=1}})
 

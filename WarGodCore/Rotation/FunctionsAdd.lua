@@ -45,7 +45,7 @@ function AddSpell(spec, spell, t)
     self.curScore = 0
 
     self.Ready = self.Ready or t.Ready or SpellReady
-    self.CDRemaining = CDRemaining
+    self.CDRemaining = self.CDRemaining or t.CDRemaining or CDRemaining
     self.Interrupt = t.Interrupt or self.Interrupt
 
     self.maxScore = self.maxScore or 0       -- this will be used to suspend the onupdate of this frame by comparing to current overall maxScore

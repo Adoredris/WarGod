@@ -19,10 +19,9 @@ local WarGodUnit = WarGod.Unit
 local WarGodControl = WarGod.Control
 
 local GetShapeshiftForm = GetShapeshiftForm
-local GetSpellInfo = GetSpellInfo
+local GetSpellInfo = C_Spell.GetSpellInfo
 local GetNumGroupMembers = GetNumGroupMembers
 local GetSpecialization = GetSpecialization
-local GetSpellCount = GetSpellCount
 local UnitInRaid = UnitInRaid
 
 
@@ -62,4 +61,13 @@ do
         label = "Sunfire Filler",
         andDelegates = {Delegates.IsSpellInRange, Delegates.UnitIsEnemy},
     })]]
+
+    AddSpellFunction("Balance", "Regrowth",4,{
+        -- using stacks because it avoids checking a function
+        func = function(self)
+            return buff.frenzied_regeneration:Down() and Delegates:UnitUnderXPercentHealthPredicted(self.spell, player, {percent = 0.9}) and (not Delegates:FriendlyBlacklistWrapper(self.spell, player, {}))-- and player:DebuffRemaining("Well-Honed Instincts", "HARMFUL") > 0
+        end,
+        units = groups.player,
+        label = "Regrowth Bored"
+    })
 end

@@ -51,6 +51,7 @@ function GetNumLowGroupMembers()
 end
 
 do
+
     AddSpellFunction("Balance", "Regrowth",23900,{
         func = function(self) return true end,
         units = groups.targetable,
@@ -61,7 +62,7 @@ do
         maxRange = 45,
     })
 
-    AddSpellFunction("Balance", "Swiftmend",23500,{
+    --[[AddSpellFunction("Balance", "Swiftmend",23500,{
         func = function(self) return true end,
         units = groups.targetable,
         label = "Swiftmend to Top",
@@ -69,7 +70,7 @@ do
         --args = {threshold = 4.5},
         helpharm = "help",
         maxRange = 45,
-    })
+    })]]
 
     AddSpellFunction("Balance", "Rejuvenation",23000,{
         func = function(self) return true end,
@@ -109,7 +110,9 @@ do
 
     AddSpellFunction("Balance", "Regrowth",12015,{
         -- using stacks because it avoids checking a function
-        func = function(self) return buff.celestial_alignment:Stacks() < 1 and buff.incarnation_chosen_of_elune:Stacks() < 1 and buff.frenzied_regeneration.down and player:DebuffRemaining("Well-Honed Instincts", "HARMFUL") > 0 and Delegates:UnitUnderXPercentHealthPredicted(self.spell, player, {percent = 0.5}) and (not Delegates:FriendlyBlacklistWrapper(self.spell, player, {})) end,
+        func = function(self)
+            return buff.celestial_alignment:Stacks() < 1 and buff.incarnation_chosen_of_elune:Stacks() < 1 and buff.frenzied_regeneration:Down() and Delegates:UnitUnderXPercentHealthPredicted(self.spell, player, {percent = 0.5}) and (not Delegates:FriendlyBlacklistWrapper(self.spell, player, {}))-- and player:DebuffRemaining("Well-Honed Instincts", "HARMFUL") > 0
+        end,
         units = groups.player,
         label = "Regrowth Player",
         --andDelegates = {Delegates.UnitUnderXPercentHealthPredicted},
@@ -122,7 +125,7 @@ do
 
     AddSpellFunction("Balance", "Regrowth",12013,{
         -- using stacks because it avoids checking a function
-        func = function(self) return buff.celestial_alignment:Stacks() < 1 and buff.incarnation_chosen_of_elune:Stacks() < 1 and (--[[WarGodUnit.active_enemies < 1 or ]](not UnitInRaid("player")) or IsActiveBattlefieldArena()) and (buff.moonkin_form:Stacks() > 0 or GetShapeshiftForm() == 0) end,
+        func = function(self) return buff.celestial_alignment:Stacks() < 1 and buff.incarnation_chosen_of_elune:Stacks() < 1 and ((not UnitInRaid("player")) or IsActiveBattlefieldArena()) and (buff.moonkin_form:Stacks() > 0 or GetShapeshiftForm() == 0) end,
         units = groups.targetable,
         label = "Regrowth Others",
         ["andDelegates"] = {Delegates.IsSpellInRange, Delegates.UnitUnderXPercentHealthPredicted, Delegates.NotFriendlyBlacklistWrapper, Delegates.UnitIsNotPlayer},
@@ -155,7 +158,7 @@ do
     })
 
     -- swiftmend
-    AddSpellFunction("Balance", "Swiftmend",12035,{
+    --[[AddSpellFunction("Balance", "Swiftmend",12035,{
         -- using stacks because it avoids checking a function
         func = function(self) return player.health_percent < 0.7 and buff.frenzied_regeneration.down and player:DebuffRemaining("Well-Honed Instincts", "HARMFUL") > 0 and Delegates:UnitHasHot(self.spell, player, {}) and GetShapeshiftForm() == 0 and (not Delegates:FriendlyBlacklistWrapper(self.spell, player, {}))  end,
         units = groups.player,
@@ -176,7 +179,7 @@ do
         helpharm = "help",
         maxRange = 45,
         IsUsable = function() return player:Mana_Percent() > 0.35 and talent.swiftmend.enabled and (buff.moonkin_form:Stacks() > 0 or GetShapeshiftForm() == 0 or buff.cat_form:Stacks() > 0) end,
-    })
+    })]]
 
     AddSpellFunction("Balance", "Rejuvenation",12010,{
         func = function(self)

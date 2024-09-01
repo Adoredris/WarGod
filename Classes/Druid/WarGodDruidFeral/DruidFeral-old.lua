@@ -39,7 +39,7 @@ local WarGodRotations = WarGod.Rotation
 ----------------------------------------------------------
 local GetTime = GetTime
 local CombatLogGetCurrentEventInfo = CombatLogGetCurrentEventInfo
-local GetSpellInfo = GetSpellInfo
+local GetSpellInfo = C_Spell.GetSpellInfo
 local GetPowerRegen = GetPowerRegen
 local WarGodSpells = WarGod.Rotation.rotationFrames["Feral"]
 
@@ -252,7 +252,7 @@ end
 
 --WarGodRotations:RegisterForceCast("Regrowth", "player")
 WarGodRotations:RegisterForceCast("Swiftmend", "player")
-WarGodRotations:RegisterForceCast("Rebirth", "mouseover")
+--WarGodRotations:RegisterForceCast("Rebirth", "mouseover")
 WarGodRotations:RegisterForceCast("Soothe", "target")
 WarGodRotations:RegisterForceCast("Travel Form")
 WarGodRotations:RegisterForceCast("Cat Form")

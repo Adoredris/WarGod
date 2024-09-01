@@ -20,10 +20,9 @@ local WarGodUnit = WarGod.Unit
 local WarGodControl = WarGod.Control
 
 local GetShapeshiftForm = GetShapeshiftForm
-local GetSpellInfo = GetSpellInfo
+local GetSpellInfo = C_Spell.GetSpellInfo
 local GetNumGroupMembers = GetNumGroupMembers
 local GetSpecialization = GetSpecialization
-local GetSpellCount = GetSpellCount
 local UnitInRaid = UnitInRaid
 local IsUsableSpell = IsUsableSpell
 
@@ -76,7 +75,20 @@ do
             if variable.is_aoe then return end
             return ((LustRemaining() > 0 and LustRemaining() < 32) or player:BuffRemaining("Power Infusion","HELPFUL") > 0) and talent.incarnation_chosen_of_elune.enabled
         end,
-        units = groups.noone,
+        units = groups.cursor,
+        label = "Incarn Fast",
+        helpharm = "harm",
+        maxRange = 40,
+        quick = true,
+        offgcd = true,
+
+    })
+    AddSpellFunction("Balance","Incarnation: Chosen of Elune",baseScore + 998,{
+        func = function(self)
+            if variable.is_aoe then return end
+            return ((LustRemaining() > 0 and LustRemaining() < 32) or player:BuffRemaining("Power Infusion","HELPFUL") > 0) and talent.incarnation_chosen_of_elune.enabled
+        end,
+        units = groups.cursor,
         label = "Incarn Fast",
         helpharm = "harm",
         maxRange = 40,
@@ -165,7 +177,11 @@ do
         units = groups.noone,
         label = "WoE (ST)",
         quick = true,
-        IsUsable = function(self) return talent.warrior_of_elune and buff.warrior_of_elune:Stacks() < 1 and (buff.moonkin_form:Stacks() > 0 or GetShapeshiftForm() == 0)end
+        --Castable = function(self) return talent.warrior_of_elune and buff.warrior_of_elune:Stacks() < 1 and (buff.moonkin_form:Stacks() > 0 or GetShapeshiftForm() == 0)end
+        IsUsable = function(self)
+            if not player.combat then return end
+            return talent.warrior_of_elune and buff.warrior_of_elune:Stacks() < 1 and (buff.moonkin_form:Stacks() > 0 or GetShapeshiftForm() == 0)
+        end
     })
 
     AddSpellFunction("Balance","Starfire",baseScore + 800,{
@@ -208,7 +224,7 @@ do
         maxRange = 45,
     })
 
-    AddSpellFunction("Balance","Celestial Alignment",baseScore + 780,{
+    AddSpellFunction("Balance","Celestial Alignment",baseScore + 781,{
         func = function(self)
             if variable.is_aoe then return end
             --if WarGodControl:AOEMode() then return end
@@ -216,14 +232,42 @@ do
             if buff_ca_inc:Up() then return end
             return eclipse:In_Any()
         end,
-        units = groups.noone,
-        label = "Incarn",
+        units = groups.cursor,
+        label = "CA",
         helpharm = "harm",
         maxRange = 40,
         quick = true,
         offgcd = true,
         IsUsable = function(self)
             if not talent.celestial_alignment.enabled then --[[print("don't have CA") ]]return end
+            if talent.incarnation_chosen_of_elune.enabled then return end
+
+            if WarGodControl:AllowCDs() or LustRemaining() > 0 and (LustRemaining() < 32 or eclipse:In_Any())  or player:BuffRemaining("Power Infusion", "HELPFUL") > 0 then
+                --print('2/3 usable')
+                if Delegates:DamageCDWrapper(self.spell, WarGodUnit:GetTarget(), {15, 180}) and player.combat and WarGodUnit.active_enemies > 0 and buff_ca_inc:Down() and (buff.moonkin_form:Stacks() > 0 or GetShapeshiftForm() == 0) then
+                    --print('usable')
+                    return true
+                end
+            end
+        end,
+    })
+
+    AddSpellFunction("Balance","Incarnation: Chosen of Elune",baseScore + 780,{
+        func = function(self)
+            if variable.is_aoe then return end
+            --if WarGodControl:AOEMode() then return end
+            --local lustRemains = LustRemaining()
+            if buff_ca_inc:Up() then return end
+            return eclipse:In_Any()
+        end,
+        units = groups.cursor,
+        label = "Incarn",
+        helpharm = "harm",
+        maxRange = 40,
+        quick = true,
+        offgcd = true,
+        IsUsable = function(self)
+            if not talent.incarnation_chosen_of_elune.enabled then return end
 
             if WarGodControl:AllowCDs() or LustRemaining() > 0 and (LustRemaining() < 32 or eclipse:In_Any())  or player:BuffRemaining("Power Infusion", "HELPFUL") > 0 then
                 --print('2/3 usable')
@@ -321,12 +365,12 @@ do
 
     AddSpellFunction("Balance","New Moon",baseScore + 625,{
         func = function(self)
-            if variable.is_aoe then return end
+            --if variable.is_aoe then return end
             --if WarGodControl:AOEMode() then return end
             local execute_time = 0.1
-            if AP_Check(self.spell) and charges.new_moon:Fractional() >= 2.75 then
+            if AP_Check(self.spell) then
                 if player.casting == nil or (not strmatch(player.casting, "Moon$")) then
-                    local moonName = GetSpellInfo("New Moon")
+                    local moonName = GetSpellInfo("New Moon").name
                     if moonName == "New Moon" then
                         return true
                     else
@@ -341,9 +385,14 @@ do
         label = "Moon (High Charges)",
         andDelegates = {Delegates.IsSpellInRange},
         helpharm = "harm",
+        Castable = function(self)
+            local castTime = CastTimeFor(self.spell)
+            return castTime == 0 and Delegates:EnoughTimeToCastWrapper(self.spell, player, {}) or
+                    (not IsMoving() and Delegates:EnoughTimeToCastWrapper(self.spell, player, {}) and Delegates:MoveInWrapper(self.spell, player, {}) > CastTimeFor(self.spell)) end,
         IsUsable = function(self) return talent.new_moon.enabled and (charges.new_moon:Fractional() >= 2 or charges.new_moon:Fractional() >= 1 and (player.casting == nil or (not strmatch(player.casting,"Moon$")))) and (buff.moonkin_form:Stacks() > 0 or GetShapeshiftForm() == 0) end,
         maxRange = 45,
     })
+
 
     AddSpellFunction("Balance","Starsurge",baseScore + 600,{
         func = function(self)
@@ -396,6 +445,32 @@ do
         helpharm = "harm",
         maxRange = 45,
         quick = true,
+    })
+
+    AddSpellFunction("Balance","New Moon",baseScore + 315,{
+        func = function(self)
+            if variable.is_aoe then return end
+            --if WarGodControl:AOEMode() then return end
+            local execute_time = 0.1
+            if AP_Check(self.spell) then
+                if buff_ca_inc:Up() or charges.new_moon:Fractional() > 2.5 and buff.primordial_arcanic_pulsar:Value() <= 520 and WarGodSpells["Celestial Alignment"]:CDRemaining() > 10 then
+                    if player.casting == "Full Moon" or player.casting ~= "New Moon" and GetSpellInfo("New Moon").name == "New Moon" then
+                        return buff_ca_inc:Up() or charges.new_moon:Fractional() > 2.5 and buff.primordial_arcanic_pulsar:Value() <= 520 and WarGodSpells["Celestial Alignment"]:CDRemaining() > 10
+                    else
+                        if player.casting == "New Moon" or player.casting ~= "Half Moon" and GetSpellInfo("New Moon").name == "Half Moon" then
+                            return buff.eclipse_solar:Remains() > 2 / (player.spell_haste / 100 + 1) or buff.eclipse_lunar:Remains() > 2 / (player.spell_haste / 100 + 1)
+                        else
+                            return buff.eclipse_solar:Remains() > 3 / (player.spell_haste / 100 + 1) or buff.eclipse_lunar:Remains() > 3 / (player.spell_haste / 100 + 1)
+                        end
+                    end
+                end
+
+            end
+
+        end,
+        units = groups.targetable,
+        label = "Moon (AOE)",
+        andDelegates = {Delegates.IsSpellInRange},
     })
 
     AddSpellFunction("Balance","Wrath",baseScore + 590,{

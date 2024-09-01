@@ -1,0 +1,10 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <Include file="Arakara\AKCoE.xml"/>
+    <Include file="CinderbrewMeadery\CM.xml"/>
+    <Include file="CityofThreads\CoT.xml"/>
+    <Include file="DarkflameCleft\DC.xml"/>
+    <Include file="Dawnbreaker\Dawnbreaker.xml"/>
+    <Include file="Priory\Priory.xml"/>
+    <Include file="Rookery\Rookery.xml"/>
+    <Include file="Stonevault\Stonevault.xml"/>
+</Ui>

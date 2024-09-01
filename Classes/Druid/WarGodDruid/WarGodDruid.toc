@@ -5,6 +5,7 @@
 ## Dependencies: WarGodClass, WarGodDruidBinds
 ## X-Child-Of: WarGod
 
+## LoadOnDemand: 1
 ## LoadManagers: AddonLoader
 
 Druid.lua

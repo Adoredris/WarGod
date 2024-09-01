@@ -1,0 +1,6 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <Script file="1_Avanoxx.lua"/>
+    <Script file="2_Anubzekt.lua"/>
+    <Script file="3_Kikatal.lua"/>
+    <Script file="AKCoE_Trash.lua"/>
+</Ui>

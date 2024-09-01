@@ -171,8 +171,8 @@ do
 
                 end]]
                 self.name = gsub(gsub(gsub(simcName, "^%a", strupper), "_%a", strupper), "_", " ")
-                if (GetSpellInfo(self.name)) then
-                    self.id = select(7, GetSpellInfo(self.name))
+                if (GetSpellInfo(self.name).name) then
+                    self.id = GetSpellInfo(self.name).spellID
                     self:Update()
                 else
                     unverified[simcName] = true
@@ -200,7 +200,7 @@ do
         --print(event)
         if unitid == "player" then
             --print(event)
-            local spellname = GetSpellInfo(spellId)
+            local spellname = GetSpellInfo(spellId).name
             if (spellname) then
                 local simcName = SimcraftifyString(spellname)
                 if (unverified[simcName]) then
@@ -257,23 +257,26 @@ do
                         if node and node.ID ~= 0 then
                             for _, talentId in ipairs(node.entryIDs) do
                                 local entryInfo = GetEntryInfo(configId, talentId)
-                                local definitionInfo = GetDefinitionInfo(entryInfo.definitionID)
+                                if entryInfo.definitionID then
+                                    --print(entryInfo.definitionID)
+                                    local definitionInfo = GetDefinitionInfo(entryInfo.definitionID)
 
-                                local talentName = GetSpellInfo(definitionInfo.spellID)
-                                if (SimcraftifyString(talentName) == simcName) then
-                                    self.name = talentName
-                                    self.treeId = treeId
-                                    self.nodeId = nodeId
-                                    self.talentId = talentId
-                                    if node.activeEntry
-                                            and node.activeEntry.entryID == talentId then
-                                        self.rank = node.currentRank
+                                    local talentName = GetSpellInfo(definitionInfo.spellID).name
+                                    if (SimcraftifyString(talentName) == simcName) then
+                                        self.name = talentName
+                                        self.treeId = treeId
+                                        self.nodeId = nodeId
+                                        self.talentId = talentId
+                                        if node.activeEntry
+                                                and node.activeEntry.entryID == talentId then
+                                            self.rank = node.currentRank
 
-                                        if node.currentRank > 0 then
-                                            self.enabled = true
+                                            if node.currentRank > 0 then
+                                                self.enabled = true
+                                            end
                                         end
-                                    end
 
+                                    end
                                 end
                             end
                         end
@@ -300,7 +303,8 @@ do
         local configId = GetActiveConfigID()
         if configId then
             for k,v in pairs(trait) do
-                if (not v.nodeId) then print(v.name) else
+                if (not v.nodeId) then print(v.name .. 'not found')
+                else
                     local node = GetNodeInfo(configId, v.nodeId)
                     if node.activeEntry
                     --[[and node.activeEntry.entryID == talentId]] then
@@ -536,7 +540,7 @@ do
             if (loc:IsValid() and C_AzeriteEmpoweredItem.IsAzeriteEmpoweredItem(loc)) then
                 for ringNum,ringTable in pairs(C_AzeriteEmpoweredItem.GetAllTierInfo(loc)) do
                     for index,azeritePowerID in pairs(ringTable.azeritePowerIDs) do
-                        local traitName = GetSpellInfo(C_AzeriteEmpoweredItem.GetPowerInfo(azeritePowerID).spellID)
+                        local traitName = GetSpellInfo(C_AzeriteEmpoweredItem.GetPowerInfo(azeritePowerID).spellID).name
                         --print(traitName .. ringNum)
                         if (SimcraftifyString(traitName) == simcName) then
                             return traitName
@@ -581,7 +585,7 @@ do
                 for ringNum,ringTable in pairs(C_AzeriteEmpoweredItem.GetAllTierInfo(loc)) do
                     for index,azeritePowerID in pairs(ringTable.azeritePowerIDs) do
                         if C_AzeriteEmpoweredItem.IsPowerSelected(loc,azeritePowerID) then
-                            if self.name == GetSpellInfo(C_AzeriteEmpoweredItem.GetPowerInfo(azeritePowerID).spellID) then
+                            if self.name == GetSpellInfo(C_AzeriteEmpoweredItem.GetPowerInfo(azeritePowerID).spellID).name then
                                 self.rank = self.rank + 1
                             end
 
@@ -662,7 +666,7 @@ do
 
     function History:UNIT_SPELLCAST_START(event, unitId, lineId, spellId)
         if (unitId == "player") then
-            local spellName = GetSpellInfo(spellId)
+            local spellName = GetSpellInfo(spellId).name
             if lastLineIds[lineId] then
 
                 if spellName then
@@ -693,7 +697,7 @@ do
     function History:UNIT_SPELLCAST_CHANNEL_START(event, unitId, lineId, spellId)
         if (unitId == "player") then
             --print("UNIT_SPELLCAST_CHANNEL_START: " .. lineId) -- this event never seems to happen
-            local spellName = GetSpellInfo(spellId)
+            local spellName = GetSpellInfo(spellId).name
             if lastLineIds[lineId] then
                 --print("a")
 
@@ -734,7 +738,7 @@ do
     function History:UNIT_SPELLCAST_FAILED(event, unitId, lineId, spellId)
         if (unitId == "player") then
             if lastLineIds[lineId] then
-                local spellName = GetSpellInfo(spellId)
+                local spellName = GetSpellInfo(spellId).name
                 if spellName--[[ and damageSpells[spellName] ]]then
                     player.prev_gcd = prev_prev_gcd
                     prev_prev_gcd = ""
@@ -748,7 +752,7 @@ do
     function History:UNIT_SPELLCAST_SUCCEEDED(event, unitId, lineId, spellId)
         if (unitId == "player") then
             if lastLineIds[lineId] then
-                local spellName = GetSpellInfo(spellId)
+                local spellName = GetSpellInfo(spellId).name
                 --print(spellName)
                 if spellName--[[ and damageSpells[spellName] ]]then
                     --print(spellName .. " succeeded")
@@ -933,7 +937,7 @@ do
 
     function Blacklist:UNIT_SPELLCAST_SENT(event, unitId, targetName, lineId, spellId)
         if (unitId == "player") then
-            local spellName = GetSpellInfo(spellId)
+            local spellName = GetSpellInfo(spellId).name
             --print(spellName)
             if spellName then
                 if (rawget(spells, spellName)) then
@@ -949,7 +953,7 @@ do
                         print(...)
                     end]]
 
-                    if (GetSpellInfo(player.queuedSpell) == spellName and UnitName(player.queuedUnitId) == targetName) then
+                    if (GetSpellInfo(player.queuedSpell).name == spellName and UnitName(player.queuedUnitId) == targetName) then
                         --print("ooga booga")
                         --print(player.queuedGUID)
                         playerSpells[lineId].guid = player.queuedGUID--UnitGUID(unitId)
@@ -1007,10 +1011,11 @@ do
                 end
                 lastError = ""
             else
-                local spellName = GetSpellInfo(spellId)
+                local spellName = GetSpellInfo(spellId).name
                 --print("Attempted: " .. spellName)
                 --print(player.queuedSpell)
-                if spellName == GetSpellInfo(player.queuedSpell) and player.queuedUnitId then
+                local queuedSpellInfo = player.queuedSpell and GetSpellInfo(player.queuedSpell)
+                if spellName == (queuedSpellInfo and queuedSpellInfo.name) and player.queuedUnitId then
                     if (lastError == errorLos or lastError == errorInvalid or lastError == errorObscured) then
                         --if ()
                         TempBlacklist(player.queuedGUID)
@@ -1047,7 +1052,7 @@ do
     function Blacklist:UNIT_SPELLCAST_START(event, unitId, lineId, spellId)
         --print(' ' .. unitId)
         if (unitId == "player") then
-            local spellName = GetSpellInfo(spellId)
+            local spellName = GetSpellInfo(spellId).name
             if spellName then
                 if (rawget(spells, spellName)) then
                     ClearTempBlacklist()
@@ -1068,7 +1073,7 @@ do
 
     function Blacklist:UNIT_SPELLCAST_SUCCEEDED(event, unitId, lineId, spellId)
         if (unitId == "player") then
-            local spellName = GetSpellInfo(spellId)
+            local spellName = GetSpellInfo(spellId).name
             if spellName then
                 if (rawget(spells, spellName)) then
                     ClearTempBlacklist()
@@ -1086,7 +1091,7 @@ do
 
     function Blacklist:UNIT_SPELLCAST_CHANNEL_START(event, unitId, lineId, spellId)
         if (unitId == "player") then
-            local spellName = GetSpellInfo(spellId)
+            local spellName = GetSpellInfo(spellId).name
             if spellName then
                 if (rawget(spells, spellName)) then
                     ClearTempBlacklist()
@@ -1302,7 +1307,7 @@ do
             duration=0;
         end
         return start + duration - GetTime()]]
-        print(self)
+        print('ItemCDRemaining')
     end
 
     setmetatable(equipped, {

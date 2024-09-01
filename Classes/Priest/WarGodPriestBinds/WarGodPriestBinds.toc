@@ -1,0 +1,10 @@
+## Interface: 90001
+## Title: WarGod Priest Binds
+## Author: Ikevink
+## Version: 1.0
+## Dependencies: WarGod
+## X-Child-Of: WarGod
+## X-LoadOn-Class: Priest
+
+embeds.xml
+WarGodPriestBinds.lua

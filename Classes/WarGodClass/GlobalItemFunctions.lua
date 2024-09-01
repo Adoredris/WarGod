@@ -21,14 +21,14 @@ local print = print
 
 local InCombatLockdown = InCombatLockdown
 local GetShapeshiftForm = GetShapeshiftForm
-local GetSpellInfo = GetSpellInfo
+local GetSpellInfo = C_Spell.GetSpellInfo
 
 local DoingHeroicPlus = DoingHeroicPlus
 local GetNumGroupMembers = GetNumGroupMembers
 local GetKeyLevel = GetKeyLevel
 local GetZoneText = GetZoneText
 
-local GetItemCount = GetItemCount
+local GetItemCount = C_Item.GetItemCount
 
 local eclipse = player.eclipse
 

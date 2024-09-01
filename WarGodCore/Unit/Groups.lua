@@ -25,6 +25,9 @@ function Unit:AddUnitToGroups(unit, newUnitId)
     local newIdAbrv = substr(newUnitId, 1, 1)
     if newUnitId == "player" then
         groups.player[unit.guid] = unit
+        groups.targetable[unit.guid] = unit
+        groups.targetableAndPlates[unit.guid] = unit
+        groups.targetableOrPlates[unit.guid] = unit
     elseif newIdAbrv == "n" then
         if groups.targetable[unit.guid] then
             groups.targetableAndPlates[unit.guid] = unit

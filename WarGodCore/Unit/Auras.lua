@@ -33,7 +33,7 @@ local function Stacks(self)
     local unitid = self.parent.unit.unitid
     if unitid == "" then return 0 end
 
-    return self.charges == nil and 1 or self.charges
+    return max(self.applications == nil and 1 or self.applications, 1)
 end
 
 local function Remains(self)
@@ -80,6 +80,7 @@ function Auras:NewTable(unit, filter)
             self.simcName = simcAuraName
             self.parent = parent
             self.expirationTime = 0
+            self.applications = 0
             self.duration = 0
             self.charges = 0
             self.maxCharges = 0
@@ -110,6 +111,7 @@ function Auras:RemoveUnitsAura(unit, auraInstanceID)
             if v.auraInstanceID == auraInstanceID then
                 v.expirationTime = 0
                 v.duration = 0
+                v.applications = 0
                 v.charges = 0
                 v.maxCharges = 0
                 v.points = 0
@@ -126,6 +128,7 @@ function Auras:RemoveUnitsAura(unit, auraInstanceID)
             if v.auraInstanceID == auraInstanceID then
                 v.expirationTime = 0
                 v.duration = 0
+                v.applications = 0
                 v.charges = 0
                 v.maxCharges = 0
                 v.points = 0
@@ -142,6 +145,7 @@ function Auras:RemoveUnitsAura(unit, auraInstanceID)
             if v.auraInstanceID == auraInstanceID then
                 v.expirationTime = 0
                 v.duration = 0
+                v.applications = 0
                 v.charges = 0
                 v.maxCharges = 0
                 v.points = 0
@@ -158,6 +162,7 @@ function Auras:RemoveUnitsAura(unit, auraInstanceID)
             if v.auraInstanceID == auraInstanceID then
                 v.expirationTime = 0
                 v.duration = 0
+                v.applications = 0
                 v.charges = 0
                 v.maxCharges = 0
                 v.points = 0

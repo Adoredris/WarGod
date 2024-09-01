@@ -1,0 +1,6 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <Script file="1_Speaker.lua"/>
+    <Script file="2_Anubikkaj.lua"/>
+    <Script file="3_Rashanan.lua"/>
+    <Script file="Dawnbreaker_Trash.lua"/>
+</Ui>

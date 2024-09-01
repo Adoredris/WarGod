@@ -1,5 +1,3 @@
-local LRC = LibStub("LibRangeCheck-2.0")
-
 local Unit = WarGod.Unit
 local frames = Unit.frames
 local Auras = WarGod.Unit.Auras
@@ -86,22 +84,36 @@ local function PercentHealthPredictedDamage(self)
     end
 end
 
+local function AlwaysZero()
+    return 0
+end
+
 setmetatable(unitsByGUID, {
     __index = function(t, guid)
         local self = {}
         --rawset(t, guid, self)
         if guid ~= nil and guid ~= 0 then
             t[guid] = self
+            self.AuraRemaining = AuraRemaining
+            self.BuffRemaining = AuraRemaining
+            self.DebuffRemaining = AuraRemaining
+            self.AuraStacks = AuraStacks
+            self.BuffStacks = AuraStacks
+            self.BuffCount = self.BuffStacks
+            self.DebuffStacks = self.BuffStacks
+            self.DebuffCount = self.BuffStacks
+        else
+            self.AuraRemaining = AlwaysZero
+            self.BuffRemaining = AlwaysZero
+            self.DebuffRemaining = AlwaysZero
+            self.AuraStacks = AlwaysZero
+            self.BuffStacks = AlwaysZero
+            self.BuffCount = AlwaysZero
+            self.DebuffStacks = AlwaysZero
+            self.DebuffCount = AlwaysZero
         end
 
-        self.AuraRemaining = AuraRemaining
-        self.BuffRemaining = AuraRemaining
-        self.DebuffRemaining = AuraRemaining
-        self.AuraStacks = AuraStacks
-        self.BuffStacks = AuraStacks
-        self.BuffCount = self.BuffStacks
-        self.DebuffStacks = self.BuffStacks
-        self.DebuffCount = self.BuffStacks
+
         self.Range = UnitRange
         self.RecentDamageTaken = RecentDamageTaken
         self.PercentHealthPredictedDamage = PercentHealthPredictedDamage

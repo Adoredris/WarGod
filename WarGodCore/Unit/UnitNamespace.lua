@@ -23,6 +23,7 @@ Unit.GetSpecialization = GetSpecialization
 Unit.GetSpecializationInfo = GetSpecializationInfo
 Unit.strmatch = strmatch
 Unit.strlower = strlower
+Unit.strupper = strupper
 Unit.strsub = strsub
 Unit.SimcraftifyString = WarGod.SimcraftifyString
 Unit.UnitHealth = UnitHealth
@@ -54,8 +55,9 @@ Unit.UnitName = UnitName
 Unit.UnitClass = UnitClass
 Unit.UnitExists = UnitExists
 Unit.UnitLevel = UnitLevel
-Unit.UnitAura = UnitAura
-Unit.UnitAuraSlots = UnitAuraSlots
+--Unit.UnitAura = UnitAura
+Unit.UnitAuraSlots = C_UnitAuras.GetAuraSlots
+Unit.GetAuraSlots = C_UnitAuras.UnitAuraSlots
 Unit.EnumPowerType = Enum.PowerType
 Unit.GetAuraDataByAuraInstanceID = C_UnitAuras.GetAuraDataByAuraInstanceID
 Unit.GetAuraDataBySlot = C_UnitAuras.GetAuraDataBySlot
@@ -68,9 +70,9 @@ Unit.GetMastery = GetMastery
 Unit.LibStub = LibStub
 Unit.C_Covenants = C_Covenants
 Unit.C_Item = C_Item
-Unit.GetSpellCooldown = GetSpellCooldown
+Unit.GetSpellCooldown = C_Spell.GetSpellCooldown
 
-Unit.GetSpellInfo = GetSpellInfo
+Unit.GetSpellInfo = C_Spell.GetSpellInfo
 Unit.ItemLocation = ItemLocation
 Unit.C_AzeriteEmpoweredItem = C_AzeriteEmpoweredItem
 Unit.C_LegendaryCrafting = C_LegendaryCrafting
@@ -121,8 +123,8 @@ function GetTarget()
     end
 end
 
-function GetUnit(unitid)
-    print(unitid)
+function GetUnit(self, unitid)
+    --print(unitid)
     local guid = UnitGUID(unitid)
     if guid then
         return unitsByGUID[guid]

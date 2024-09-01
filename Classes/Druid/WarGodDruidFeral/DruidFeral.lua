@@ -1,3 +1,4 @@
+if UnitClass("player") ~= "Druid" then C_AddOns.DisableAddOn("WarGodDruidFeral"); return end
 local Druid = WarGod.Class
 
 local Rotation = WarGod.Rotation
@@ -41,7 +42,7 @@ local WarGodRotations = WarGod.Rotation
 ----------------------------------------------------------
 local GetTime = GetTime
 local CombatLogGetCurrentEventInfo = CombatLogGetCurrentEventInfo
-local GetSpellInfo = GetSpellInfo
+local GetSpellInfo = C_Spell.GetSpellInfo
 local GetPowerRegen = GetPowerRegen
 local WarGodSpells = WarGod.Rotation.rotationFrames["Feral"]
 
@@ -246,7 +247,7 @@ do
             -- brutal slash = 202028
             -- shred = 5221
             -- swipe = 106785
-            lastCastTime[GetSpellInfo(spellId)] = GetTime()
+            lastCastTime[GetSpellInfo(spellId).name] = GetTime()
         end
 
     end
@@ -349,7 +350,7 @@ end
 
 --WarGodRotations:RegisterForceCast("Regrowth", "player")
 WarGodRotations:RegisterForceCast("Swiftmend", "player")
-WarGodRotations:RegisterForceCast("Rebirth", "mouseover")
+--WarGodRotations:RegisterForceCast("Rebirth", "mouseover")
 WarGodRotations:RegisterForceCast("Soothe", "target")
 WarGodRotations:RegisterForceCast("Travel Form")
 WarGodRotations:RegisterForceCast("Cat Form")

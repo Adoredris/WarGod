@@ -7,7 +7,7 @@
     <Script file="AOE.lua"/>
     <Script file="ST.lua"/>
     <Script file="Utility.lua"/>
-    -<Script file="Vulnerability.lua"/>
+    <Script file="Vulnerability.lua"/>
     <Script file="ForcedOnly.lua"/>
     <Script file="LastResort.lua"/>
 </Ui>

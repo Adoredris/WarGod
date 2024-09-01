@@ -64,10 +64,10 @@ WGBM[bossString].Purge = function(spell, unit, args)
     if class == "Druid" or class == "Hunter" or class == "Rogue" then
         local dispelScore = 0
         for i=1,40 do
-            local aura, icon, count, buffType, duration = UnitBuff(unitid, i)
-            if not aura then return end--if (buffType) then print(buffType) end
-            if (buffType == "Enrage" or buffType == "")then -- apparently enrages are empty string (still true?)
-                if aura == "Enrage" then
+            local t = UnitBuff(unitid, i)
+            if not t then return end--if (buffType) then print(buffType) end
+            if (t.dispelName == "Enrage" or t.dispelName == "")then -- apparently enrages are empty string (still true?)
+                if t.name == "Enrage" then
                     if name "Rockback Gnasher" or
                         --name == "Tarspitter Lurker" or    -- probably only want this in a group with grips
                         name == "Understone Drummer" or

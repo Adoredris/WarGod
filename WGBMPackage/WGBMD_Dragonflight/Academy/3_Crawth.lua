@@ -29,3 +29,16 @@ end
         return true
     end
 end]]
+
+WGBM[bossString].EnoughTimeToCast = function(spell, unit, args)
+    local silenceCastRemains = CastTimeRemaining("boss1", "Deafening Screech")
+    local mySpellCastTime = WarGod.Rotation.CastTimeFor(spell)
+    if mySpellCastTime == 0 or silenceCastRemains == 0 then return true end
+    if silenceCastRemains > 0 then
+        if silenceCastRemains > (args.buffer or 0.5) + mySpellCastTime then
+            return true
+        else
+            print('not casting ' .. spell .. ' due to incoming interrupt')
+        end
+    end
+end

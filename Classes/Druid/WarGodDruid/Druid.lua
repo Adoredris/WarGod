@@ -1,3 +1,5 @@
+if UnitClass("player") ~= "Druid" then C_AddOns.DisableAddOn("WarGodDruid"); return end
+
 local LibStub = LibStub
 local Class = WarGod.Class
 local Druid = Class
@@ -7,7 +9,7 @@ local WarGod = WarGod
 local player = WarGod.Unit:GetPlayer()
 player.maxHelpRangeSpell = "Regrowth"
 player.maxHarmRangeSpell = "Moonfire"
-local WarGodSpells = WarGod.Rotation.rotationFrames[select(2,GetSpecializationInfo(GetSpecialization()))]
+--local WarGodSpells = WarGod.Rotation.rotationFrames[select(2,GetSpecializationInfo(GetSpecialization()))]
 local Rotation = WarGod.Rotation
 local Delegates = Rotation.Delegates
 
@@ -98,7 +100,7 @@ function Delegates:InnervateParty(spell, unit, args)
     return manapercent < threshold
 end
 
-function Class:CHAT_MSG_WHISPER(event, text, playerName, languageName, channelName, playerName2, specialFlags, zoneChannelID, channelIndex, channelBaseName, unused, lineID, guid, bnSenderID, isMobile, isSubtitle, hideSenderInLetterbox, supressRaidIcons)
+--[[function Class:CHAT_MSG_WHISPER(event, text, playerName, languageName, channelName, playerName2, specialFlags, zoneChannelID, channelIndex, channelBaseName, unused, lineID, guid, bnSenderID, isMobile, isSubtitle, hideSenderInLetterbox, supressRaidIcons)
     --print(event)
     --print(playerName)
     if strmatch(strlower(text), "innervate") and strlen(text) < 25 then
@@ -120,32 +122,11 @@ function Class:CHAT_MSG_WHISPER(event, text, playerName, languageName, channelNa
     --local start, cd = GetSpellCooldown("Innervate")
 
 end
-Class:RegisterEvent("CHAT_MSG_WHISPER")
+Class:RegisterEvent("CHAT_MSG_WHISPER")]]
 
 function Delegates:UnitHasHot(spell, unit, args)
     --print(spell)
     if unit:BuffRemaining("Rejuvenation","HELPFUL|PLAYER") > 0 or unit:BuffRemaining("Wild Growth","HELPFUL|PLAYER") > 0 or unit:BuffRemaining("Regrowth","HELPFUL|PLAYER") > 0 then
-        return true
-    end
-end
-
-function Delegates:IsKindredSpiritsInRange()
-    local name = GetSpellInfo("Kindred Spirits")
-    if name == "Kindred Spirits" then
-        return true
-    elseif name == "Lone Empowerment" then
-        return true
-    else
-        for i=1,40 do
-            local name, id, _, _, _, _, unitid = UnitBuff("player", i)
-            if name == nil then return end     -- this is wrong
-            if name == "Kindred Spirits" then
-                --print(unitid)
-                if (not UnitIsDeadOrGhost(unitid))--[[ and IsItemInRange(41058, unitid)]] then
-                    return true
-                end
-            end
-        end
         return true
     end
 end
@@ -203,10 +184,10 @@ Class:RegisterEvent("UNIT_SPELLCAST_STOP")
 end
 Class:RegisterEvent("UNIT_SPELLCAST_SUCCEEDED")]]
 
-local spamTrain = true
+--local spamTrain = true
 
 function Class:COMBAT_LOG_EVENT_UNFILTERED(event)
-    if spamTrain then
+    --if spamTrain then
         local timestamp, eventname, flagthatidunno, sourceGUID, sourceName, sourceflags, sourceRaidFlags, destGUID, destName, destflags, destRaidFlags, spellId, spellName, spellschool, auraType = CombatLogGetCurrentEventInfo()
         if player.guid == sourceGUID and player.guid == destGUID then
             if eventname == "SPELL_AURA_APPLIED" then
@@ -220,7 +201,7 @@ function Class:COMBAT_LOG_EVENT_UNFILTERED(event)
                 end
             end
         end
-    end
+    --end
 end
 Class:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
 
@@ -304,7 +285,7 @@ Rotation:RegisterForceCast("Mount Form")
 Rotation:RegisterForceCast("Ursol's Vortex", "cursor")
 
 Rotation:RegisterForceCast("Swiftmend", "player")
-Rotation:RegisterForceCast("Rebirth", "mouseover")
+--Rotation:RegisterForceCast("Rebirth", "mouseover")
 Rotation:RegisterForceCast("Soothe", "target")
 Rotation:RegisterForceCast("Travel Form")
 Rotation:RegisterForceCast("Cat Form")

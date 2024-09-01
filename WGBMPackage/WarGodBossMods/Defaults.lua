@@ -9,6 +9,10 @@ local WGBM = WarGod.BossMods
 local player = WarGod.Unit:GetPlayer()
 local strmatch = strmatch
 
+local UnitBuff = C_UnitAuras.GetBuffDataByIndex
+local UnitDebuff = C_UnitAuras.GetDebuffDataByIndex
+local UnitAura = C_UnitAuras.GetAuraDataByIndex
+
 do
     WarGod.BossMods.default.Priority = function(spell, unit, args)
         --if spell ~= "" then print('default priority') end
@@ -64,28 +68,32 @@ do
 
     -- the defensive dispel function
     WarGod.BossMods.default.Cleanse = function(spell, unit, args)
+        --print('default cleanse code')
         if UnitGroupRolesAssigned("player") == "HEALER" then
             if unit:BuffRemaining("Cascading Terror", "HARMFUL") > 0 then
                 return
             end
         end
         local dungeon, size = GetInstanceInfo()
-        if size == "party" then
+        --[[if size == "party" then
             if unit:BuffRemaining("Cursed Spirit", "HARMFUL") > 0 then
                 return true
+            elseif unit:BuffRemaining("Diseased Spirit", "HARMFUL") > 0 then
+                return true
+            elseif unit:BuffRemaining("Poisoned Spirit", "HARMFUL") > 0 then
+                return true
             end
-        end
+        end]]
+        if unit.name == "Afflicted Soul" then return true end
         local unitid = unit.unitid
         for i=1,40 do
-            local name, icon, count, buffType, duration, expiresAt, unitCaster = UnitBuff(unitid, i)
-            if name == nil or name == "" then
-                return
-            end
-            if (buffType == "Magic" or buffType == "Disease" or buffType == "Poison" or buffType == "Curse")then
-                if not duration or expiresAt == 0 then
+            local t = UnitDebuff(unitid, i)
+            if not t then return end
+            if (t.dispelName == "Magic" or t.dispelName == "Disease" or t.dispelName == "Poison" or t.dispelName == "Curse")then
+                if not t.duration or t.expirationTime == 0 then
                     return true
                 else
-                    if expiresAt - GetTime() > 3 then
+                    if t.expirationTime - GetTime() > 3 then
                         return true
                     end
                 end
@@ -111,22 +119,22 @@ do
             return
         end
         for i=1,40 do
-            local name, icon, count, buffType, duration, expiresAt, unitCaster = UnitBuff(unitid, i)
-            if name == nil or name == "" then
+            local t = UnitBuff(unitid, i)
+            if not t then
                 return
             end
-            if (buffType == "Magic" or buffType == "Enrage" or buffType == "")then
-                if not duration or expiresAt == 0 then
+            --print(t.dispelName)
+            if (t.dispelName == "Magic" or t.dispelName == "Enrage" or t.dispelName == "")then -- Enrages are "" for some reason?
+                if not t.duration or t.expirationTime == 0 then
                     if GetNumGroupMembers() <= 2 or strmatch(UnitClassification(unitid), "elite")or UnitIsPlayer(unitid) then
                         return true
                     else
-                        print(UnitBuff(unitid, i))
                     end
                 else
                     --print(duration)
-                    local remains = expiresAt - GetTime()
+                    local remains = t.expirationTime - GetTime()
                     if remains < 0 then
-                        print("remains: " .. remains .. ", duration: " .. duration)
+                        print(spell .. " remains: " .. remains .. ", duration: " .. t.duration)
                     end
                     if remains > 3 then
                         if UnitClassification(unitid) == "elite" or UnitIsPlayer(unitid) then

@@ -30,6 +30,7 @@ function WarGod.printTo(index, ...)
 
     end
 end
+printTo = WarGod.printTo
 
 local debug = true
 
@@ -38,3 +39,26 @@ function WarGod.printdebug(msg)
         WarGod.printTo(4, msg)
     end
 end
+
+function GetNPCId(unitid)
+    local guid = UnitGUID(unitid)
+    if not guid then return 0 end
+    local npcId = select(6,strsplit("-", guid))
+    return tonumber(npcId)
+end
+
+WarGod.GetNPCId = GetNPCId
+
+local delayFrame = CreateFrame("Frame")
+delayFrame.elapsed = -1
+delayFrame:SetScript("OnUpdate", function(self, elapsed)
+    self.elapsed = self.elapsed + elapsed
+    if self.elapsed >= 0.15 then
+        print('loading WarGodCore delayed')
+        C_AddOns.LoadAddOn("WarGodCore")
+        C_AddOns.LoadAddOn("WarGodClass")
+        self:SetScript("OnUpdate", nil)
+        self:Hide()
+    end
+end)
+

@@ -1,3 +1,5 @@
+if UnitClass("player") ~= "Druid" then C_AddOns.DisableAddOn("WarGodDruidBalance"); return end
+
 local Druid = WarGod.Class
 local Balance = LibStub("AceAddon-3.0"):NewAddon("WarGodDruidBalance", "AceConsole-3.0", "AceEvent-3.0")
 
@@ -44,8 +46,9 @@ local UnitGroupRolesAssigned = UnitGroupRolesAssigned
 local UnitClass = UnitClass
 local UnitIsUnit = UnitIsUnit
 local UnitIsFriend = UnitIsFriend
-local GetSpellCount = GetSpellCount
-local GetSpellCooldown = GetSpellCooldown
+local GetSpellCount = C_Spell.GetSpellCastCount
+local GetSpellCastCount = C_Spell.GetSpellCastCount
+local GetSpellCooldown = C_Spell.GetSpellCooldown
 local SendChatMessage = SendChatMessage
 
 local strlen = strlen
@@ -55,7 +58,6 @@ local strsplit = strsplit
 
 local WarGod = WarGod
 local WarGodControl = WarGod.Control
-local WarGodRotations = WarGod.Rotation
 local WarGodSpells = WarGod.Rotation.rotationFrames["Balance"]
 
 
@@ -69,6 +71,25 @@ variable.sf_targets = 2
 
 setfenv(1, Rotation)
 
+local OriginalCastTimeFor = CastTimeFor
+Rotation.CastTimeFor = function(spell)
+    if strmatch(spell, "Moon$") then
+        -- new moon
+        if player.casting == "Full Moon" or player.casting ~= "New Moon" and GetSpellInfo("New Moon").name == "New Moon" then
+            return 1 / (player.spell_haste / 100 + 1)
+        end
+        -- half moon
+        if player.casting == "New Moon" or player.casting ~= "Half Moon" and GetSpellInfo("New Moon").name == "Half Moon" then
+            return 2 / (player.spell_haste / 100 + 1)
+        end
+        -- full moon
+        -- TODO handle double full moon talent
+        if player.casting == "Half Moon" or player.casting ~= "Half Moon" and GetSpellInfo("New Moon").name == "Full Moon" then
+            return 3 / (player.spell_haste / 100 + 1)
+        end
+    end
+    return OriginalCastTimeFor(spell)
+end
 
 buff.balance_of_all_things.OriginalStacks = buff.balance_of_all_things.Stacks
 buff.balance_of_all_things.OriginalRemains = buff.balance_of_all_things.Remains
@@ -339,13 +360,50 @@ do
     player.Astral_Power = player.Lunar_Power
     player.Astral_Power_Deficit = player.Lunar_Power_Deficit
 
+    local function GetAmountGeneratedBySpell(spell)
+        local gen = 0
+        if spell == "Starfire" then
+            if talent.soul_of_the_forest.enabled and (eclipse:In_Lunar() or eclipse:In_Both()) then
+                gen = gen + 13
+            else
+                gen = gen + 12
+            end
+        elseif spell == "Wrath" then
+            if talent.soul_of_the_forest.enabled and (eclipse:In_Solar() or eclipse:In_Both()) then
+                gen = gen + 16
+            else
+                gen = gen + 10
+            end
+        elseif spell == "Stellar Flare" then
+            gen = gen + 8
+            --elseif spell == "Starsurge" then
+        elseif spell == "Moonfire" then
+            gen = gen + 6
+        elseif spell == "Sunfire" then
+            gen = gen + 6
+            --elseif spell == "Celestial Alignment" then
+            --	extraGen = extraGen + 40
+
+        elseif spell == "New Moon" or spell == "Half Moon" or spell == "Full Moon" then
+            local curMoon = GetSpellInfo("New Moon").name
+            if curMoon == "New Moon" then
+                gen = gen + 10
+            elseif curMoon == "Half Moon" then
+                gen = gen + 20
+            else
+                gen = gen + 40
+            end
+        end
+        return gen
+    end
+
     function AP_Check(spell)
         if (spell == "Starsurge") then
             if player:Lunar_Power() >= 30 then
                 return true
             end
         else
-            local extraGen = 3
+            local extraGen = 3 + GetAmountGeneratedBySpell(spell) + GetAmountGeneratedBySpell(player.casting)
 
             if talent.fury_of_elune.enabled and WarGodSpells["Fury of Elune"]:CDRemaining() > 50 then
                 extraGen = extraGen + 5 * 2
@@ -360,31 +418,7 @@ do
             if buff.eclipse_lunar:Up() and buff.eclipse_lunar:Remains() > buff.eclipse_lunar:Duration() - 8 then
                 extraGen = extraGen + 5 * 2
             end
-            if spell == "Starfire" then
-                if talent.soul_of_the_forest.enabled and (eclipse:In_Lunar() or eclipse:In_Both()) then
-                    extraGen = extraGen + 13
-                else
-                    extraGen = extraGen + 12
-                end
-            elseif spell == "Wrath" then
-                if talent.soul_of_the_forest.enabled and (eclipse:In_Solar() or eclipse:In_Both()) then
-                    extraGen = extraGen + 16
-                else
-                    extraGen = extraGen + 10
-                end
-            elseif spell == "Stellar Flare" then
-                extraGen = extraGen + 8
-                --elseif spell == "Starsurge" then
-            elseif spell == "Moonfire" then
-                extraGen = extraGen + 6
-            elseif spell == "Sunfire" then
-                extraGen = extraGen + 6
-                --elseif spell == "Celestial Alignment" then
-                --	extraGen = extraGen + 40
 
-            elseif spell == "New Moon" then
-
-            end
             if talent.natures_balance.enabled then
                 extraGen = extraGen + 2
             end

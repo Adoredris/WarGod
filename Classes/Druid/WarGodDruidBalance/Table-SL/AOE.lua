@@ -27,9 +27,9 @@ local equipped = player.equipped
 
 local GetShapeshiftForm = GetShapeshiftForm
 local GetNumGroupMembers = GetNumGroupMembers
-local GetSpellInfo = GetSpellInfo
+local GetSpellInfo = C_Spell.GetSpellInfo
 
-local GetSpellCount = GetSpellCount
+local GetSpellCount = C_Spell.GetSpellCastCount
 local GetInventoryItemCooldown = GetInventoryItemCooldown
 local UnitInRaid = UnitInRaid
 
@@ -53,6 +53,45 @@ setfenv(1, Rotations)
 
 local baseScore = 5000
 do
+    AddSpellFunction("Balance","Celestial Alignment",baseScore + 991,{
+        func = function(self)
+            if not variable.is_aoe then return end
+            --if WarGodControl:AOEMode() then return end
+            --local lustRemains = LustRemaining()
+            if buff_ca_inc:Up() then return end
+            local totalHealth = 0
+            local healthToCD = --[[UnitInRaid("player") and 0 or ]]player.health * max(1, GetNumGroupMembers())
+            for k,unit in upairs(groups.targetableOrPlates) do
+                if (not Delegates:AoeBlacklistedWrapper(self.spell, unit, {})) and Delegates:IsSpellInRange("Wrath", unit, {}) then
+                    totalHealth = totalHealth + unit.health
+                    if totalHealth >= healthToCD then return true end
+                end
+            end
+            return true
+        end,
+        units = groups.cursor,
+        label = "Incarn (AoE)",
+    })
+    AddSpellFunction("Balance","Incarnation: Chosen of Elune",baseScore + 990,{
+        func = function(self)
+            if not variable.is_aoe then return end
+            --if WarGodControl:AOEMode() then return end
+            --local lustRemains = LustRemaining()
+            if buff_ca_inc:Up() then return end
+            local totalHealth = 0
+            local healthToCD = --[[UnitInRaid("player") and 0 or ]]player.health * max(1, GetNumGroupMembers())
+            for k,unit in upairs(groups.targetableOrPlates) do
+                if (not Delegates:AoeBlacklistedWrapper(self.spell, unit, {})) and Delegates:IsSpellInRange("Wrath", unit, {}) then
+                    totalHealth = totalHealth + unit.health
+                    if totalHealth >= healthToCD then return true end
+                end
+            end
+            return true
+        end,
+        units = groups.cursor,
+        label = "Incarn (AoE)",
+    })
+
     AddSpellFunction("Balance","Sunfire",baseScore + 950,{
         func = function(self)
             if not variable.is_aoe then return end
@@ -101,25 +140,7 @@ do
         --IsUsable = function() return (player:Lunar_Power() >= 50 * (talent.rattle_the_stars.enabled and buff.rattled_stars:Stacks() * 0.95 or 1) - (talent.elunes_guidance.enabled and buff.incarnation_chosen_of_elune:Up()  and 8 or 0) or talent.starweaver.enabled and buff.starweavers_warp:Up()) and --[[WarGodControl:AllowClickies() and ]]player.combat and (buff.moonkin_form:Stacks() > 0 or GetShapeshiftForm() == 0) end,
     })
 
-    AddSpellFunction("Balance","Celestial Alignment",baseScore + 890,{
-        func = function(self)
-            if not variable.is_aoe then return end
-            --if WarGodControl:AOEMode() then return end
-            --local lustRemains = LustRemaining()
-            if buff_ca_inc:Up() then return end
-            local totalHealth = 0
-            local healthToCD = --[[UnitInRaid("player") and 0 or ]]player.health * max(1, GetNumGroupMembers())
-            for k,unit in upairs(groups.targetableOrPlates) do
-                if (not Delegates:AoeBlacklistedWrapper(self.spell, unit, {})) and Delegates:IsSpellInRange("Wrath", unit, {}) then
-                    totalHealth = totalHealth + unit.health
-                    if totalHealth >= healthToCD then return true end
-                end
-            end
-            return true
-        end,
-        units = groups.noone,
-        label = "Incarn (AoE)",
-    })
+
 
     AddSpellFunction("Balance","Warrior of Elune",baseScore + 825,{
         --func = function(self) return talent.warrior_of_elune.enabled and  end,
@@ -215,6 +236,28 @@ do
         units = groups.targetable,
         label = "Starsurge (Weft AoE)",
         andDelegates = {Delegates.IsSpellInRange,Delegates.UnitIsEnemy},
+    })
+
+    -- just full moon should be here
+    AddSpellFunction("Balance","New Moon",baseScore + 540,{
+        func = function(self)
+            if not variable.is_aoe then return end
+            --if WarGodControl:AOEMode() then return end
+            local execute_time = 0.1
+            if AP_Check(self.spell) then
+                if player.casting == "New Moon" or player.casting ~= "Half Moon" and GetSpellInfo("New Moon").name == "Half Moon" then
+                    return buff.eclipse_solar:Remains() > 2 / (player.spell_haste / 100 + 1) or buff.eclipse_lunar:Remains() > 2 / (player.spell_haste / 100 + 1)
+                else
+                    return true
+                end
+
+
+            end
+
+        end,
+        units = groups.targetable,
+        label = "Moon (AOE)",
+        andDelegates = {Delegates.IsSpellInRange},
     })
 
     -- Stellar Flare
@@ -323,6 +366,8 @@ do
         label = "Wrath Filler AOE",
         andDelegates = {Delegates.UnitIsEnemy, Delegates.IsSpellInRange},
     })
+
+
 
     AddSpellFunction("Balance","Starfire",baseScore + 310,{
         func = function(self)

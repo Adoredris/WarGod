@@ -5,6 +5,7 @@
 ## Dependencies: WarGodCore
 ## X-Child-Of: WarGod
 
+## LoadOnDemand: 1
 ## LoadManagers: AddonLoader
 
 ## X-LoadOn-Always: delayed

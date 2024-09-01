@@ -12,6 +12,8 @@ local WarGod = WarGod
 local playerGUID = UnitGUID("player")
 local UnitGroupRolesAssigned = UnitGroupRolesAssigned
 
+local GetSpellInfo = C_Spell.GetSpellInfo
+
 local piTable = {}
 
 PISpam = false
@@ -30,7 +32,7 @@ function PI:UNIT_SPELLCAST_SUCCEEDED(event, unitId, lineId, spellId)
         piTable[UnitNameAndServer(unitId)] = GetTime()
         --print(UnitNameAndServer(unitId) .. " cast PI")
     elseif unitId == "player" then
-        local spellName = GetSpellInfo(spellId)
+        local spellName = GetSpellInfo(spellId).name
         if (spellName) then
             if spellName == "Force of Nature" then
                 print("Disabling Clickies : Cast Trees Once")

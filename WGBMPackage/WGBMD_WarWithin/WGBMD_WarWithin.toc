@@ -1,0 +1,9 @@
+## Title: WGBMD_WarWithin
+## Version: 1.0
+## Author: Ikevink
+## Dependencies: WarGodBossMods
+## LoadOnDemand: 1
+## Interface: 90001
+## X-Child-Of: WarGodBossMods
+
+TWW_Modules.xml

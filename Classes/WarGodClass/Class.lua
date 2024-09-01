@@ -15,6 +15,7 @@ Class.CreateFrame = CreateFrame
 Class.ActivateSoulbind = C_Soulbinds.ActivateSoulbind
 Class.GetActiveCovenantID = C_Covenants.GetActiveCovenantID
 Class.GetActiveSoulbindID = C_Soulbinds.GetActiveSoulbindID
+Class.strlower = strlower
 
 
 local player = WarGod.Unit:GetPlayer()
@@ -30,7 +31,7 @@ local WarGodControl = WarGod.Control
 local Delegates = WarGod.Rotation.Delegates
 
 local class = gsub(UnitClass("player"), " ", "")
-LoadAddOn("WarGod" .. class)
+C_AddOns.LoadAddOn("WarGod" .. class)
 
 local IsInInstance = IsInInstance
 local UnitAffectingCombat = UnitAffectingCombat
@@ -55,8 +56,9 @@ end
 function Class:PLAYER_SPECIALIZATION_CHANGED(event, unitid)
     --if not unitid then print(event);print("Class:PLAYER_SPECIALIZATION_CHANGED") end
     if unitid == "player" then
-        --print("spec changed")
+        print("spec changed")
         local specIndex = GetSpecialization()
+
         if specIndex then
             local spec = select(2, GetSpecializationInfo(specIndex))
             if spec then
@@ -64,8 +66,8 @@ function Class:PLAYER_SPECIALIZATION_CHANGED(event, unitid)
                 player.specIndex = specIndex
                 player.spec = spec
                 --print(spec)
-                EnableAddOn("WarGod"..class..spec)
-                LoadAddOn("WarGod" .. class .. spec)
+                C_AddOns.EnableAddOn("WarGod"..class..spec)
+                C_AddOns.LoadAddOn("WarGod" .. class .. spec)
 
             end
 

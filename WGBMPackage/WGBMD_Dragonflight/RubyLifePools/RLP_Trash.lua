@@ -23,6 +23,19 @@ WGBM[bossString].DPSBlacklist = function(spell, unit, args)
     return false
 end
 
+WGBM[bossString].Priority = function(spell, unit, args)
+    --print('boo')
+    --[[if (unit:AuraRemaining("Seal Empowerment", "HELPFUL") > 0) then
+        print('not dpsing with Seal Empowerment buff')
+        return true
+    end]]
+    if unit.name == "Blazebound Destroyer" then
+        return 20, bossString
+    end
+
+    return 10, bossString
+end
+
 --[[WGBM[bossString].DPSWhitelist = function(spell, unit, args)
     local unitid = unit.unitid
     local name = unit.name

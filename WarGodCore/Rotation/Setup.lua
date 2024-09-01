@@ -6,7 +6,7 @@ local curScore = 0
 
 function RefreshSpell(self)
     local forceUpdatePixel = true
-    --local debug = self.spell == "Celestial Alignment"
+    --local debug = self.spell == "Elemental Potion of Ultimate Power"
     self.timeSinceLastUpdate = 0
     --print('hi')
     -- what is this section I commented out 3/8/21
@@ -17,7 +17,7 @@ function RefreshSpell(self)
     end
     --if self.spell == "Moonfire" then print(self.spell .. " " .. tostring(GetTime())) end
     local tentativeScore = 0
-    if debug then print('abc') end
+    --if debug then print('abc') end
     if (self.spell == "Nothing" or --[[ReadyToCastNewSpell() and self:Ready() and]] self:IsUsable() and self:Castable()) then
         if debug then print('a') end
         for score,condition in pairs(self.conditions) do
@@ -390,7 +390,6 @@ do
                     end
                 end
             elseif zoneText == "The Waking Shores" and UnitName("target") == "Spawning Thresher" then
-                print('hello')
                 bestActionSoFar = "ExtraActionButton1"
             end
         else
@@ -408,16 +407,16 @@ do
                     player:Setup()
                 end
                 --local bestActionSoFar, bestUnitSoFar, bestScoreSoFar = "Nothing", "nounit", 0
-                --print('bye')
+
                 for spell,t in pairs(activeFrames) do
-                    --local debug = true
-                    if debug then print(spell) end
+                    --local debug = spell == "Elemental Potion of Ultimate Power"
+                    --if debug then print(spell) end
                     if not t.curScore then print(spell .. " has no current score") end
                     if not bestScoreSoFar then print(spell .. " has no bestScoreSoFar") end
                     if (t.curScore > bestScoreSoFar) then
                         if debug then print("b") end
                         --print(t:Ready())
-                        if spell == "Nothing" or (t:Ready() and CDRemaining(t) < 0.3 and ReadyToCastNewSpell(t)) then
+                        if spell == "Nothing" or (--[[t:Ready() and ]]CDRemaining(t) < 0.3 and ReadyToCastNewSpell(t)) then
                             if debug then print("c") end
                             --if spell == "Loot-A-Rang" then print("d") end
                             if (not t.bestUnit) or t.bestUnitId == "player" or t.bestUnitId == "cursor" or (t.harm and IsValidEnemy(t, t.bestUnit ) or t.help and IsValidFriend(t, t.bestUnit ))--[[ and IsSpellInRange(spell, t.bestUnitId)]] then
@@ -469,7 +468,7 @@ do
         if event == "UNIT_SPELLCAST_STOP" then
             local unitId, lineId, spellId = ...
             if unitId == "player" then
-                local spellName = GetSpellInfo(spellId)
+                local spellName = GetSpellInfo(spellId).name
                 if spellName then
                     local frame = rawget(activeFrames, spellName)
                     if frame then

@@ -4,6 +4,7 @@
 ## Version: 1.0
 ## Dependencies: WarGod
 ## X-Child-Of: WarGod
+## X-LoadOn-Class: Druid
 
 
 embeds.xml

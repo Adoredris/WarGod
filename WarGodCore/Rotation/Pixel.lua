@@ -1,4 +1,4 @@
-local size = 10
+local size = 15
 
 
 local WarGod = WarGod

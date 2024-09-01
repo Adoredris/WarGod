@@ -25,11 +25,11 @@ local WarGodControl = WarGod.Control
 
 
 local upairs = upairs
-local GetSpellInfo = GetSpellInfo
+local GetSpellInfo = C_Spell.GetSpellInfo
 local GetSpecialization = GetSpecialization
 local UnitExists = UnitExists
 local max = max
-local GetItemCount = GetItemCount
+local GetItemCount = C_Item.GetItemCount
 
 ---------TEMP-------------
 local WGBM = WarGod.BossMods
@@ -68,7 +68,7 @@ do
         func = function(self)
             if equipped.primal_ritual_shell.slotIndex == 13 then return end
             local spell, unit, args = self.spell, WarGodUnit:GetTarget(), {}
-            if Delegates:UnitIsEnemy(spell,unit,args)
+            if Delegates:UnitIsEnemy("Rake",unit,args)
                     --and (not (not Delegates:DotBlacklistedWrapper(spell, unit,args)))
                     and (not Delegates:DPSBlacklistWrapper(spell,unit,args))
                     and (Delegates:PriorityWrapper(spell, unit,args) > 0) then
@@ -97,7 +97,7 @@ do
         func = function(self)
             if equipped.primal_ritual_shell.slotIndex == 14 then return end
             local spell, unit, args = self.spell, WarGodUnit:GetTarget(), {}
-            if Delegates:UnitIsEnemy(spell,unit,args)
+            if Delegates:UnitIsEnemy("Rake",unit,args)
                     --and (not (not Delegates:DotBlacklistedWrapper(spell, unit,args)))
                     and (not Delegates:DPSBlacklistWrapper(spell,unit,args))
                     and (Delegates:PriorityWrapper(spell, unit,args) > 0) then
@@ -180,7 +180,7 @@ do
         func = function(self)
             if not WarGod.potion then return end
             local spell, unit, args = self.spell, WarGodUnit:GetTarget(), {}
-            if Delegates:UnitIsEnemy(spell, unit,args)
+            if Delegates:UnitIsEnemy("Rake", unit,args)
                     --and (not (not Delegates:DotBlacklistedWrapper(spell, unit,args)))
                     and (not Delegates:DPSBlacklistWrapper(spell, unit,args))
                     and (Delegates:PriorityWrapper(spell, unit,args) > 0)
@@ -195,7 +195,9 @@ do
         label = "Pot",
         quick = true,
         IsUsable = function(self)
-            if WarGod.potion and Delegates:DamageCDWrapper(self.spell, WarGodUnit:GetTarget(), {25, 300}) and (GetItemCount(191914) > 0 or GetItemCount(191913) > 0 or GetItemCount(191912) > 0) then
+            if WarGod.potion and Delegates:DamageCDWrapper(self.spell, WarGodUnit:GetTarget(), {25, 300}) and
+                    (GetItemCount(191914) > 0 or GetItemCount(191913) > 0 or GetItemCount(191912) > 0 or
+                            GetItemCount(191381) > 0 or GetItemCount(191382) > 0 or GetItemCount(191383) > 0) then
                 --if DoingHeroicPlus() and GetNumGroupMembers() >= 10 then
                 --    return true
                 --elseif GetKeyLevel() >= 15 then
@@ -209,7 +211,7 @@ do
         func = function(self)
             if not WarGod.potion then return end
             local spell, unit, args = self.spell, WarGodUnit:GetTarget(), {}
-            if Delegates:UnitIsEnemy(spell, unit,args)
+            if Delegates:UnitIsEnemy("Rake", unit,args)
                     --and (not (not Delegates:DotBlacklistedWrapper(spell, unit,args)))
                     and (not Delegates:DPSBlacklistWrapper(spell, unit,args))
                     and (Delegates:PriorityWrapper(spell, unit,args) > 0)

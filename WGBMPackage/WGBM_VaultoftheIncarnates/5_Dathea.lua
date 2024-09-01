@@ -22,9 +22,19 @@ end
 
 WGBM[bossString].Defensive = function(spell, unit, args)
     local unitid = unit.unitid
+    local player = WarGod.Unit:GetPlayer()
     if spell == "Nature's Vigil" then
-        if WarGod.Unit:GetPlayer().buff.incarnation_avatar_of_ashamane:Up() then
+
+        if player.buff.incarnation_avatar_of_ashamane:Up() then
             return true
+        end
+        local incarnRemains = player.buff.incarnation_chosen_of_elune:Remains()
+        if player.health_percent < 0.6 then
+            if incarnRemains > 25 then
+                return true
+            elseif incarnRemains > 5 then
+                return true
+            end
         end
     else
         local targetName = UnitName("target")
@@ -32,26 +42,26 @@ WGBM[bossString].Defensive = function(spell, unit, args)
         local npcId = GetNPCId("target")
         -- what is the mob down the bottom?
         if (npcId == 192934 or targetName == "Dathea, Ascended") and UnitChannelInfo("boss1") == "Cyclone" then
-            if WarGod.Unit:GetPlayer().health_percent < 0.5 and args[2] <= 180 then
+            if player.health_percent < 0.5 and args[2] <= 180 then
                 return true
-            elseif WarGod.Unit:GetPlayer().health_percent < 0.8 and args[2] <= 60 then
+            elseif player.health_percent < 0.8 and args[2] <= 60 then
                 return true
             end
         elseif targetName == "Thunder Caller" or npcId == 197671 then
-            if WarGod.Unit:GetPlayer().health_percent < 0.5 and args[2] <= 180 then
+            if player.health_percent < 0.5 and args[2] <= 180 then
                 return true
-            elseif WarGod.Unit:GetPlayer().health_percent < 0.8 and args[2] <= 60 then
+            elseif player.health_percent < 0.8 and args[2] <= 60 then
                 return true
             end
         end
     end
 end
 
-WGBM[bossString].DamageCD = function(spell, unit, args)
+--[[WGBM[bossString].DamageCD = function(spell, unit, args)
     --local npcId = GetNPCId("target")
     --if npcId then print(npcId) end
     if DoingMythic() then
-        if GetNPCId("target") == 197671 --[[or UnitName("target") == "Thunder Caller"]] then
+        if GetNPCId("target") == 197671 then
             return true
         elseif args[2] < 120 then
             return true
@@ -60,9 +70,9 @@ WGBM[bossString].DamageCD = function(spell, unit, args)
     else
         return true
     end
-end
+end]]
 
-WGBM[bossString].BurstUnit = function(spell, unit, args)
+--[[WGBM[bossString].BurstUnit = function(spell, unit, args)
     local unitid = unit.unitid
     local name = unit.name
     if GetNPCId("target") == 197671 then
@@ -70,7 +80,7 @@ WGBM[bossString].BurstUnit = function(spell, unit, args)
     end
 
     return false
-end
+end]]
 
 WGBM[bossString].HealCD = function(spell, unit, args)
     if spell == "Innervate" then
@@ -153,17 +163,18 @@ WGBM[bossString].Priority = function(spell, unit, args)
         score = score + 5
     end
     return score, bossString
-end
+end]]
 
 
 
-WGBM[bossString].AllowedToInterrupt = function(spell, unit, args)
+WGBM[bossString].Interrupt = function(spell, unit, args)
     local unitid = unit.unitid
-    --print("checking interrupts on " .. unitid)
-    if UnitCastingInfo(unitid) == "Catastrophic Tides" then
-        print("skipping interrupts")
-        return false
+
+    if UnitCastingInfo(unitid) == "Diverted Essence" then
+        return
+    elseif UnitChannelInfo(unitid) == "Diverted Essence" then
+        return
     end
-    return true
+    return unit.health_percent < 0.8
+    --printTo(3,'default interrupt')
 end
-]]

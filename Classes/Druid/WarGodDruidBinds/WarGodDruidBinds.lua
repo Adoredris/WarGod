@@ -1,4 +1,4 @@
-if UnitClass("player") ~= "Druid" then DisableAddOn("WarGodDruidBinds"); return end
+if UnitClass("player") ~= "Druid" then C_AddOns.DisableAddOn("WarGodDruidBinds"); return end
 
 -- only stuff that lots of specs have for lots of
 
@@ -9,7 +9,7 @@ QueueSpellBind("Kindred Spirits", groups.noone, {--[[]prefix = "/cast Berserking
 QueueSpellBind("Convoke the Spirits", groups.noone, {prefix = "/cqs\n/cast ", when = {[HaveSpell] = "Convoke the Spirits"}})
 
 QueueSpellBind("Bear Form", groups.noone, {prefix = "/cancelaura Atomically Recalibrated\n/cast [nostance:1]"})
-QueueSpellBind("Cat Form", groups.noone, {prefix = "/cancelaura Atomically Recalibrated\n/run SetCVar(\"autoUnshift\",0)\n/cast [nochanneling:Convoke the Spirits,nostance:2]"})
+QueueSpellBind("Cat Form", groups.noone, {prefix = "/cancelaura Atomically Recalibrated\n/cast [nochanneling:Convoke the Spirits,nostance:2]"})
 QueueSpellBind("Travel Form", groups.noone, {prefix = "/cancelaura Atomically Recalibrated\n/cast [noform][form:1/2/3] "})
 QueueSpellBind("Mount Form", groups.noone, {prefix = "/cancelaura Atomically Recalibrated\n/cast [noform][form:1/2/3] "})
 

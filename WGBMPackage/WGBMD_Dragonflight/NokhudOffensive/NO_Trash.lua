@@ -15,9 +15,21 @@ WGBM[bossString].DPSBlacklist = function(spell, unit, args)
     if (unit:AuraRemaining("Seal Empowerment", "HELPFUL") > 0) then
         print('not dpsing with Seal Empowerment buff')
         return true
+    elseif unit.name == "Stormsurge Totem" then
+        if unit.health <= 1 then
+            return true
+        end
     end
 
-    return false
+    return WGBM.default.Priority(spell, unit, args)
+end
+
+WGBM[bossString].Priority = function(spell, unit, args)
+    if unit.name == "Stormsurge Totem" then
+        return 20
+    end
+
+    return WGBM.default.Priority(spell, unit, args)
 end
 
 --[[WGBM[bossString].DPSWhitelist = function(spell, unit, args)

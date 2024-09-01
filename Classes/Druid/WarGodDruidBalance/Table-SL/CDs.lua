@@ -28,7 +28,7 @@ local print = print
 
 local InCombatLockdown = InCombatLockdown
 local GetShapeshiftForm = GetShapeshiftForm
-local GetSpellInfo = GetSpellInfo
+local GetSpellInfo = C_Spell.GetSpellInfo
 
 local DoingHeroicPlus = DoingHeroicPlus
 local GetNumGroupMembers = GetNumGroupMembers
@@ -97,14 +97,14 @@ do
         IsUsable = function(self) return WarGodControl:AllowCDs() and Delegates:DamageCDWrapper(self.spell, WarGodUnit:GetTarget(), {40, 180}) and player.combat and WarGodUnit.active_enemies > 0 and (buff.moonkin_form:Stacks() > 0 or GetShapeshiftForm() == 0) end,
     })]]
 
-    AddItemFunction("Balance",13,baseScore + 440,{
+    AddItemFunction("Balance",13,baseScore + 441,{
         func = function(self)
             local spell, unit, args = self.spell, WarGodUnit:GetTarget(), {}
-            if Delegates:UnitIsEnemy(spell,unit,args)
+            if Delegates:UnitIsEnemy("Wrath",unit,args)
                     --and (not (not Delegates:DotBlacklistedWrapper(spell, unit,args)))
                     and (not Delegates:DPSBlacklistWrapper(spell,unit,args))
                     and (Delegates:PriorityWrapper(spell, unit,args) > 0) then
-                if equipped.spoils_of_neltharus.slotIndex == 13 then
+                if equipped.spoils_of_neltharus.slotIndex == 13 or equipped.irideus_fragment.slotIndex == 13 then
                     if buff_ca_inc:Remains() > 15 or buff_ca_inc:Remains() > 9 and WarGodSpells["Celestial Alignment"]:CDRemaining() > 30 then
                         return true
                     end
@@ -117,14 +117,14 @@ do
         --IsUsable = function(self) return true end,
     })
 
-    AddItemFunction("Balance",14,baseScore + 430,{
+    AddItemFunction("Balance",14,baseScore + 440,{
         func = function(self)
             local spell, unit, args = self.spell, WarGodUnit:GetTarget(), {}
-            if Delegates:UnitIsEnemy(spell,unit,args)
+            if Delegates:UnitIsEnemy("Wrath",unit,args)
                     --and (not (not Delegates:DotBlacklistedWrapper(spell, unit,args)))
                     and (not Delegates:DPSBlacklistWrapper(spell,unit,args))
                     and (Delegates:PriorityWrapper(spell, unit,args) > 0) then
-                if equipped.spoils_of_neltharus.slotIndex == 14 then
+                if equipped.spoils_of_neltharus.slotIndex == 14 or equipped.irideus_fragment.slotIndex == 14 then
                     if buff_ca_inc:Remains() > 15 or buff_ca_inc:Remains() > 9 and WarGodSpells["Celestial Alignment"]:CDRemaining() > 30 then
                         return true
                     end
@@ -137,23 +137,60 @@ do
         --IsUsable = function(self) return true end,
     })
 
-    AddItemFunction("Balance","Fleeting Elemental Potion of Ultimate Power",baseScore + 400,{
+    AddItemFunction("Balance","Fleeting Elemental Potion of Ultimate Power",baseScore + 401,{
         func = function(self)
             if not WarGod.potion then return end
             local spell, unit, args = self.spell, WarGodUnit:GetTarget(), {}
-            if Delegates:UnitIsEnemy(spell, unit,args)
+            if Delegates:UnitIsEnemy("Starfire", unit,args)
+                    --and (not (not Delegates:DotBlacklistedWrapper(spell, unit,args)))
+                    and (not Delegates:DPSBlacklistWrapper(spell, unit,args))
+                    and (Delegates:PriorityWrapper(spell, unit,args) > 0)
+            --and UnitExists("boss1")-- and (UnitInRaid("player")--[[ or ]])
+            then
+                --print('eligible potion target')
+                --if covenant.venthyr then
+                local incarnRemains = buff_ca_inc:Remains()
+                if incarnRemains <= 0 then return end
+                --if (not runeforge.sinful_hysteria.equipped) then
+                if (incarnRemains > 15) then
+                    return true
+                end
+                --end
+            end
+        end,
+        units = groups.noone,
+        label = "Pot",
+        quick = true,
+        IsUsable = function(self)
+            if WarGod.potion and Delegates:DamageCDWrapper(self.spell, WarGodUnit:GetTarget(), {25, 300}) then
+                --print('potion usable')
+                --[[if DoingHeroicPlus() and GetNumGroupMembers() >= 10 then
+                    return true
+                elseif GetKeyLevel() >= 15 then]]
+                return true
+                --end
+            end
+        end,
+    })
+
+    AddItemFunction("Balance","Elemental Potion of Ultimate Power",baseScore + 400,{
+        func = function(self)
+            if not WarGod.potion then return end
+            local spell, unit, args = self.spell, WarGodUnit:GetTarget(), {}
+            if Delegates:UnitIsEnemy("Starfire", unit,args)
                     --and (not (not Delegates:DotBlacklistedWrapper(spell, unit,args)))
                     and (not Delegates:DPSBlacklistWrapper(spell, unit,args))
                     and (Delegates:PriorityWrapper(spell, unit,args) > 0)
                     and UnitExists("boss1")-- and (UnitInRaid("player")--[[ or ]])
                     then
-                if covenant.venthyr then
-                    local incarnRemains = buff_ca_inc:Remains()
-                    if incarnRemains <= 0 then return end
-                    --if (not runeforge.sinful_hysteria.equipped) then
-                    if (incarnRemains > 15) then
-                        return true
-                    end
+                --if 1 == 1 then return true end
+                --print('eligible potion target')
+                local incarnRemains = buff_ca_inc:Remains()
+                --print(incarnRemains)
+                if incarnRemains <= 0 then return end
+                --if (not runeforge.sinful_hysteria.equipped) then
+                if (incarnRemains > 15) then
+                    return true
                 end
             end
         end,
@@ -162,6 +199,8 @@ do
         quick = true,
         IsUsable = function(self)
             if WarGod.potion and Delegates:DamageCDWrapper(self.spell, WarGodUnit:GetTarget(), {25, 300}) then
+                --
+                --print('potion usable')
                 --[[if DoingHeroicPlus() and GetNumGroupMembers() >= 10 then
                     return true
                 elseif GetKeyLevel() >= 15 then]]
@@ -272,7 +311,15 @@ do
         func = function(self)
             return Delegates:BurstUnitWrapper(self.spell, WarGod.Unit:GetTarget(), {})
         end,
-        units = groups.noone,
+        units = groups.cursor,
+        label = "CA (Burst)",
+    })
+
+    AddSpellFunction("Balance","Incarnation: Chosen of Elune",baseScore + 997,{
+        func = function(self)
+            return Delegates:BurstUnitWrapper(self.spell, WarGod.Unit:GetTarget(), {})
+        end,
+        units = groups.cursor,
         label = "Incarn (Burst)",
     })
 

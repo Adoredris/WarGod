@@ -106,14 +106,14 @@ WGBM[bossString].Purge = function(spell, unit, args)
         end]]
         local dispelScore = 0
         for i=1,40 do
-            local aura, icon, count, buffType, duration = UnitBuff(unitid, i)
-            if not aura then break end--if (buffType) then print(buffType) end
-            if (buffType == "Enrage" or buffType == "")then -- apparently enrages are empty string (still true?)
-                if aura == "Enrage" then
+            local t = UnitBuff(unitid, i)
+            if not t then break end--if (buffType) then print(buffType) end
+            if (t.dispelName == "Enrage" or t.dispelName == "")then -- apparently enrages are empty string (still true?)
+                if t.name == "Enrage" then
                     if ragingPurgeList[name] then
                         dispelScore = dispelScore + 1
                     end
-                elseif aura == "Painful Motivation" then
+                elseif t.name == "Painful Motivation" then
                     print('not dispelling with painful motivation')
                     return
                 else

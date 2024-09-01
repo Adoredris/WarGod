@@ -1,4 +1,8 @@
 local Rotation = WarGod.Rotation
+
+local UnitBuff = C_UnitAuras.GetBuffDataByIndex
+local UnitDebuff = C_UnitAuras.GetDebuffDataByIndex
+local UnitAura = C_UnitAuras.GetAuraDataByIndex
 setfenv(1, Rotation)
 
 function ScoreByInvertedDebuffTimeRemaining(self, spell, unit, args)
@@ -93,23 +97,24 @@ end
 
 function Delegates:HasSpellToCleanse(spell, unit, args)
 
-    --print('need to fix HasSpellToCleanse')
+    --print('checkign HasSpellToCleanse')
     --if 1==1 then return false end
     local unitid = unit.unitid
     if UnitIsFriend("player", unitid) then
         for i=1,40 do
-            local debuffName, _, _, auratype = UnitDebuff(unitid, i)
+            local t = UnitDebuff(unitid, i)
 
-            if(not debuffName)then
+            if(not t)then
                 break
             end
-            if (auratype)then
+            if (t.dispelName)then
                 local dispellableauratypes = player.dispellableauratypes
-                if not dispellableauratypes[auratype] then
+                if not dispellableauratypes[t.dispelName] then
                     --printTo(3,"I can't dispel " .. debuffName .. " " .. auratype)
                     --return 0
 
                 else
+                    --print(unit.name .. " HasSpellToCleanse")
                     return true
                 end
 
@@ -130,10 +135,10 @@ function Delegates:HasEnrageMagicEffect(spell, unit, args)
     local unitid = unit.unitid
     local score = 0
     for i=1,40 do
-        local name, icon, count, buffType, duration = UnitBuff(unitid, i)
-        if not name and score == 0 then return end
-        if (buffType == "Magic" or buffType == "Enrage" or buffType == "")then
-            if (name == "Lifebloom")then
+        local t = UnitBuff(unitid, i)
+        if not t then return end
+        if (t.dispelName == "Magic" or t.dispelName == "Enrage" or t.dispelName == "")then -- Enrages are "" for some reason?
+            if (t.name == "Lifebloom")then
                 return false
             end
 
@@ -156,15 +161,15 @@ function Delegates:HasMagicEffect(spell, unit, args)
     local unitid = unit.unitid
     local score = 0
     for i=1,40 do
-        local name, icon, count, buffType, duration = UnitBuff(unitid, i)
-        if not name and score == 0 then return end
-        if (buffType == "Magic"--[[ or buffType == ""]])then
-            if (name == "Lifebloom")then
+        local t = UnitBuff(unitid, i)
+        if not t then return end
+        if (t.dispelName == "Magic")then
+            if (t.name == "Lifebloom")then
                 return false
             end
 
             --if (duration > 0)then
-                score = score + 1
+            score = score + 1
             --end
 
             --return true
@@ -183,11 +188,11 @@ function Delegates:HasEnrageEffect(spell, unit, args)
     if unitid ~= "" then
         local score = 0
         for i=1,40 do
-            local name, icon, count, buffType, duration = UnitBuff(unitid, i)
-            if not name and score == 0 then return end--if (buffType) then print(buffType) end
-            if (buffType == "Enrage" or buffType == "")then -- apparently enrages are empty string
-                --if (not duration or duration > 5)then
-                    score = score + 1
+            local t = UnitBuff(unitid, i)
+            if not t then return end
+            if (t.dispelName == "Enrage" or t.dispelName == "")then -- Enrages are "" for some reason?
+                --if (duration > 0)then
+                score = score + 1
                 --end
 
                 --return true

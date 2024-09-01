@@ -1,0 +1,12 @@
+## Interface: 90001
+## Title: WarGod Priest
+## Author: Ikevink
+## Version: 1.0
+## Dependencies: WarGodClass, WarGodPriestBinds
+## X-Child-Of: WarGod
+
+## LoadOnDemand: 1
+## LoadManagers: AddonLoader
+
+Priest.lua
+Table\PriestTable.xml

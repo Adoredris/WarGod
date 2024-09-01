@@ -25,11 +25,11 @@ local WarGodControl = WarGod.Control
 
 
 local upairs = upairs
-local GetSpellInfo = GetSpellInfo
+local GetSpellInfo = C_Spell.GetSpellInfo
 local GetSpecialization = GetSpecialization
 local UnitExists = UnitExists
 local max = max
-local GetItemCount = GetItemCount
+local GetItemCount = C_Item.GetItemCount
 
 ---------TEMP-------------
 local WGBM = WarGod.BossMods

@@ -7,6 +7,7 @@ local itemNamesToIds = {
     --["Fleeting Elemental Potion of Power"] = 191905,
     ["Fleeting Elemental Potion of Power"] = 191906,
     ["Elemental Potion of Power"] = 191389,
+    ["Elemental Potion of Ultimate Power"] = 191382,
     --["Fleeting Elemental Potion of Power"] = 191907,
     --["Eternal Augment Rune"] = 190384,
     ["Loot-A-Rang"] = 60854,
@@ -15,20 +16,9 @@ local itemNamesToIds = {
 local consumables = {[191905] = true}
 
 function UnitRange(unit)
-    local minRange, maxRange = LRC:GetRange(unit.unitid)
-    --[[local unitrange = 9001 -- this should be 9000, but my level 5 mage couldn't get ranges :(
-    if not minRange then
-        unitrange = 9001
-        --printTo(3,"cannot get range estimate for "..UnitID)
-    elseif not maxRange then
-        unitrange = 9001
-        --printTo(3,UnitID.." is over " .. minRange .. " yards")
-    else
-        --printTo(3,UnitID.." is between " .. minRange .. " and " .. maxRange .. " yards")
-        unitrange = maxRange
-    end]]
-    return (minRange or 9000), (maxRange or 9001)
-    --return 40, 0
+    --local minRange, maxRange = LRC:GetRange(unit.unitid)
+    --return (minRange or 9000), (maxRange or 9001)
+    return 45, 0
 end
 
 function ActionCooldownRemains(number)
@@ -49,28 +39,29 @@ function ItemCDRemaining(slotno)
     else
         if (not consumables[slotno]) or GetItemCount(slotno) > 0 then
             start, duration, cdexists = GetItemCooldown(slotno)
+
         end
     end
-    if(cdexists ~= 1)then
-        --printTo(3,"BUG - SLOT : " .. slotno .. " CANNOT HAVE A CD")
+    if(not cdexists)then
+        print("BUG - SLOT : " .. slotno .. " CANNOT HAVE A CD")
         return GetTime() + 9999;
     end
     if(start==nil)then
         start=0;
         duration=0;
     end
+    --if start + duration - GetTime() < 0.3 then print("ItemCDRemaining says ready") end
     return start + duration - GetTime()
 end
 
 function SpellCDRemaining(spellname)
-    local start, duration = GetSpellCooldown(spellname)
-
+    local t = GetSpellCooldown(spellname) or {}
     --decided non-existant spells should never pretend to be off cd, so now they don't.. fix any bugs that result
-    if(start==nil)then
-        start=GetTime() + 1337 --0;
-        duration=1337 -- 0;
+    if(t.startTime==nil)then
+        t.startTime=GetTime() + 1337 --0;
+        t.duration=1337 -- 0;
     end
-    return start+duration-GetTime();
+    return t.startTime+t.duration-GetTime();
 end
 
 function CDRemaining(self)
@@ -79,7 +70,11 @@ function CDRemaining(self)
     if(type(spell)=="number")then --printTo(3,"CDRemaining(item): " ..SpellOrItemNumber.." : " ..(ItemCDRemaining(SpellOrItemNumber) - opt_SecondsFromNow))
         return ItemCDRemaining(spell)
     elseif itemNamesToIds[spell] then
-        return ItemCDRemaining(itemNamesToIds[spell])
+        if itemNamesToIds[spell] > 190000 then
+            return max(ItemCDRemaining(itemNamesToIds[spell]), ItemCDRemaining(itemNamesToIds[spell] - 1), ItemCDRemaining(itemNamesToIds[spell] - 2))
+        else
+            return ItemCDRemaining(itemNamesToIds[spell])
+        end
     else --printTo(3,"CDRemaining(spell): " ..SpellOrItemNumber.." : " ..(SpellCDRemaining(SpellOrItemNumber) - opt_SecondsFromNow))
         return SpellCDRemaining(spell)
     end

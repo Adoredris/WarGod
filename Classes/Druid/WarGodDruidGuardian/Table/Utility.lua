@@ -18,7 +18,7 @@ local UnitChannelInfo = UnitChannelInfo
 local IsSpellInRange = LibStub("SpellRange-1.0").IsSpellInRange
 local UnitAffectingCombat = UnitAffectingCombat
 local GetShapeshiftForm = GetShapeshiftForm
-local GetSpellInfo = GetSpellInfo
+local GetSpellInfo = C_Spell.GetSpellInfo
 
 ---------TEMP-------------
 local WGBM = WarGod.BossMods

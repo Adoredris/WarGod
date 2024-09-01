@@ -4,7 +4,7 @@ local KS = LibStub("AceAddon-3.0"):NewAddon("WarGodDruidKindredSpirits", "AceCon
 
 local GetTime = GetTime
 local UnitName = UnitName
-local GetSpellInfo = GetSpellInfo
+local GetSpellInfo = C_Spell.GetSpellInfo
 local UnitBuff = UnitBuff
 
 local lastWhisperTime = 0
@@ -17,7 +17,7 @@ local UnitGroupRolesAssigned = UnitGroupRolesAssigned
 --local ksPartner =
 
 function GetKSPartnerUnitId()
-    if GetSpellInfo("Kindred Spirits") == "Empower Bond" then
+    if GetSpellInfo("Kindred Spirits").name == "Empower Bond" then
         for i=1,40 do
             local playerName, playerIcon, _, _, _, _, playerSourceUnitId, _, _, playerSpellId = UnitBuff("player",i)
             if playerSpellId == nil then
@@ -31,7 +31,7 @@ function GetKSPartnerUnitId()
 end
 
 function KSPartnerHasCDUp()
-    if GetSpellInfo("Kindred Spirits") == "Empower Bond" then
+    if GetSpellInfo("Kindred Spirits").name == "Empower Bond" then
         for i=1,40 do
             local playerName, playerIcon, _, _, _, _, playerSourceUnitId, _, _, playerSpellId = UnitBuff("player",i)
             if playerSpellId == nil then

@@ -1,3 +1,4 @@
+if UnitClass("player") ~= "Druid" then C_AddOns.DisableAddOn("WarGodDruidRestoration"); return end
 local Druid = WarGod.Class
 local Resto = {}
 local frame = CreateFrame("Frame")
@@ -13,7 +14,6 @@ local pairs = pairs
 local upairs = upairs
 local GetTime = GetTime
 local CombatLogGetCurrentEventInfo = CombatLogGetCurrentEventInfo
-local UnitBuff = UnitBuff
 
 local print = print
 

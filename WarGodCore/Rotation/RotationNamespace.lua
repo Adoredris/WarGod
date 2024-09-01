@@ -1,7 +1,7 @@
 local Rotation = LibStub("AceAddon-3.0"):NewAddon("WarGodRotation", "AceConsole-3.0", "AceEvent-3.0")
 WarGod.Rotation = Rotation
-EnableAddOn("WarGodBossMods")
-LoadAddOn("WarGodBossMods")
+C_AddOns.EnableAddOn("WarGodBossMods")
+C_AddOns.LoadAddOn("WarGodBossMods")
 WarGod.Rotation.WGBM = WarGod.BossMods
 Rotation.printTo = WarGod.printTo
 
@@ -9,7 +9,6 @@ Rotation.CreateFrame = CreateFrame
 Rotation.ChatFrame4 = ChatFrame4
 
 Rotation.print = print
-Rotation.LRC = LibStub("LibRangeCheck-2.0")
 --Rotation.WarGod = WarGod
 Rotation.WarGodUnit = WarGod.Unit
 Rotation.WarGodBM = WarGod.BossMods
@@ -29,10 +28,13 @@ Rotation.max = max
 Rotation.GetTime = GetTime
 
 --Rotation.pixel = WarGod.Pixel
-Rotation.GetSpellCooldown = GetSpellCooldown
+Rotation.GetSpellCooldown = C_Spell.GetSpellCooldown
+Rotation.GetSpellCount = C_Spell.GetSpellCastCount
+Rotation.GetSpellCastCount = C_Spell.GetSpellCastCount
+Rotation.GetSpellInfo = C_Spell.GetSpellInfo
 Rotation.GetInventoryItemCooldown = GetInventoryItemCooldown
-Rotation.GetItemCooldown = GetItemCooldown
-Rotation.GetItemCount = GetItemCount
+Rotation.GetItemCooldown = C_Item.GetItemCooldown
+Rotation.GetItemCount = C_Item.GetItemCount
 Rotation.UnitCastingInfo = UnitCastingInfo
 Rotation.UnitChannelInfo = UnitChannelInfo
 Rotation.GetNetStats = GetNetStats
@@ -47,6 +49,17 @@ Rotation.setmetatable = setmetatable
 Rotation.random = random
 Rotation.tonumber = tonumber
 Rotation.UnitGUID = UnitGUID
+
+--[[local function IsSpellInRangeWrapper(spell, unitid)
+    local v = C_Spell.IsSpellInRange(spell, unitid)
+    if v == 1 or v then
+        return true
+    end
+end
+
+Rotation.IsSpellInRange = IsSpellInRangeWrapper]]
+
+Rotation.IsSpellInRange = LibStub("SpellRange-1.0").IsSpellInRange
 
 Rotation.GetSpecialization = GetSpecialization
 Rotation.GetSpecializationInfo = GetSpecializationInfo
@@ -66,14 +79,13 @@ Rotation.CheckInteractDistance = CheckInteractDistance
 Rotation.UnitGetIncomingHeals = UnitGetIncomingHeals
 
 --Rotation.IsItemInRange = IsItemInRange
-Rotation.IsSpellInRange = LibStub("SpellRange-1.0").IsSpellInRange
 Rotation.IsInInstance = IsInInstance
 Rotation.GetInstanceInfo = GetInstanceInfo
 Rotation.GetDifficultyInfo = GetDifficultyInfo
 Rotation.GetDungeonDifficultyID = GetDungeonDifficultyID
 Rotation.GetNumGroupMembers = GetNumGroupMembers
 Rotation.UnitAffectingCombat = UnitAffectingCombat
-Rotation.GetSpellInfo = GetSpellInfo
+Rotation.GetSpellInfo = C_Spell.GetSpellInfo
 Rotation.CombatLogGetCurrentEventInfo = CombatLogGetCurrentEventInfo
 Rotation.GetQuestObjectiveInfo = GetQuestObjectiveInfo
 

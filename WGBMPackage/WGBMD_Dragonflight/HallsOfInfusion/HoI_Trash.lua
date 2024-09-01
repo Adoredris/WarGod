@@ -43,7 +43,8 @@ end]]
 
 WGBM[bossString].Cleanse = function(spell, unit, args)
     local toxinStacks = unit:AuraStacks("Gulp Swog Toxin", "HARMFUL")
-    if toxinStacks > 6 then
+    if toxinStacks >= 6 then
+        print('removing high stacks on ' .. unit.name)
         return true
     elseif toxinStacks > 0 then
         return

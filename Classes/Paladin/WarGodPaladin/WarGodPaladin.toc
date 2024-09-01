@@ -1,0 +1,12 @@
+## Interface: 90001
+## Title: WarGod Paladin
+## Author: Ikevink
+## Version: 1.0
+## Dependencies: WarGodClass, WarGodPaladinBinds
+## X-Child-Of: WarGod
+
+## LoadOnDemand: 1
+## LoadManagers: AddonLoader
+
+Paladin.lua
+#Table\PaladinTable.xml

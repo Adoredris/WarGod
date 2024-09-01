@@ -4,7 +4,8 @@ setfenv(1, WarGod.Binder)
 
 QueueSpellBind("Fleeting Elemental Potion of Power", groups.noone, {stopmacro = "channeling", prefix = "/use Fleeting Elemental Potion of Ultimate Power\n/use", suffix = "\n/use Elemental Potion of Ultimate Power\n/use Elemental Potion of Power"})
 QueueSpellBind("Fleeting Elemental Potion of Ultimate Power", groups.noone, {stopmacro = "channeling", prefix = "/use", suffix = "\n/use Elemental Potion of Ultimate Power\n/use Elemental Potion of Power"})
-
+QueueSpellBind("Elemental Potion of Power", groups.noone, {stopmacro = "channeling", prefix = "/use Fleeting Elemental Potion of Ultimate Power\n/use", suffix = "\n/use Elemental Potion of Ultimate Power\n/use Elemental Potion of Power"})
+QueueSpellBind("Elemental Potion of Ultimate Power", groups.noone, {stopmacro = "channeling", prefix = "/use", suffix = "\n/use Elemental Potion of Ultimate Power\n/use Elemental Potion of Power"})
 
 QueueSpellBind("Primal Wrath", groups.noone, {stopmacro = "channeling", when = {[MatchesSpec]={2},[HaveTalent]="Primal Wrath"}})
 QueueSpellBind("Maim", groups.allEnemies, {stopmacro = "channeling", prefix = "/startattack\n/cast ", when =      {[MatchesSpec]={2}}})

@@ -17,7 +17,7 @@ WGBM[bossString].Defensive = function(spell, unit, args)
             return true
         end
     else
-        local remains, stacks = WarGod.Unit:GetUnit("boss1"):BuffRemaining("Clutchwatcher's Rage", "HELPFUL")
+        local stacks = WarGod.Unit:GetUnit("boss1").buff.clutchwatchers_rage:Stacks()
         if args[2] <= 60 and stacks == 1 then
             return true
         elseif stacks == 2 and (args[2] <= 180 and WarGod.Unit:GetPlayer().health_percent < 0.65 or WarGod.Unit:GetPlayer().health_percent < 0.8 and WarGod.Unit:GetPlayer().buff.barkskin:Down()) then

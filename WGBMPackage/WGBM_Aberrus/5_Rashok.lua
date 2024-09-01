@@ -50,7 +50,7 @@ WGBM[bossString].Defensive = function(spell, unit, args)
             if WarGod.Unit:GetPlayer():BuffRemaining("Overcharged","HARMFUL") ~= 0 then
                 return true
             elseif WarGod.Unit:GetUnit("boss1"):BuffRemaining("Elder's Conduit","HELPFUL") ~= 0 then
-                return true
+            --    return true
             end
         end
     end

@@ -4,7 +4,7 @@ local strsub = strsub
 local strlen = strlen
 local strmatch = strmatch
 local GetTime = GetTime
-local GetSpellInfo = GetSpellInfo
+local GetSpellInfo = C_Spell.GetSpellInfo
 local LibStub = LibStub
 local print = print
 local pairs = pairs
@@ -104,7 +104,7 @@ do
     function ForceCasts:UNIT_SPELLCAST_FAILED(event, unitid, lineid, spellid)
         if unitid == "player" then
             --print(event)
-            local spellName = GetSpellInfo(spellid)
+            local spellName = GetSpellInfo(spellid).name
             if (spellName) then
                 if (spellName == player.queuedSpell) then --[[print("next spell is same")]] return end
                 if (queuedForceCasts[spellName]) then --[[print("already queued force")]] return end
@@ -177,7 +177,7 @@ do
 
     function ForceCasts:UNIT_SPELLCAST_SUCCEEDED(event, unitid, lineid, spellid)
         if unitid == "player" then
-            local spell = GetSpellInfo(spellid)
+            local spell = GetSpellInfo(spellid).name
             if (spell) then
                 recentCasts[spell] = GetTime()
                 --print('succeeded ' .. spell)

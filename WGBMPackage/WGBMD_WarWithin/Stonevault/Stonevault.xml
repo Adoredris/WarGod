@@ -1,0 +1,7 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <Script file="1_EDNA.lua"/>
+    <Script file="2_Skarmorak.lua"/>
+    <Script file="3_MasterMachinists.lua"/>
+    <Script file="4_Eirich.lua"/>
+    <Script file="Stonevault_Trash.lua"/>
+</Ui>

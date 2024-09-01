@@ -8,6 +8,9 @@ WarGod.BossMods.default = {}
 --local bossName = ""
 local printTo = WarGod.printTo
 
+local IsAddOnLoaded = C_AddOns.IsAddOnLoaded
+local LoadAddOn = C_AddOns.LoadAddOn
+
 function PrintBossName()
     printTo(3,bossName)
 end
@@ -149,11 +152,15 @@ function WGBM:ADDON_LOADED(event, name)
 
         end
     elseif(name == "LittleWigs") then
-        if (not IsAddOnLoaded("WGBMD_Dragonflight")) then
-            LoadAddOn("WGBMD_Dragonflight")
+        if (not IsAddOnLoaded("WGBMD_WarWithin")) then
+            LoadAddOn("WGBMD_WarWithin")
         end
     elseif(string.match(name,"^LittleWigs"))then
-        if(string.match(name, "Classic"))then
+        if(string.match(name, "Dragonflight"))then
+            if (not IsAddOnLoaded("WGBMD_Dragonflight")) then
+                LoadAddOn("WGBMD_Dragonflight")
+            end
+        elseif(string.match(name, "Classic"))then
             if (not IsAddOnLoaded("WGBMD_Classic")) then
                 LoadAddOn("WGBMD_Classic")
             end
@@ -195,9 +202,9 @@ function WGBM:ADDON_LOADED(event, name)
     end
 end
 WGBM:RegisterEvent("ADDON_LOADED")
-for i=1,GetNumAddOns() do
-    if IsAddOnLoaded(i) then
-        WGBM:ADDON_LOADED("ADDON_LOADED", GetAddOnInfo(i))   -- in case bigwigs module was already loaded
+for i=1,C_AddOns.GetNumAddOns() do
+    if C_AddOns.IsAddOnLoaded(i) then
+        WGBM:ADDON_LOADED("ADDON_LOADED", C_AddOns.GetAddOnInfo(i))   -- in case bigwigs module was already loaded
     end
 
 end

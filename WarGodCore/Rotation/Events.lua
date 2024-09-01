@@ -4,12 +4,14 @@ setfenv(1, Rotation)
 -- 1. changes your activeFrames when you respec
 -- 2. changes which auras you are known to be capable of dispeling
 function Rotation:PLAYER_SPECIALIZATION_CHANGED(event, unitid)
+    --print('yo')
     if unitid == "player" then
         local specId, specName = GetSpecializationInfo(GetSpecialization())
         if not specName then specName = "none" end
         --print(GetSpecializationInfo(spec))
         --local specName =
         if (specName) then
+            --print('changing activeFrames')
             activeFrames = rotationFrames[specName]
 
             for rotationSpecName,frameTable in pairs(rotationFrames) do
@@ -48,6 +50,7 @@ function Rotation:PLAYER_SPECIALIZATION_CHANGED(event, unitid)
     end
 end
 Rotation:PLAYER_SPECIALIZATION_CHANGED("PLAYER_SPECIALIZATION_CHANGED","player")
+Rotation:RegisterEvent("PLAYER_SPECIALIZATION_CHANGED")
 
 function Rotation:LFG_ROLE_UPDATE(event)
     Rotation:PLAYER_SPECIALIZATION_CHANGED(event,"player")
@@ -55,8 +58,9 @@ end
 Rotation:RegisterEvent("LFG_ROLE_UPDATE")
 
 function Rotation:UNIT_SPELLCAST_SUCCEEDED(event, unitid, lineid, spellid)
+    --print('UNIT_SPELLCAST_SUCCEEDED')
     if unitid == "player" then
-        local spellName = GetSpellInfo(spellid)
+        local spellName = GetSpellInfo(spellid).name
         local spellFrame = rawget(activeFrames, spellName)
         if spellFrame then
             if spellFrame.offgcd then
@@ -81,7 +85,7 @@ Rotation:RegisterEvent("UNIT_SPELLCAST_SUCCEEDED")
 
 function Rotation:UNIT_SPELLCAST_START(event, unitid, lineid, spellid)
     if unitid == "player" then
-        local spellName = GetSpellInfo(spellid)
+        local spellName = GetSpellInfo(spellid).name
         local spellFrame = rawget(activeFrames, spellName)
         if spellFrame then
             spellFrame:RefreshSpell()

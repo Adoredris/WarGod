@@ -11,6 +11,7 @@ printTo(3,bossString)
 WGBM[bossString] = {}
 
 WGBM[bossString].DPSBlacklist = function(spell, unit, args)
+    --print('in frog blacklist')
     local name = unit.name
     if (unit:AuraRemaining("Seal Empowerment", "HELPFUL") > 0) then
         print('not dpsing with Seal Empowerment buff')
@@ -31,8 +32,11 @@ end
 end]]
 
 WGBM[bossString].Cleanse = function(spell, unit, args)
+    print('in frog clenase')
     local toxinStacks = unit:AuraStacks("Gulp Swog Toxin", "HARMFUL")
-    if toxinStacks > 6 then
+    print(toxinStacks)
+    if toxinStacks >= 6 then
+        print('removing high stacks on ' .. unit.name)
         return true
     elseif toxinStacks > 0 then
         return

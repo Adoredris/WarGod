@@ -15,8 +15,8 @@ function AllTrue(spellname, unitid, args, t)
     return true
 end
 
-IsEnemyDelegateTable = {Delegates.UnitIsEnemy}
-IsFriendDelegateTable = {Delegates.UnitIsFriend}
+--IsEnemyDelegateTable = {Delegates.UnitIsEnemy}
+--IsFriendDelegateTable = {Delegates.UnitIsFriend}
 
 function LustRemaining()
     local lustRemains = max(player.buffAnyone.time_warp:Remains(),

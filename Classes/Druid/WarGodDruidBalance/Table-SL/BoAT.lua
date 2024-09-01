@@ -20,9 +20,9 @@ local WarGodUnit = WarGod.Unit
 local WarGodControl = WarGod.Control
 
 local GetShapeshiftForm = GetShapeshiftForm
-local GetSpellInfo = GetSpellInfo
+local GetSpellInfo = C_Spell.GetSpellInfo
 local GetNumGroupMembers = GetNumGroupMembers
-local GetSpellCount = GetSpellCount
+local GetSpellCount = C_Spell.GetSpellCastCount
 local GetInventoryItemCooldown = GetInventoryItemCooldown
 
 
@@ -84,7 +84,34 @@ do
                 end
             end
         end,
-        units = groups.noone,
+        units = groups.cursor,
+        label = "CA Boat",
+        helpharm = "harm",
+        maxRange = 40,
+        quick = true,
+        --IsUsable = function(self) return (WarGodSpells["Wrath"]:CDRemaining() < 0.25 or WarGodSpells["Starfire"]:CDRemaining() < 0.25) and WarGodControl:AllowCDs() and Delegates:DamageCDWrapper(self.spell, WarGodUnit:GetTarget(), {20, 180}) and player.combat and WarGodUnit.active_enemies > 0 and buff_ca_inc:Down() and (buff.moonkin_form:Stacks() > 0 or GetShapeshiftForm() == 0) end,
+
+    })
+
+    AddSpellFunction("Balance","Incarnation: Chosen of Elune",baseScore + 997,{
+        func = function(self)
+            if not runeforge.balance_of_all_things.equipped then return end
+            local lustRemains = LustRemaining()
+            --variable.cd_condition&(astral_power>90&(buff.kindred_empowerment_energize.up|!covenant.kyrian)|covenant.night_fae|buff.bloodlust.up&buff.bloodlust.remains<20+(conduit.precise_alignment.time_value))&(variable.convoke_desync|cooldown.convoke_the_spirits.ready)|interpolated_fight_remains<20+(conduit.precise_alignment.time_value)
+            if buffNotMine.kindred_empowerment.up
+                    or (not equipped.empyreal_ordnance.equipped) or (buff.empyreal_surge.up or WarGodSpells[equipped.empyreal_ordnance.slotIndex]:CDRemaining() > 60 and WarGodSpells[equipped.empyreal_ordnance.slotIndex]:CDRemaining() < 150) then
+                if variable.cd_condition and --[[((player:Lunar_Power() >= 90 or buffNotMine.kindred_empowerment.up) and (buff.kindred_empowerment:Up() or (not covenant.kyrian))]] covenant.night_fae and (WarGodSpells["Convoke the Spirits"]:CDRemaining() < player.gcd) or (not covenant.night_fae)  --[[|interpolated_fight_remains<(talent.incarnation_chosen_of_elune.enabled and 30 or 20)+(conduit.precise_alignment.time_value)]]
+                then
+                    local empOrdSlot = equipped.empyreal_ordnance.slotIndex
+                    local bellSlot = empOrdSlot == 13 and 14 or 13
+                    local _, trinket2ready = GetInventoryItemCooldown("player",bellSlot)
+                    if trinket2ready == 0 then
+                        return true
+                    end
+                end
+            end
+        end,
+        units = groups.cursor,
         label = "Incarn Boat",
         helpharm = "harm",
         maxRange = 40,

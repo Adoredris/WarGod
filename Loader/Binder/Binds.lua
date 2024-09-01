@@ -159,7 +159,7 @@ do
                 buttons[kMod .. kKey]:SetAttribute("type", "macro")
                 SetOverrideBindingClick(buttons[bind], true, bind, bind);
                 buttons[bind]:SetAttribute("macrotext", "/run print('unused bind: " .. bind .. "' )")
-
+                buttons[bind]:RegisterForClicks("AnyDown","AnyUp")
                 buttons[bind].key = vKey
                 buttons[bind].mod = BlueModifierCombos[kMod]
 

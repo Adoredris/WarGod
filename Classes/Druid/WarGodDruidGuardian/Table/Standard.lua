@@ -367,7 +367,7 @@ do
 
     AddSpellFunction("Guardian","Kindred Spirits",1050,{
         func = function(self)
-            if (not runeforge.kindred_affinity.equipped) or GetSpellInfo(self.spell) == "Lone Empowerment" then
+            if (not runeforge.kindred_affinity.equipped) or GetSpellInfo(self.spell).name == "Lone Empowerment" then
                 return true
             else
                 return true
@@ -387,7 +387,7 @@ do
         Castable = function(self) return Delegates:IsKindredSpiritsInRange() end,
         IsUsable = function(self)
             if covenant.kyrian then
-                return Delegates:DamageCDWrapper(self.spell, WarGodUnit:GetTarget(), {10, 60}) and player.combat and WarGodUnit.active_enemies > 0 or GetNumGroupMembers() < 2 and GetSpellInfo(self.spell) == "Kindred Spirits" and player.casting ~= "Kindred Spirits"
+                return Delegates:DamageCDWrapper(self.spell, WarGodUnit:GetTarget(), {10, 60}) and player.combat and WarGodUnit.active_enemies > 0 or GetNumGroupMembers() < 2 and GetSpellInfo(self.spell).name == "Kindred Spirits" and player.casting ~= "Kindred Spirits"
             end
         end,
     })
