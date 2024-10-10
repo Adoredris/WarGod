@@ -100,10 +100,10 @@ function Delegates:InnervateParty(spell, unit, args)
     return manapercent < threshold
 end
 
---[[function Class:CHAT_MSG_WHISPER(event, text, playerName, languageName, channelName, playerName2, specialFlags, zoneChannelID, channelIndex, channelBaseName, unused, lineID, guid, bnSenderID, isMobile, isSubtitle, hideSenderInLetterbox, supressRaidIcons)
+function Class:CHAT_MSG_WHISPER(event, text, playerName, languageName, channelName, playerName2, specialFlags, zoneChannelID, channelIndex, channelBaseName, unused, lineID, guid, bnSenderID, isMobile, isSubtitle, hideSenderInLetterbox, supressRaidIcons)
     --print(event)
     --print(playerName)
-    if strmatch(strlower(text), "innervate") and strlen(text) < 25 then
+    if (strmatch(strlower(text), "innervate") or strmatch(text, "NoW") or strmatch(text, "now plx")) and strlen(text) < 25 then
         innervateCallTime = GetTime()
         innervateTarget = playerName -- comes as playername-server
         --print(playername)
@@ -122,7 +122,7 @@ end
     --local start, cd = GetSpellCooldown("Innervate")
 
 end
-Class:RegisterEvent("CHAT_MSG_WHISPER")]]
+Class:RegisterEvent("CHAT_MSG_WHISPER")
 
 function Delegates:UnitHasHot(spell, unit, args)
     --print(spell)
@@ -132,8 +132,8 @@ function Delegates:UnitHasHot(spell, unit, args)
 end
 
 function Class:UNIT_SPELLCAST_START(event, unitId, lineId, spellId)
+
     if (unitId == "player") then
-        --print("boo")
         if (spellId == 8936) then           -- regrowth
             player.mana_cost = 0.2184 * player.mana_max
         elseif (spellId == 48438) then      -- wild growth

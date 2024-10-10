@@ -1,6 +1,6 @@
 --
 -- Created by IntelliJ IDEA.
--- User: Ikevink
+-- User: Flora
 -- Date: 16/12/2017
 -- Time: 8:00 PM
 -- To change this template use File | Settings | File Templates.
@@ -92,6 +92,28 @@ do
         label = "Incarn (AoE)",
     })
 
+    AddSpellFunction("Balance","Starfall",baseScore + 975,{
+        func = function(self)
+            if not variable.is_aoe then return end
+            if player:Lunar_Power_Deficit() < 30 + WarGodUnit.active_enemies or buff.starwearvers_warp:Up() then
+                local numEnemies = 0
+                local totalHealth = 0
+                local healthToStarfall = --[[UnitInRaid("player") and 0 or ]]player.health * max(1, GetNumGroupMembers())
+                for k,unit in upairs(groups.targetableOrPlates) do
+                    if (not Delegates:AoeBlacklistedWrapper(self.spell, unit, {})) and Delegates:IsSpellInRange("Wrath", unit, {}) then
+                        numEnemies = numEnemies + 1
+                        totalHealth = totalHealth + unit.health
+                        if numEnemies >= variable.sf_targets and totalHealth >= healthToStarfall then return true end
+                    end
+                end
+            end
+        end,
+        units = groups.noone,
+        label = "Starfall (AoE AP)",
+        --IsUsable = function() return (player:Lunar_Power() >= 50 * (talent.rattle_the_stars.enabled and buff.rattled_stars:Stacks() * 0.95 or 1) - (talent.elunes_guidance.enabled and buff.incarnation_chosen_of_elune:Up()  and 8 or 0) or talent.starweaver.enabled and buff.starweavers_warp:Up()) and --[[WarGodControl:AllowClickies() and ]]player.combat and (buff.moonkin_form:Stacks() > 0 or GetShapeshiftForm() == 0) end,
+    })
+
+
     AddSpellFunction("Balance","Sunfire",baseScore + 950,{
         func = function(self)
             if not variable.is_aoe then return end
@@ -106,7 +128,7 @@ do
 
     --actions.aoe+=/adaptive_swarm,target_if=!ticking&!action.adaptive_swarm_damage.in_flight|dot.adaptive_swarm_damage.stack<3&dot.adaptive_swarm_damage.remains<3
 
-    --actions.aoe+=/moonfire,target_if=refreshable&target.time_to_die>(14+(spell_targets.starfire*1.5))%spell_targets+remains,if=(cooldown.ca_inc.ready|spell_targets.starfire<3|(eclipse.in_solar|eclipse.in_both|eclipse.in_lunar&!talent.soul_of_the_forest.enabled|buff.primordial_arcanic_pulsar.value>=250)&(spell_targets.starfire<10*(1+talent.twin_moons.enabled))&astral_power>50-buff.starfall.remains*6)&!buff.kindred_empowerment_energize.up&ap_check
+    --actions.aoe+=/moonfire,target_if=refreshable&target.time_to_die>(14+(spell_targets.starfire*1.5))%spell_targets+rem1------------s,if=(cooldown.ca_inc.ready|spell_targets.starfire<3|(eclipse.in_solar|eclipse.in_both|eclipse.in_lunar&!talent.soul_of_the_forest.enabled|buff.primordial_arcanic_pulsar.value>=250)&(spell_targets.starfire<10*(1+talent.twin_moons.enabled))&astral_power>50-buff.starfall.remains*6)&!buff.kindred_empowerment_energize.up&ap_check
     AddSpellFunction("Balance","Moonfire",baseScore + 925,{
         func = function(self)
             if not variable.is_aoe then return end
@@ -119,10 +141,23 @@ do
         args = {--[[aura = "sunfire", ]]threshold = 6.6, ttd = 8},
     })
 
+    AddSpellFunction("Balance","Force of Nature",baseScore + 910,{
+        func = function(self)
+            if not variable.is_aoe then return end
+            return talent.power_of_the_dream.enabled and talent.early_spring.enabled and talent.orbital_strike.enabled or eclipse:AnyRemains() > 3
+        end,
+        units = groups.cursor,
+        label = "FoN",
+        IsUsable = function(self) return talent.force_of_nature.enabled and ((WarGodControl:AllowClickies() and ((not WarGodControl:AllowCDs()) or WarGodSpells["Celestial Alignment"]:CDRemaining() > 25)) or WarGodControl:AllowCDs() or buff_ca_inc:Up() or WarGodSpells["Celestial Alignment"]:CDRemaining() < player.gcd) and Delegates:DamageCDWrapper(self.spell, WarGodUnit:GetTarget(), {10, 60}) and player.combat and WarGodUnit.active_enemies > 0 and (buff.moonkin_form:Stacks() > 0 or GetShapeshiftForm() == 0) end,
+        helpharm = "harm",
+        maxRange = 45,
+
+    })
+
     AddSpellFunction("Balance","Starfall",baseScore + 900,{
         func = function(self)
             if not variable.is_aoe then return end
-            if player:Lunar_Power() > 70 or buff.starwearvers_warp:Up() then
+            if player:Lunar_Power_Deficit() < 30 or buff.starwearvers_warp:Up() then
                 local numEnemies = 0
                 local totalHealth = 0
                 local healthToStarfall = --[[UnitInRaid("player") and 0 or ]]player.health * max(1, GetNumGroupMembers())
@@ -148,7 +183,7 @@ do
         label = "WoE (AoE)",
     })
 
-    AddSpellFunction("Balance","Starfire",baseScore + 750,{
+    --[[AddSpellFunction("Balance","Starfire",baseScore + 750,{
         func = function(self)
             if not variable.is_aoe then return end
             if (eclipse:In_Any()) then return end
@@ -160,13 +195,13 @@ do
         units = groups.targetable,
         andDelegates = {Delegates.UnitIsEnemy},
         label = "Starfire (Enter Eclipse AoE)",
-    })
+    })]]
 
     AddSpellFunction("Balance","Wrath",baseScore + 700,{
         func = function(self)
             if not variable.is_aoe then return end
             if (eclipse:In_Any()) then return end
-            if WarGodUnit.active_enemies < 3 then return end
+            if WarGodUnit.active_enemies < 2 then return end
             if eclipse:Any_Next() and (GetSpellCount("Wrath") > 1 or player.casting ~= "Wrath") then
                 return true
             end
@@ -215,7 +250,7 @@ do
         label = "Starfall (AoE Starlord)",
         IsUsable = function()
             if --[[player.combat and ]](buff.moonkin_form:Stacks() > 0 or GetShapeshiftForm() == 0) then
-                local starfallCost = 50 - (talent.rattle_the_stars.enabled and buff.rattled_stars:Stacks() * 2.5 or 0) - (talent.elunes_guidance.enabled and buff.incarnation_chosen_of_elune:Up() and 8 or 0)
+                local starfallCost = 50 - (talent.rattle_the_stars.enabled and 5 or 0)
                 --print(starfallCost)
                 if player:Lunar_Power() >= starfallCost then
                     return true
@@ -310,7 +345,7 @@ do
     AddSpellFunction("Balance","Starfire",baseScore + 390,{
         func = function(self)
             if not variable.is_aoe then return end
-            if eclipse:In_Lunar() and (not eclipse:In_Solar()) then
+            if eclipse:In_Lunar() and ((not eclipse:In_Solar()) or talent.lunar_calling.enabled) then
                 return true
             end
             if WarGodUnit.active_enemies >= 4 and buff_ca_inc:Remains() > CastTimeFor(self.spell) then
@@ -330,9 +365,9 @@ do
             if eclipse:In_Solar() and (not eclipse:In_Lunar()) then
                 return true
             end
-            if WarGodUnit.active_enemies < 4 and buff_ca_inc:Remains() > CastTimeFor("Starfire") then
+            --[[if WarGodUnit.active_enemies < 4 and buff_ca_inc:Remains() > CastTimeFor("Starfire") then
                 return true
-            end
+            end]]
         end,
         units = groups.targetable,
         label = "Wrath AOE",
@@ -354,10 +389,7 @@ do
             if variable.is_aoe then
                 if eclipse:In_Solar() then
                     return true
-                elseif eclipse:Lunar_Next() then
-                    if player.casting == "Wrath" and GetSpellCount("Wrath") == 1 then
-                        return
-                    end
+                else
                     return true
                 end
             end

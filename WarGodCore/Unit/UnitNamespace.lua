@@ -71,6 +71,7 @@ Unit.LibStub = LibStub
 Unit.C_Covenants = C_Covenants
 Unit.C_Item = C_Item
 Unit.GetSpellCooldown = C_Spell.GetSpellCooldown
+Unit.GetRuneCooldown = GetRuneCooldown
 
 Unit.GetSpellInfo = C_Spell.GetSpellInfo
 Unit.ItemLocation = ItemLocation
@@ -83,8 +84,9 @@ Unit.GetTreeNodes = C_Traits.GetTreeNodes
 Unit.GetNodeInfo = C_Traits.GetNodeInfo
 Unit.GetEntryInfo = C_Traits.GetEntryInfo
 Unit.GetDefinitionInfo = C_Traits.GetDefinitionInfo
-Unit.GetSpellBookItemName = GetSpellBookItemName
-Unit.GetSpellCharges = GetSpellCharges
+--Unit.GetSpellBookItemName = C_SpellBook.GetSpellBookItemName
+Unit.GetSpellBookItemInfo = C_SpellBook.GetSpellBookItemInfo
+Unit.GetSpellCharges = C_Spell.GetSpellCharges
 
 --Unit.GetAuraDataBySlot = C_UnitAuras.IsAuraFilteredOutByInstanceID
 --Unit.GetAuraDataBySlot = C_UnitAuras.WantsAlteredForm

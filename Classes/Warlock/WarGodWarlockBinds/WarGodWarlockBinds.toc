@@ -1,0 +1,10 @@
+## Interface: 90001
+## Title: WarGod Warlock Binds
+## Author: Flora
+## Version: 1.0
+## Dependencies: WarGod
+## X-Child-Of: WarGod
+## X-LoadOn-Class: Warlock
+
+embeds.xml
+WarGodWarlockBinds.lua

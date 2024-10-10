@@ -1,0 +1,12 @@
+## Interface: 90001
+## Title: WarGod Hunter
+## Author: Flora
+## Version: 1.0
+## Dependencies: WarGodClass, WarGodHunterBinds
+## X-Child-Of: WarGod
+
+## LoadOnDemand: 1
+## LoadManagers: AddonLoader
+
+Hunter.lua
+Table\HunterTable.xml

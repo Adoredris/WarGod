@@ -149,7 +149,10 @@ function WGBM:ADDON_LOADED(event, name)
             if (not IsAddOnLoaded("WGBM_Aberrus")) then
                 LoadAddOn("WGBM_Aberrus")
             end
-
+        elseif(string.match(name, "NerubarPalace"))then
+            if (not IsAddOnLoaded("WGBM_NerubarPalace")) then
+                LoadAddOn("WGBM_NerubarPalace")
+            end
         end
     elseif(name == "LittleWigs") then
         if (not IsAddOnLoaded("WGBMD_WarWithin")) then

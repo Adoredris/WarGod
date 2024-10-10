@@ -1,6 +1,8 @@
 setfenv(1, WarGod.Binder)
 -- bind focus everyone
 
+AssignBuiltInBind("INTERACTTARGET","NUMPADMULTIPLY", 106)
+
 QueueSpellBind("focus", groups.allTheUnits, {prefix = "/"})
 QueueSpellBind("target", groups.party, {prefix = "/"})
 
@@ -23,6 +25,12 @@ QueueSpellBind("OverrideActionBarButton4", groups.noone, {prefix = "/click"})
 QueueSpellBind("OverrideActionBarButton5", groups.noone, {prefix = "/click"})
 QueueSpellBind("OverrideActionBarButton6", groups.noone, {prefix = "/click"})
 QueueSpellBind("ExtraActionButton1", groups.noone, {prefix = "/click"})
+
+QueueSpellBind("tdBattlePetScriptAutoButton", groups.noone, {prefix = "/click"})
+QueueSpellBind("Squirt", groups.noone, {prefix = "/tar", suffix = "\n/tar The Beakinator"})
+QueueSpellBind("Lio the Lioness", groups.noone, {prefix = "/tar"})
+
+
 
 --QueueSpellBind(13, groups.noone, {prefix = "/use", suffix = "/targetlasttarget"})
 --QueueSpellBind(14, groups.noone, {prefix = "/use", suffix = "/targetlasttarget"})

@@ -30,9 +30,10 @@ end
 
 function CastTimeFor(spell)
     --funnyschoolthing seems to return Lunar or Solar depending on spells for moonkins
-    local castTime = GetSpellInfo(spell).castTime
+    local t = GetSpellInfo(spell)
+    if not t then return 0 end
     --print('boo')
-    return (castTime or 0)/1000
+    return (t.castTime or 0)/1000
 end
 
 -- having trouble perfecting this crap

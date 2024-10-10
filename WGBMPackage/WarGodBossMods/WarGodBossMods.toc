@@ -1,6 +1,6 @@
 ## Title: WarGod Boss Mods
 ## Version: 1.0
-## Author: Ikevink
+## Author: Flora
 ## Dependencies: Ace3,BigWigs, BigWigs_Core
 ## Interface: 90001
 

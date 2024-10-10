@@ -1,6 +1,6 @@
 --
 -- Created by IntelliJ IDEA.
--- User: Ikevink
+-- User: Flora
 -- Date: 30/06/2017
 -- Time: 6:22 PM
 -- To change this template use File | Settings | File Templates.
@@ -136,8 +136,8 @@ do
         end
     })
 
-    AddSpellFunction(nil,"Soothe",19980,{
-        func = function(self) return --[[not player.casting and]] (not player.channel) end,
+    --[[AddSpellFunction(nil,"Soothe",19980,{
+        func = function(self) return (not player.channel) end,
         units = groups.targetable,
         label = "Druid Purge",
         ["andDelegates"] = {Delegates.PurgeWrapper, Delegates.HasEnrageEffect},
@@ -165,7 +165,7 @@ do
                 end
             end
         end,
-    })
+    })]]
 
     AddSpellFunction(nil,"Mark of the Wild",5,{
         func = function(self)

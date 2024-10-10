@@ -56,6 +56,10 @@ end
 function Class:PLAYER_SPECIALIZATION_CHANGED(event, unitid)
     --if not unitid then print(event);print("Class:PLAYER_SPECIALIZATION_CHANGED") end
     if unitid == "player" then
+        C_AddOns.EnableAddOn("WarGod"..class .."Binds")
+        C_AddOns.LoadAddOn("WarGod" .. class .. "Binds")
+        C_AddOns.EnableAddOn("WarGod"..class)
+        C_AddOns.LoadAddOn("WarGod" .. class)
         print("spec changed")
         local specIndex = GetSpecialization()
 
@@ -66,7 +70,8 @@ function Class:PLAYER_SPECIALIZATION_CHANGED(event, unitid)
                 player.specIndex = specIndex
                 player.spec = spec
                 --print(spec)
-                C_AddOns.EnableAddOn("WarGod"..class..spec)
+
+                C_AddOns.EnableAddOn("WarGod"..class .. spec)
                 C_AddOns.LoadAddOn("WarGod" .. class .. spec)
 
             end

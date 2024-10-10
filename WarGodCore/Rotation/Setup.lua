@@ -6,7 +6,7 @@ local curScore = 0
 
 function RefreshSpell(self)
     local forceUpdatePixel = true
-    --local debug = self.spell == "Elemental Potion of Ultimate Power"
+    --local debug = self.spell == "Mangle"
     self.timeSinceLastUpdate = 0
     --print('hi')
     -- what is this section I commented out 3/8/21
@@ -49,9 +49,9 @@ function RefreshSpell(self)
                             if debug then print('valid unit') end
                             if (not WarGodUnit:IsTempBlacklisted(guid)) and (self.needNotFace or (not WarGodUnit:IsTempBehind(guid)) or unitId == "player") then
                                 if debug then print('passed temp blacklist') end
-                                local maxRange, minRange = UnitRange(unit)
-                                if (maxRange <= self.maxRange and minRange >= self.minRange)then
-                                    if debug then print('inRange') end
+                                --local maxRange, minRange = UnitRange(unit)
+                                --if (maxRange <= self.maxRange and minRange >= self.minRange)then
+                                    --if debug then print('inRange') end
                                     if (condition.andDelegates == nil or type(condition.andDelegates) == "function" and condition:andDelegates(condition, self.spell, unit, condition.args) or type(condition.andDelegates) == "table" and AllTrue(self.spell, unit, condition.args, condition.andDelegates)) then
                                         if debug then print('andDelegates True') end
                                         if (condition.scorer == nil and self.scorer == nil) then
@@ -97,7 +97,7 @@ function RefreshSpell(self)
                                             end
                                         end
                                     end
-                                end
+                                --end
                             end
                         end
                     end
@@ -130,6 +130,7 @@ function RefreshSpell(self)
 end
 
 do
+    local lastDelayedActionTime = 0
     local lastWhisper = ""
     local lastWhisperTime = 0
 
@@ -174,6 +175,35 @@ do
             --print("mounted")
             --print("not dpsing cause mounted")
             --LegPixel:SetBothBySpellUnit ("null","null");
+        elseif C_PetBattles.IsInBattle() then
+            if tdBattlePetScriptAutoButton and tdBattlePetScriptAutoButton:IsEnabled() then
+                bestActionSoFar = "tdBattlePetScriptAutoButton"
+            end
+            lastDelayedActionTime = GetTime()
+        elseif WarGod.Control:SafeMode() and GetZoneText() == "Lunarfall" then
+            if NeedToHealPets() then
+                if UnitName("target") == "Lio the Lioness" then
+                    local info = C_GossipInfo.GetOptions()
+                    if info[1] and info[1].name == "I'd like to heal and revive my battle pets." then
+                        C_GossipInfo.SelectOption(info[1].gossipOptionID)
+                    elseif GetTime() - lastDelayedActionTime > 1 then
+                        bestActionSoFar = "INTERACTTARGET"
+                        lastDelayedActionTime = GetTime()
+                    end
+
+                else
+                    bestActionSoFar = "Lio the Lioness"
+                end
+            else
+                if UnitName("target") == "Squirt" or UnitName("target") == "The Beakinator" then
+                    if GetTime() - lastDelayedActionTime > 1 then
+                        bestActionSoFar = "INTERACTTARGET"
+                        lastDelayedActionTime = GetTime()
+                    end
+                else
+                    bestActionSoFar = "Squirt"
+                end
+            end
         elseif(UnitInVehicle("player") and (UnitHasVehicleUI("player") or UnitIsPlayer("vehicle")) or HasOverrideActionBar())then
             local zoneText = GetZoneText()
             local vehicleName = UnitName("vehicle")

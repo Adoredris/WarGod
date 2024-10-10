@@ -34,6 +34,7 @@ Binder.ChatFrame3 = ChatFrame3
 Binder.UnitIsUnit = UnitIsUnit
 --Binder.Auras = LibStub("AceAddon-3.0"):NewAddon("WarGodAuras", "AceConsole-3.0", "AceEvent-3.0")
 --WarGod.Auras = Auras
+Binder.GetBindingKey = GetBindingKey
 
 setfenv(1, WarGod.Binder)
 

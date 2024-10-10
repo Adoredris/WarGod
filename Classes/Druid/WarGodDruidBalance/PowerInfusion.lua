@@ -31,14 +31,14 @@ function PI:UNIT_SPELLCAST_SUCCEEDED(event, unitId, lineId, spellId)
     if spellId == 10060 then
         piTable[UnitNameAndServer(unitId)] = GetTime()
         --print(UnitNameAndServer(unitId) .. " cast PI")
-    elseif unitId == "player" then
+    --[[elseif unitId == "player" then
         local spellName = GetSpellInfo(spellId).name
         if (spellName) then
             if spellName == "Force of Nature" then
                 print("Disabling Clickies : Cast Trees Once")
                 NagaStateOff("NUMPAD5")
             end
-        end
+        end]]
     end
 end
 PI:RegisterEvent("UNIT_SPELLCAST_SUCCEEDED")

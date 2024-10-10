@@ -26,6 +26,7 @@ Rotation.pairs = pairs
 Rotation.random = random
 Rotation.max = max
 Rotation.GetTime = GetTime
+Rotation.C_GossipInfo = C_GossipInfo
 
 --Rotation.pixel = WarGod.Pixel
 Rotation.GetSpellCooldown = C_Spell.GetSpellCooldown
@@ -90,7 +91,7 @@ Rotation.CombatLogGetCurrentEventInfo = CombatLogGetCurrentEventInfo
 Rotation.GetQuestObjectiveInfo = GetQuestObjectiveInfo
 
 Rotation.UnitDebuff = UnitDebuff
-Rotation.UnitBuff = UnitBuff
+Rotation.UnitBuff = C_UnitAuras.GetBuffDataByIndex
 
 Rotation.GetShapeshiftForm = GetShapeshiftForm
 Rotation.GetShapeshiftFormInfo = GetShapeshiftFormInfo
@@ -105,6 +106,8 @@ Rotation.UnitIsUnit = UnitIsUnit
 Rotation.groups = WarGod.Unit.groups
 
 Rotation.player = WarGod.Unit:GetPlayer()
+Rotation.C_PetBattles = C_PetBattles
+Rotation.tdBattlePetScriptAutoButton = tdBattlePetScriptAutoButton
 
 Rotation.printdebug = WarGod.printdebug
 

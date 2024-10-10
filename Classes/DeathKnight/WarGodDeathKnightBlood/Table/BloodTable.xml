@@ -1,0 +1,11 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <!--<Script file="CDs.lua"/>-->
+    <Script file="Tagging.lua"/>
+    <Script file="Mitigation.lua"/>
+    <Script file="Standard.lua"/>
+    <Script file="Utility.lua"/>
+    <Script file="ForcedOnly.lua"/>
+    <!--<Script file="Vulnerability.lua"/>
+
+    <Script file="LastResort.lua"/>-->
+</Ui>

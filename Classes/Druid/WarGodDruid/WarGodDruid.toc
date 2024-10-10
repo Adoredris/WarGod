@@ -1,6 +1,6 @@
 ## Interface: 90001
 ## Title: WarGod Druid
-## Author: Ikevink
+## Author: Flora
 ## Version: 1.0
 ## Dependencies: WarGodClass, WarGodDruidBinds
 ## X-Child-Of: WarGod

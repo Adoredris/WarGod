@@ -1,6 +1,6 @@
 --
 -- Created by IntelliJ IDEA.
--- User: Ikevink
+-- User: Flora
 -- Date: 30/06/2017
 -- Time: 6:22 PM
 -- To change this template use File | Settings | File Templates.
@@ -30,15 +30,12 @@ local WarGodCore = WarGod.Control
 setfenv(1, Rotations)
 
 do
-    --[[AddSpellFunction("Balance", "Wild Charge",0,{
-        func = function(self)  end,       -- dummy func, don't do it
-        units = groups.noone,
-        label = "Wild Charge",
-        --["andDelegates"] = {Delegates.HasSpellToInterrupt_LatestPossibleInterrupt, Delegates.InterruptWrapper, Delegates.IsSpellInRange},
-        --isCC = true,
-        helpharm = "help",
-        --maxRange = 10,
-        IsUsable = function(self) return talent.wild_charge.enabled end
+    --[[AddSpellFunction("Balance","Force of Nature",0,{
+        func = function(self) return
+        end,
+        units = groups.cursor,
+        label = "FoN",
+
     })]]
 
 end

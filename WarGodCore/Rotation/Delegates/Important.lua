@@ -62,12 +62,12 @@ function Delegates:UnitIsBreakableCrowdControlled(spell, unit, args)
     --if 1==1 then return false end
     --print('need to fix breakable cc')
     for i=1,40 do
-        local name = UnitDebuff(unit.unitid, i)
-        if not name then
+        local t = UnitDebuff(unit.unitid, i)
+        if not t then
             return false
         end
-        if (tContains(ccList, name)) then
-            --print('not dpsing ' .. UnitName(unit.unitid) .. ' cause ' .. name)
+        if (tContains(ccList, t.name)) then
+            print('not dpsing ' .. UnitName(unit.unitid) .. ' cause ' .. name)
             return true
         end
     end
@@ -126,6 +126,7 @@ end
 
 
 function Delegates:UnitInCombat(spell, unit)
+    --print(UnitAffectingCombat(unit.unitid))
     return UnitAffectingCombat(unit.unitid)
 end
 
@@ -136,7 +137,7 @@ function Delegates:HasEnrageMagicEffect(spell, unit, args)
     local score = 0
     for i=1,40 do
         local t = UnitBuff(unitid, i)
-        if not t then return end
+        if not t then break end
         if (t.dispelName == "Magic" or t.dispelName == "Enrage" or t.dispelName == "")then -- Enrages are "" for some reason?
             if (t.name == "Lifebloom")then
                 return false
@@ -162,7 +163,7 @@ function Delegates:HasMagicEffect(spell, unit, args)
     local score = 0
     for i=1,40 do
         local t = UnitBuff(unitid, i)
-        if not t then return end
+        if not t then break end
         if (t.dispelName == "Magic")then
             if (t.name == "Lifebloom")then
                 return false
@@ -186,10 +187,12 @@ function Delegates:HasEnrageEffect(spell, unit, args)
     --if 1==1 then return false end
     local unitid = unit.unitid
     if unitid ~= "" then
+        if UnitIsPlayer(unitid) then return end
         local score = 0
         for i=1,40 do
             local t = UnitBuff(unitid, i)
-            if not t then return end
+            if not t then break end
+            --if t.dispelName == "" then print("t.dispelName is empty which should mean Enrage...HasEnrageEffect") end
             if (t.dispelName == "Enrage" or t.dispelName == "")then -- Enrages are "" for some reason?
                 --if (duration > 0)then
                 score = score + 1
@@ -199,6 +202,7 @@ function Delegates:HasEnrageEffect(spell, unit, args)
             end
         end
         if score > 0 then
+            --print("Has Enrage Effect")
             return true
         end
     end

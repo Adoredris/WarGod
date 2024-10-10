@@ -1,6 +1,6 @@
 --
 -- Created by IntelliJ IDEA.
--- User: Ikevink
+-- User: Flora
 -- Date: 16/12/2017
 -- Time: 8:00 PM
 -- To change this template use File | Settings | File Templates.
@@ -210,7 +210,33 @@ do
         end,
     })
 
+    AddSpellFunction("Balance","Force of Nature",baseScore + 196,{
+        func = function(self)
+            return
+        end,
+        units = groups.cursor,
+        label = "Dummy FoN",
+    })
 
+
+    AddSpellFunction("Balance","Celestial Alignment",baseScore + 195,{
+        func = function(self)
+            return talent.force_of_nature.enabled and WarGodSpells["Force of Nature"]:CDRemaining() > 25
+        end,
+        units = groups.cursor,
+        label = "CA (Trees)",
+    })
+
+    AddSpellFunction("Balance","Convoke the Spirits",baseScore + 100,{
+        func = function(self)
+            return player:Lunar_Power() < 35 and (buff_ca_inc:Up() or WarGodSpells["Celestial Alignment"]:CDRemaining() > 90)
+        end,
+        units = groups.noone,
+        label = "Convoke",
+        helpharm = "harm",
+        maxRange = 40,
+        IsUsable = function(self) return (talent.convoke_the_spirits.enabled) and WarGodControl:AllowCDs () and Delegates:DamageCDWrapper(self.spell, WarGodUnit:GetTarget(), {4, 60}) and player.combat and WarGodUnit.active_enemies > 0 and (GetSpecialization() ~= 1 or buff.moonkin_form:Stacks() > 0) end,
+    })
 
     if 1==1 then return end
     AddSpellFunction("Balance","Fury of Elune",baseScore + 300,{
@@ -295,17 +321,7 @@ do
 
 
     --actions+=/force_of_nature,if=(buff.ca_inc.up|cooldown.ca_inc.remains>30)&ap_check
-    AddSpellFunction("Balance","Force of Nature",baseScore + 200,{
-        func = function(self) return ((WarGodSpells["Celestial Alignment"]:CDRemaining() > 30 or (not UnitExists("boss1"))) or buff.celestial_alignment:Stacks() > 0 or buff.incarnation_chosen_of_elune:Stacks() > 0 or (not WarGodControl:AllowCDs()) or (not Delegates:DamageCDWrapper("Celestial Alignment", WarGodUnit:GetTarget(), {15, 180})))
-        end,
-        units = groups.cursor,
-        label = "FoN",
-        --andDelegates = {Delegates.UnitIsBoss},
-        IsUsable = function(self) return talent.force_of_nature.enabled and WarGodControl:AllowClickies() and player.combat and WarGodUnit.active_enemies > 0 and (buff.moonkin_form:Stacks() > 0 or GetShapeshiftForm() == 0) end,
-        helpharm = "harm",
-        maxRange = 45,
 
-    })
 
     AddSpellFunction("Balance","Celestial Alignment",baseScore + 998,{
         func = function(self)

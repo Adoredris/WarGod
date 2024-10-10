@@ -33,10 +33,7 @@ WGBM[bossString].DPSBlacklist = function(spell, unit, args)
         end
         return true
     elseif name == "Illusionary Vulpin" then
-        if UnitIsUnit("target", unitid) then
-            return
-        end
-        return true7
+        return true
     else
         --print("mistcaller default blacklist: " .. name)
     end
@@ -52,8 +49,10 @@ WGBM[bossString].Priority = function(spell, unit, args)
         if unit:BuffRemaining("Guessing Game", "HELPFUL") > 0 then
             score = 1
         else
-            score = 50
+            score = 20
         end
+    elseif name == "Illusionary Clone" then
+        score = 50
     end
     return score, bossString
 end

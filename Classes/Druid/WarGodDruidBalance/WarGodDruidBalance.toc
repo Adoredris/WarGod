@@ -1,6 +1,6 @@
 ## Interface: 90001
 ## Title: WarGod Druid Balance
-## Author: Ikevink
+## Author: Flora
 ## Version: 1.0
 ## Dependencies: WarGodDruid
 ## X-Child-Of: WarGod

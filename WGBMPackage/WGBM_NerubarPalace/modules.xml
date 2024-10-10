@@ -1,0 +1,15 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+..\FrameXML\UI.xsd">
+
+
+    <Script file="1_Ulgrax.lua"/>
+    <Script file="2_Bloodbound.lua"/>
+    <Script file="3_Sikran.lua"/>
+    <Script file="4_Rashanan.lua"/>
+    <Script file="5_Broodtwister.lua"/>
+    <Script file="6_NexusPrincess.lua"/>
+    <Script file="7_SilkenCourt.lua"/>
+    <Script file="8_QueenAnsurek.lua"/>
+
+    <Script file="Trash.lua"/>
+</Ui>

@@ -1,5 +1,8 @@
 local WarGod = WarGod
 local Unit = WarGod.Unit
+
+local BOOKTYPE_SPELL = Enum.SpellBookSpellBank.Player
+
 setfenv(1, Unit)
 
 function GetPlayer()
@@ -80,21 +83,25 @@ do
     local Charges = LibStub("AceAddon-3.0"):NewAddon("WarGodUnitPlayerCharges", "AceConsole-3.0", "AceEvent-3.0")
     local charges = {}
     local function Update(self)
-        local chargesCur, chargesMax, start, duration = GetSpellCharges(self.id)
-        if (not chargesCur) then
-            chargesCur = select(2,GetSpellCooldown(self.id)) < player.gcd and 1 or 0
-            chargesMax = 1
-        else
-            if (chargesCur ~= chargesMax) then
-                self.duration = duration
-                self.next_charge_at = start + duration
-            else
-                self.next_charge_at = 0
-            end
+        --local chargesCur, chargesMax, start, duration
+        --local chargesCur, chargesMax, start, duration = GetSpellCharges(self.id)
+        local t = GetSpellCharges(self.id)
+        if (not t) then
+            t = GetSpellCooldown(self.id)
+            t.currentCharges = t.duration < player.gcd and 1 or 0
+            t.maxCharges = 1
         end
-        if (player.casting == self.name) then chargesCur = chargesCur - 1 end
-        self.charges = max(0, chargesCur)   -- check... was  max(1, chargesCur)
-        self.charges_max = chargesMax
+        --    chargesCur = select(2,GetSpellCooldown(self.id)) < player.gcd and 1 or 0
+        --    chargesMax = 1
+        if (t.currentCharges ~= t.maxCharges) then
+            self.duration = t.cooldownDuration
+            self.next_charge_at = t.cooldownStartTime + t.cooldownDuration
+        else
+            self.next_charge_at = 0
+        end
+        if (player.casting == self.name) then t.currentCharges = t.currentCharges - 1 end
+        self.charges = max(0, t.currentCharges)   -- check... was  max(1, chargesCur)
+        self.charges_max = t.maxCharges
 
         --if (playerObj.rotationSpells[self.name]) then
         --    playerObj.rotationSpells[self.name].usable = chargesCur and chargesCur > 0
@@ -147,14 +154,16 @@ do
 
 
             local i = 1
-            local name, subname, spellId = GetSpellBookItemName(1, BOOKTYPE_SPELL)
-            while (name and SimcraftifyString(name) ~= simcName) do
+            --local name, subname, spellId = GetSpellBookItemInfo(1, BOOKTYPE_SPELL)
+            local t = GetSpellBookItemInfo(1, BOOKTYPE_SPELL)
+            while (t and SimcraftifyString(t.name) ~= simcName) do
                 i = i + 1
-                name, subname, spellId = GetSpellBookItemName(i, BOOKTYPE_SPELL)
+                --name, subname, spellId = GetSpellBookItemInfo(i, BOOKTYPE_SPELL)
+                t = GetSpellBookItemInfo(i, BOOKTYPE_SPELL)
             end
-            if (name) then
-                self.name = name
-                self.id = spellId
+            if (t.name) then
+                self.name = t.name
+                self.id = t.spellID
                 self:Update()
                 return self
             else
@@ -467,6 +476,10 @@ do
 
         function player:RunesFractional()
             return player.runes + (player.runes < 6 and 1 - (player.timeOfNextRune - GetTime()) / player.nextRuneDuration or 0)
+        end
+
+        function player:TimeTillNextRune()
+            return player.timeOfNextRune - GetTime()
         end
         player.timeOfNextRune = GetTime() + 1337
         player.nextRuneDuration = 0
@@ -953,7 +966,7 @@ do
                         print(...)
                     end]]
 
-                    if (GetSpellInfo(player.queuedSpell).name == spellName and UnitName(player.queuedUnitId) == targetName) then
+                    if (GetSpellInfo(player.queuedSpell) and GetSpellInfo(player.queuedSpell).name == spellName and UnitName(player.queuedUnitId) == targetName) then
                         --print("ooga booga")
                         --print(player.queuedGUID)
                         playerSpells[lineId].guid = player.queuedGUID--UnitGUID(unitId)

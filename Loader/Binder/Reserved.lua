@@ -141,7 +141,7 @@ ReserveBind ("ALT-G")
 ReserveBind ("ALT-F")
 ReserveBind ("SHIFT-G")
 
--- lee stuff --
+-- flora stuff --
 --[[ReserveBind("LALT-LSHIFT-F1")
 ReserveBind("RALT-RSHIFT-F1")
 ReserveBind("LALT-RSHIFT-F1")

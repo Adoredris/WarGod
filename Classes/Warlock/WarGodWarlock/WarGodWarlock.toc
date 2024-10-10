@@ -1,0 +1,12 @@
+## Interface: 90001
+## Title: WarGod Warlock
+## Author: Flora
+## Version: 1.0
+## Dependencies: WarGodClass, WarGodWarlockBinds
+## X-Child-Of: WarGod
+
+## LoadOnDemand: 1
+## LoadManagers: AddonLoader
+
+Warlock.lua
+Table\WarlockTable.xml

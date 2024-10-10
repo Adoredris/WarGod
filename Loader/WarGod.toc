@@ -4,6 +4,7 @@
 ## Interface: 100205
 ## Dependencies:
 
-WarGod.lua
 
+WarGod.lua
+NagaToggles.lua
 Binder\Binder.xml

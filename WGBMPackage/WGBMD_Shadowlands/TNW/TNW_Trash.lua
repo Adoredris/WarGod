@@ -127,7 +127,7 @@ WGBM[bossString].Purge = function(spell, unit, args)
     elseif name == "Corpse Harvester" then
         return true
     elseif name == "Stitched Vanguard" then
-        local seethingRemains, seethingStacks = unit:BuffRemaining("Seething Rage", "HELPFUL")
+        local seethingStacks = unit:BuffStacks("Seething Rage", "HELPFUL")
         if seethingStacks == 0 or seethingStacks >= 8 then  -- stacks == 0 means that the enrage affix is up
             return true
         end
@@ -155,7 +155,7 @@ WGBM[bossString].Purge = function(spell, unit, args)
     elseif name == "Separation Assistant" then
         return true
     elseif name == "Patchwerk Soldier" then
-        for guid,iterUnit in upairs(WarGod.Unit.groups.harmOrPlates) do
+        for guid,iterUnit in WarGod.Unit.upairs(WarGod.Unit.groups.targetable) do
             local name = iterUnit.name
             if name ~= "" and iterUnit.name ~= "Patchwerk Soldier" then
                 if iterUnit.health_percent < 0.25 then

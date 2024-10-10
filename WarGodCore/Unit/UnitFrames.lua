@@ -100,6 +100,9 @@ do
     for i = 1, 40 do
         FrameRegister(frames, "nameplate" .. i, {"NAME_PLATE_UNIT_ADDED", "NAME_PLATE_UNIT_REMOVED"})--; frames["nameplate" .. i]:Update()
     end
+    for i=1,5 do
+        FrameRegister(frames, "boss" .. i, {"INSTANCE_ENCOUNTER_ENGAGE_UNIT"})
+    end
     --local mouseoverFrame = frames["mouseover"]
     FrameRegister(frames, "mouseover", {"UPDATE_MOUSEOVER_UNIT"})
     frames["mouseover"].unitid = "mouseover"

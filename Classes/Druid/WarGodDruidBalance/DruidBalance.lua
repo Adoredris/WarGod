@@ -263,7 +263,12 @@ function eclipse:LunarRemains()
 end
 eclipse.Lunar_Remains = eclipse.LunarRemains
 
-function eclipse:Solar_Next()
+function eclipse:AnyRemains()
+    return max(self:Lunar_Remains(), self:Solar_Remains())
+end
+eclipse.Any_Remains = eclipse.AnyRemains
+
+--[[function eclipse:Solar_Next()
     local count = GetSpellCount("Starfire")
     if count > 1 then
         return true
@@ -275,12 +280,6 @@ function eclipse:Solar_Next()
     elseif (eclipse:In_Lunar() and eclipse:LunarRemains() < CastTimeFor("Starfire")) then
         return true
     end
-    --[[if GetSpellCount("Starfire") > 0 then
-        return true
-    end]]
-    --[[if self:In_Lunar() then
-        return true
-    end]]
 end
 
 function eclipse:Lunar_Next()
@@ -295,17 +294,14 @@ function eclipse:Lunar_Next()
     elseif (eclipse:In_Solar() and eclipse:SolarRemains() < CastTimeFor("Wrath")) then
         return true
     end
-    --[[if self:In_Solar() then
-        return true
-    end]]
-end
+end]]
 
 function eclipse:Any_Next()
-    if buff_ca_inc:Up() and buff_ca_inc:Remains() < CastTimeFor("Starfire") then
+    --[[if buff_ca_inc:Up() and buff_ca_inc:Remains() < CastTimeFor("Starfire") then
         return true
     elseif self:Lunar_Next() and self:Solar_Next() then
         return true
-    end
+    end]]
 end
 
 function eclipse:In_Both()
@@ -364,15 +360,15 @@ do
         local gen = 0
         if spell == "Starfire" then
             if talent.soul_of_the_forest.enabled and (eclipse:In_Lunar() or eclipse:In_Both()) then
-                gen = gen + 13
+                gen = gen + 13      -- hmm this one is weird cause it's based on stargets hit
             else
                 gen = gen + 12
             end
         elseif spell == "Wrath" then
             if talent.soul_of_the_forest.enabled and (eclipse:In_Solar() or eclipse:In_Both()) then
-                gen = gen + 16
+                gen = gen + 13
             else
-                gen = gen + 10
+                gen = gen + 8
             end
         elseif spell == "Stellar Flare" then
             gen = gen + 8
@@ -399,7 +395,7 @@ do
 
     function AP_Check(spell)
         if (spell == "Starsurge") then
-            if player:Lunar_Power() >= 30 then
+            if player:Lunar_Power() >= (talent.rattle_the_stars.enabled and 36 or 40) then
                 return true
             end
         else
@@ -422,7 +418,7 @@ do
             if talent.natures_balance.enabled then
                 extraGen = extraGen + 2
             end
-            if player:Lunar_Power_Deficit() - extraGen > 0 then
+            if player:Lunar_Power_Deficit() - extraGen > 10 then
                 return true
             end
         end

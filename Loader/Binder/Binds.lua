@@ -218,7 +218,7 @@ function BindSpellToUnit(spell, unitid, t)
 
         MacroText = t.prefix .. spell
         --printTo(3,MacroText)
-    elseif(t.prefix == "/click") then
+    elseif(t.prefix == "/click" or t.prefix == "/tar" or t.prefix == "/targetexact") then
         MacroText = t.prefix .. " " ..  spell
         --print(MacroText)
     elseif(spell == "follow") then
@@ -282,6 +282,21 @@ function BindSpellToUnit(spell, unitid, t)
         --BoundSpellUnit_Button[string.gsub(Spell, ":", "") .. Unit]:SetAttribute("type","macro");
 
     end
+end
+
+function AssignBuiltInBind(abilityID, bind, vkk)
+    local curBind = GetBindingKey(abilityID)
+    if curBind then
+        bind = curBind
+    end
+    if not buttons[bind] then
+        buttons[bind] = {}
+        buttons[bind].key = vkk
+        -- need to add something to handle modifiers
+        buttons[bind].mod = 0
+    end
+    buttons[bind].used = true
+    spellUnitToBinds[abilityID] = bind;
 end
 
 --[[local function GetValuesForBind(k)

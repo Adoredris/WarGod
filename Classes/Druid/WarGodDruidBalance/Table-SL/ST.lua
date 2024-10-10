@@ -73,6 +73,8 @@ do
     AddSpellFunction("Balance","Celestial Alignment",baseScore + 999,{
         func = function(self)
             if variable.is_aoe then return end
+            if (not talent.harmony_of_the_grove.enabled) then return true end
+            if buff.harmony_of_the_grove:Up() or WarGodSpells["Force of Nature"]:CDRemaining() > 25 then return true end
             return ((LustRemaining() > 0 and LustRemaining() < 32) or player:BuffRemaining("Power Infusion","HELPFUL") > 0) and talent.incarnation_chosen_of_elune.enabled
         end,
         units = groups.cursor,
@@ -95,6 +97,24 @@ do
         quick = true,
         offgcd = true,
 
+    })
+
+
+
+    AddSpellFunction("Balance","Starsurge",baseScore + 990,{
+        func = function(self)
+            if variable.is_aoe then return end
+            if buff.starweavers_weft:Up() then return true end
+            if player:Lunar_Power_Deficit() <= 15 then
+                return true
+            end
+
+        end,
+        units = groups.targetable,
+        label = "Starsurge (AP)",
+        andDelegates = {Delegates.IsSpellInRange},
+        helpharm = "harm",
+        maxRange = 45,
     })
 
 --actions.st=adaptive_swarm,target_if=!dot.adaptive_swarm_damage.ticking&!action.adaptive_swarm_damage.in_flight&(!dot.adaptive_swarm_heal.ticking|dot.adaptive_swarm_heal.remains>5)|dot.adaptive_swarm_damage.stack<3&dot.adaptive_swarm_damage.remains<3&dot.adaptive_swarm_damage.ticking
@@ -156,14 +176,25 @@ do
         quick = true,
     })
 
+    AddSpellFunction("Balance","Force of Nature",baseScore + 995,{
+        func = function(self)
+            if variable.is_aoe then return end
+            return WarGodSpells["Celestial Alignment"]:CDRemaining() < player.gcd and WarGodControl:AllowCDs() or buff_ca_inc:Up() or ((not talent.natures_grace.enabled) or (not eclipse:In_Any()) or eclipse:AnyRemains()>6) or eclipse:AnyRemains() >= 3 and WarGodSpells["Celestial Alignment"]:CDRemaining() > 10+15*(talent.control_of_the_dream.enabled and 1 or 0) or Delegates:IsTankingSomething(self.spell, player, {})
+        end,
+        units = groups.cursor,
+        label = "FoN",
+        IsUsable = function(self) return talent.force_of_nature.enabled and ((WarGodControl:AllowClickies() and ((not WarGodControl:AllowCDs()) or WarGodSpells["Celestial Alignment"]:CDRemaining() > 25)) or buff_ca_inc:Up() or WarGodControl:AllowCDs() and WarGodSpells["Celestial Alignment"]:CDRemaining() < player.gcd) and Delegates:DamageCDWrapper(self.spell, WarGodUnit:GetTarget(), {10, 60}) and player.combat and WarGodUnit.active_enemies > 0 and (buff.moonkin_form:Stacks() > 0 or GetShapeshiftForm() == 0) end,
+        helpharm = "harm",
+        maxRange = 45,
+
+    })
+
     AddSpellFunction("Balance","Wrath",baseScore + 850,{
         func = function(self)
             if variable.is_aoe then return end
             if eclipse:In_Any() then return end
-            if GetSpellCount("Starfire") == 1 and player.casting == "Starfire" then return end      -- this should count as "In_Any" but anyway
-            if (eclipse:Lunar_Next() and (not eclipse:Any_Next())) and (GetSpellCount("Wrath") > 1 or GetSpellCount("Wrath") == 1 and player.casting ~= "Wrath") then
-                return true
-            elseif (eclipse:Any_Next() and (buff.primordial_arcanic_pulsar:Value() >= 520 or WarGodSpells["Celestial Alignment"]:CDRemaining() < 5)) then
+            --if GetSpellCount("Starfire") == 1 and player.casting == "Starfire" then return end      -- this should count as "In_Any" but anyway
+            if (talent.lunar_calling.enabled and (GetSpellCount("Wrath") > 1 or GetSpellCount("Wrath") == 1 and player.casting ~= "Wrath")) then
                 return true
             end
         end,
@@ -188,8 +219,7 @@ do
         func = function(self)
             if variable.is_aoe then return end
             if eclipse:In_Any() then return end
-            if GetSpellCount("Wrath") == 1 and player.casting == "Wrath" then return end
-            if (eclipse:Solar_Next() or eclipse:Any_Next()) and (GetSpellCount("Starfire") > 1 or GetSpellCount("Starfire") == 1 and player.casting ~= "Starfire") then
+            if (GetSpellCount("Starfire") > 1 or GetSpellCount("Starfire") == 1 and player.casting ~= "Starfire") then
                 return true
             end
         end,
@@ -227,8 +257,7 @@ do
     AddSpellFunction("Balance","Celestial Alignment",baseScore + 781,{
         func = function(self)
             if variable.is_aoe then return end
-            --if WarGodControl:AOEMode() then return end
-            --local lustRemains = LustRemaining()
+            if (talent.harmony_of_the_grove.enabled and WarGodSpells["Force of Nature"]:CDRemaining() < 25) then return end
             if buff_ca_inc:Up() then return end
             return eclipse:In_Any()
         end,
@@ -283,15 +312,26 @@ do
     AddSpellFunction("Balance","Convoke the Spirits",baseScore + 760,{
         func = function(self)
             if variable.is_aoe then return end
-            return --(buff_ca_inc:Up() or WarGodSpells["Celestial Alignment"]:CDRemaining() > 30) and player:Lunar_Power() < 40
-            --(variable.convoke_desync and WarGodSpells["Celestial Alignment"]:CDRemaining() > player.gcd or buff_ca_inc:Up()) and player:Lunar_Power() < 40 and (eclipse:LunarRemains() > 8 or eclipse:SolarRemains() > 8)--|fight_remains<10
-            buff_ca_inc:Remains() > 4.5 and (player:Lunar_Power() < 40 or buff_ca_inc:Remains() < 6)
+            return player:Lunar_Power() < 35 and eclipse:In_Any() and (WarGodSpells["Celestial Alignment"]:CDRemaining() > 90 or buff_ca_inc:Up())
         end,
         units = groups.noone,
         label = "Convoke",
         helpharm = "harm",
         maxRange = 40,
         IsUsable = function(self) return (talent.convoke_the_spirits.enabled) and WarGodControl:AllowCDs () and Delegates:DamageCDWrapper(self.spell, WarGodUnit:GetTarget(), {4, 60}) and player.combat and WarGodUnit.active_enemies > 0 and (GetSpecialization() ~= 1 or buff.moonkin_form:Stacks() > 0) end,
+    })
+
+    AddSpellFunction("Balance","Starsurge",baseScore + 750,{
+        func = function(self)
+            if variable.is_aoe then return end
+            return buff_ca_inc:Up()
+
+        end,
+        units = groups.targetable,
+        label = "Starsurge (CA)",
+        andDelegates = {Delegates.IsSpellInRange},
+        helpharm = "harm",
+        maxRange = 45,
     })
 
     AddSpellFunction("Balance","Astral Communion",baseScore + 730,{
@@ -346,22 +386,6 @@ do
         maxRange = 45,
     })
 
-    AddSpellFunction("Balance","Starsurge",baseScore + 650,{
-        func = function(self)
-            if variable.is_aoe then return end
-            if not talent.starlord.enabled then return end
-            if not talent.rattle_the_stars.enabled then return end
-            local starlordStacks = buff.starlord:Stacks()
-            if starlordStacks > 0 and starlordStacks < 3 and buff.rattle_the_stars:Remains() < 2 then return true end
-        end,
-        units = groups.targetable,
-        label = "Starsurge (Starlord Rattle)",
-        andDelegates = {Delegates.IsSpellInRange},
-        helpharm = "harm",
-        IsUsable = function(self) return (player:Lunar_Power() >= 40 - (talent.rattle_the_stars.enabled and buff.rattled_stars:Stacks() * 2 or 0) - (talent.elunes_guidance.enabled and buff.incarnation_chosen_of_elune:Up()  and 5 or 0) or talent.starweaver.enabled and buff.starweavers_weft:Up()) and (buff.moonkin_form:Stacks() > 0 or GetShapeshiftForm() == 0) end,
-        maxRange = 45,
-    })
-
 
     AddSpellFunction("Balance","New Moon",baseScore + 625,{
         func = function(self)
@@ -403,7 +427,7 @@ do
                 if eclipseRemains > 0 and eclipseRemains < 4 then
                     return true
                 end
-                if player:Lunar_Power() > 85 then
+                if player:Lunar_Power_Deficit() <= 15 then
                     return true
                 end
             if eclipseRemains > 0 and eclipseRemains < 4 then
@@ -421,7 +445,7 @@ do
         label = "Starsurge",
         andDelegates = {Delegates.IsSpellInRange},
         helpharm = "harm",
-        IsUsable = function(self) return (player:Lunar_Power() >= 40 - (talent.rattle_the_stars.enabled and buff.rattled_stars:Stacks() * 2 or 0) - (talent.elunes_guidance.enabled and buff.incarnation_chosen_of_elune:Up()  and 5 or 0) or talent.starweaver.enabled and buff.starweavers_weft:Up()) and (buff.moonkin_form:Stacks() > 0 or GetShapeshiftForm() == 0) end,
+        IsUsable = function(self) return (player:Lunar_Power() >= 40 - (talent.rattle_the_stars.enabled and 4 or 0) or talent.starweaver.enabled and buff.starweavers_weft:Up()) and (buff.moonkin_form:Stacks() > 0 or GetShapeshiftForm() == 0) end,
         maxRange = 45,
     })
 
@@ -476,7 +500,7 @@ do
     AddSpellFunction("Balance","Wrath",baseScore + 590,{
         func = function(self)
             if variable.is_aoe then return end
-            return eclipse:In_Solar() and buff_ca_inc:Down() or buff_ca_inc:Remains() > CastTimeFor(self.spell) + 0.5
+            return eclipse:In_Solar() and buff_ca_inc:Down() or buff_ca_inc:Remains() > CastTimeFor(self.spell) + 0.5 and (not talent.lunar_calling.enabled)
         end,
         units = groups.targetable,
         label = "Wrath",

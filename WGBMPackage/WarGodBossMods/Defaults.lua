@@ -121,22 +121,23 @@ do
         for i=1,40 do
             local t = UnitBuff(unitid, i)
             if not t then
-                return
+                break
             end
-            --print(t.dispelName)
+            --if t.dispelName == "" then print("t.dispelName is empty which should mean Enrage...default.Purge") end
             if (t.dispelName == "Magic" or t.dispelName == "Enrage" or t.dispelName == "")then -- Enrages are "" for some reason?
                 if not t.duration or t.expirationTime == 0 then
-                    if GetNumGroupMembers() <= 2 or strmatch(UnitClassification(unitid), "elite")or UnitIsPlayer(unitid) then
+                    if GetNumGroupMembers() <= 2 or strmatch(UnitClassification(unitid), "elite") or UnitIsPlayer(unitid) then
                         return true
                     else
                     end
                 else
-                    --print(duration)
+                    --print(t.duration)
                     local remains = t.expirationTime - GetTime()
                     if remains < 0 then
                         print(spell .. " remains: " .. remains .. ", duration: " .. t.duration)
                     end
                     if remains > 3 then
+                        --print('WarGod.BossMods.default.Purge')
                         if UnitClassification(unitid) == "elite" or UnitIsPlayer(unitid) then
                             return true
                             --else
@@ -355,9 +356,11 @@ do
         else
             local hpPercent = player.health_percent
             if player.combat then
-                if hpPercent < 0.75 then
-                    return  args[2] <= 30
-                elseif hpPercent < 0.5 then
+                --print('defensive default')
+                if 1==1 then return true end
+                if hpPercent < 0.9 then
+                    return  args[2] <= 45
+                elseif hpPercent < 0.75 then
                     return args[2] <= 60
                 elseif hpPercent < 0.25 then
                     return args[2] <= 180

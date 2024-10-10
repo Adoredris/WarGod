@@ -21,7 +21,8 @@ function Delegates:Moonfire_Refresh(spell, unit)
 end
 
 do
-    AddSpellFunction("Guardian","Bear Form",7000,{
+    local baseScore = 5000
+    AddSpellFunction("Guardian","Bear Form",baseScore + 999,{
         func = function(self) return buff.bear_form:Stacks() == 0 and
                 buff.cat_form:Stacks() == 0 and buff.moonkin_form:Stacks() == 0
         end,
@@ -29,7 +30,7 @@ do
         label = "Bear"
     })
 
-    AddSpellFunction("Guardian","Maul",6895,{
+    AddSpellFunction("Guardian","Maul",baseScore + 895,{
         func = function(self)
             local threat = UnitThreatSituation("player")
             if not talent.raze.enabled then return end
@@ -51,7 +52,7 @@ do
         --andDelegates = {Delegates.IsSpellInRange},
     })
 
-    AddSpellFunction("Guardian","Thrash",6890, {
+    AddSpellFunction("Guardian","Thrash",baseScore + 890, {
         func = function(self)
             local reqEnemies = 3
             --if WarGodUnit.active_enemies >= reqEnemies then
@@ -76,10 +77,23 @@ do
         --["scorer"] = WarGodUnit.DebuffRemaining,
         helpharm = "harm",
         maxRange = 10,
-        IsUsable = function(self) return buff.bear_form:Stacks() > 0 end,
+        IsUsable = function(self)
+            if SpellCDRemaining(77758) < 0.3 and buff.bear_form:Stacks() > 0 then return true end
+        end,
+        --[[CDRemaining = function(self)
+            local t = GetSpellCooldown(77758) or {}
+            print(t)
+            --decided non-existant spells should never pretend to be off cd, so now they don't.. fix any bugs that result
+            if(t.startTime==nil)then
+                t.startTime=GetTime() + 1337 --0;
+                t.duration=1337 -- 0;
+            end
+            return t.startTime+t.duration-GetTime();
+        end,]]
+
     })
 
-    AddSpellFunction("Guardian","Raze",6885,{
+    AddSpellFunction("Guardian","Raze",baseScore + 885,{
         func = function(self)
             local threat = UnitThreatSituation("player")
             if not talent.raze.enabled then return end
@@ -98,11 +112,32 @@ do
             end
         end,
         units = groups.noone,
-        label = "Raze (Vicious Tooth)",
+        label = "Raze (TnC and VC)",
         --andDelegates = {Delegates.IsSpellInRange},
     })
 
-    AddSpellFunction("Guardian","Moonfire",6860,{
+    AddSpellFunction("Guardian","Lunar Beam",baseScore + 880,{
+        func = function(self)
+            local threat = UnitThreatSituation("player")
+            local reqTargets = 1
+            local targets = 0
+            for k,unit in upairs(groups.targetableOrPlates) do
+                if Delegates:IsSpellInRange("Mangle", unit, {}) then
+                    --print('hello')
+                    targets = targets + 1
+                    if targets > reqTargets then
+                        return true
+                    end
+                end
+            end
+        end,
+        units = groups.noone,
+        label = "Lunar Beam",
+        andDelegates = {Delegates.IsSpellInRange},
+        IsUsable = function(self) return buff.bear_form:Stacks() > 0 and talent.lunar_beam.enabled end,
+    })
+
+    AddSpellFunction("Guardian","Moonfire",baseScore + 860,{
         func = function(self) return WarGodUnit.active_enemies < 3 and buff.incarnation_guardian_of_ursoc.up end,
         units = groups.targetable,
         label = "Refresh Low Targets Moonfire",
@@ -112,7 +147,7 @@ do
         maxRange = 40,
     })
 
-    AddSpellFunction("Guardian","Raze",6855,{
+    AddSpellFunction("Guardian","Raze",baseScore + 855,{
         func = function(self)
             local threat = UnitThreatSituation("player")
             if not talent.raze.enabled then return end
@@ -131,11 +166,11 @@ do
             end
         end,
         units = groups.noone,
-        label = "Maul (Vicious Tooth)",
+        label = "Raze (Max VC)",
         --andDelegates = {Delegates.IsSpellInRange},
     })
 
-    AddSpellFunction("Guardian","Thrash",6850, {
+    AddSpellFunction("Guardian","Thrash",baseScore + 850, {
         func = function(self)
             local reqEnemies = 1
             --if WarGodUnit.active_enemies >= reqEnemies then
@@ -162,12 +197,11 @@ do
         --["scorer"] = WarGodUnit.DebuffRemaining,
         helpharm = "harm",
         maxRange = 10,
-        IsUsable = function(self) return buff.bear_form:Stacks() > 0 end,
     })
 
 
-    AddSpellFunction("Guardian","Mangle",6800,{
-        func = function(self) return (buff.incarnation_guardian_of_ursoc.up or buff.berserk.up) and WarGodUnit.active_enemies < 3 end,
+    AddSpellFunction("Guardian","Mangle",baseScore + 800,{
+        func = function(self) return (buff.incarnation_guardian_of_ursoc:Up() or buff.berserk:Up()) and WarGodUnit.active_enemies < 3 end,
         units = groups.targetable,
         label = "Incarn Mangle No AOE",
         andDelegates = {Delegates.IsSpellInRange},
@@ -176,7 +210,7 @@ do
         IsUsable = function(self) return buff.bear_form:Stacks() > 0 end,
     })
 
-    AddSpellFunction("Guardian","Thrash",6700, {
+    AddSpellFunction("Guardian","Thrash",baseScore + 700, {
         func = function(self)
             local reqEnemies = 2
             --if WarGodUnit.active_enemies >= reqEnemies then
@@ -209,7 +243,7 @@ do
         maxRange = 8,
     })]]
 
-        AddSpellFunction("Guardian","Moonfire",6600,{
+        AddSpellFunction("Guardian","Moonfire",baseScore + 600,{
             func = function(self) return buff.galactic_guardian:Remains() < 2 and buff.galactic_guardian:Up() end,
             units = groups.targetable,
             label = "ST GG Moonfire",
@@ -219,8 +253,8 @@ do
         })
 
 
-    AddSpellFunction("Guardian","Mangle",6500,{
-        --func = function(self) return true end,
+    AddSpellFunction("Guardian","Mangle",baseScore + 500,{
+        func = function(self) return true end,
         units = groups.targetable,
         label = "ST Mangle",
         andDelegates = {Delegates.IsSpellInRange},
@@ -228,7 +262,7 @@ do
         maxRange = 8,
     })
 
-    AddSpellFunction("Guardian","Moonfire",6400,{
+    AddSpellFunction("Guardian","Moonfire",baseScore + 400,{
         func = function(self) return WarGodUnit.active_enemies < 3 end,
         units = groups.targetable,
         label = "Refresh Low Targets Moonfire",
@@ -244,7 +278,7 @@ do
         label = "ST GG Moonfire"
     })]]
 
-    AddSpellFunction("Guardian","Pulverize",6200, {
+    AddSpellFunction("Guardian","Pulverize",baseScore + 200, {
         func = function(self) return player.combat and buff.pulverize:Remains() < 3.5 end,
         units = groups.targetable,
         label = "Pulverize",
@@ -257,7 +291,7 @@ do
         IsUsable = function(self) return buff.bear_form:Stacks() > 0 and talent.pulverize.enabled end,
     })
 
-    AddSpellFunction("Guardian","Raze",1905,{
+    AddSpellFunction("Guardian","Raze",baseScore + 195,{
         func = function(self)
             local threat = UnitThreatSituation("player")
             if (threat == nil or threat < 3) and player.rage_deficit <= 15 or buff.tooth_and_claw:Up() then
@@ -283,7 +317,7 @@ do
         maxRange = 8,
     })
 
-    AddSpellFunction("Guardian","Maul",1900,{
+    AddSpellFunction("Guardian","Maul",baseScore + 150,{
         func = function(self)
             local threat = UnitThreatSituation("player")
             if (threat == nil or threat < 3) and player.rage_deficit <= 15 or buff.tooth_and_claw:Up() then
@@ -324,7 +358,7 @@ do
         maxRange = 8,
     })]]
 
-    AddSpellFunction("Guardian","Moonfire",1100,{
+    AddSpellFunction("Guardian","Moonfire",baseScore + 100,{
         func = function(self) return WarGodUnit.active_enemies < 4 end,
         units = groups.targetable,
         label = "Refresh Low Targets Moonfire",
@@ -332,14 +366,14 @@ do
         args = {threshold = 4.8},
     })
 
-    AddSpellFunction("Guardian","Swipe",1000, {
+    AddSpellFunction("Guardian","Swipe",baseScore + 50, {
         func = function(self)
             local reqEnemies = 2
             --if WarGodUnit.active_enemies >= reqEnemies then
             local immoTargets = 0
             for k,unit in upairs(groups.targetableOrPlates) do
                 if Delegates:IsSpellInRange("Mangle", unit, {})
-                        and Delegates:UnitInCombat(self.spell, unit, {})
+                        --and Delegates:UnitInCombat(self.spell, unit, {})
                         and (not Delegates:DotBlacklistedWrapper("Mangle", unit, {})) then
                     immoTargets = immoTargets + 1
                     return true
@@ -355,7 +389,7 @@ do
     })
 
 
-    AddSpellFunction("Guardian","Moonfire",900,{
+    AddSpellFunction("Guardian","Moonfire",baseScore + 25,{
         --func = function(self) return buff.galactic_guardian:Up() end,
         units = groups.targetable,
         label = "Refresh AOE Moonfire",
@@ -363,32 +397,5 @@ do
         args = {threshold = 4.8},
         Castable = function(self) return Delegates:EnoughTimeToCastWrapper(self.spell, player, {}) end,
         IsUsable = function(self) return buff.moonkin_form:Stacks() > 0 or GetShapeshiftForm() == 0 or buff.bear_form:Stacks() > 0 and player.spec == "Guardian" or buff.cat_form:Stacks() > 0 and talent.lunar_inspiration.enabled and player.energy >= 30 end,
-    })
-
-    AddSpellFunction("Guardian","Kindred Spirits",1050,{
-        func = function(self)
-            if (not runeforge.kindred_affinity.equipped) or GetSpellInfo(self.spell).name == "Lone Empowerment" then
-                return true
-            else
-                return true
-                --[[if buff_ca_inc:Up() then
-                    return true
-                elseif WarGodSpells["Celestial Alignment"]:CDRemaining() < 20 or buff.primordial_arcanic_pulsar:Value() >= 250 then
-                    return
-                else
-                    --local ksPartner = GetKSPartnerUnitId()
-                    --if ksPartner == nil then return end
-                    return KSPartnerHasCDUp()
-                end]]
-            end
-        end,
-        units = groups.noone,
-        label = "Kindred",
-        Castable = function(self) return Delegates:IsKindredSpiritsInRange() end,
-        IsUsable = function(self)
-            if covenant.kyrian then
-                return Delegates:DamageCDWrapper(self.spell, WarGodUnit:GetTarget(), {10, 60}) and player.combat and WarGodUnit.active_enemies > 0 or GetNumGroupMembers() < 2 and GetSpellInfo(self.spell).name == "Kindred Spirits" and player.casting ~= "Kindred Spirits"
-            end
-        end,
     })
 end

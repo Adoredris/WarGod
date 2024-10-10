@@ -1,0 +1,12 @@
+## Interface: 90001
+## Title: WarGod Death Knight
+## Author: Flora
+## Version: 1.0
+## Dependencies: WarGodClass, WarGodDeathKnightBinds
+## X-Child-Of: WarGod
+
+## LoadOnDemand: 1
+## LoadManagers: AddonLoader
+
+DK.lua
+Table\DKTable.xml

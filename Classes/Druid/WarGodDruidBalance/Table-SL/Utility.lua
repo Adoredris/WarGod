@@ -1,6 +1,6 @@
 --
 -- Created by IntelliJ IDEA.
--- User: Ikevink
+-- User: Flora
 -- Date: 30/06/2017
 -- Time: 6:22 PM
 -- To change this template use File | Settings | File Templates.
@@ -150,7 +150,7 @@ do
     -- renewal
     AddSpellFunction("Balance", "Renewal",12080,{
         -- using stacks because it avoids checking a function
-        func = function(self) return player.health_percent < 0.5 and buff.frenzied_regeneration.down and player:DebuffRemaining("Well-Honed Instincts", "HARMFUL") > 0 and (not Delegates:FriendlyBlacklistWrapper(self.spell, player, {})--[[ and Delegates:FriendlyPriorityWrapper(self.spell, player, {}) > 0]]) end,
+        func = function(self) return player.health_percent < 0.5 and buff.frenzied_regeneration.down and player.debuff.wellhoned_instincts:Up() > 0 and (not Delegates:FriendlyBlacklistWrapper(self.spell, player, {})--[[ and Delegates:FriendlyPriorityWrapper(self.spell, player, {}) > 0]]) end,
         units = groups.noone,
         label = "Emergency CD Heal",
         helpharm = "help",

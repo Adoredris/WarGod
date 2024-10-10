@@ -38,7 +38,7 @@ QueueSpellBind("Dash", groups.noone, {prefix = "/castsequence"--[[, prefix = "/c
 
 QueueSpellBind("Regrowth", groups.importantFriends, {prefix = "/console autounshift 0\n/cast ", stopmacro = "channeling:Convoke the Spirits"})
 
-QueueSpellBind("Shred", groups.importantEnemies--[[, {when = {[MatchesSpec]={1,3,4}, [HaveTalent]="Feral Affinity"}}]])
+QueueSpellBind("Shred", groups.importantEnemies)
 
 QueueSpellBind("Skull Bash", groups.allEnemies, {stopmacro = "channeling:Convoke the Spirits", when =      {[MatchesSpec]={2, 3}}})
 

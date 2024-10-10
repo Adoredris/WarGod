@@ -1,0 +1,13 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <Script file="Zekvir.lua"/>
+    <Include file="DreadPit\DreadPit.xml"/>
+    <Include file="EarthcrawlMines\EarthcrawlMines.xml"/>
+    <Include file="FungalFolly\FungalFolly.xml"/>
+
+    <Include file="MycomancerCavern\MycomancerCavern.xml"/>
+    <Include file="NightfallSanctum\NightfallSanctum.xml"/>
+    <Include file="Sinkhole\Sinkhole.xml"/>
+    <Include file="SpiralWeave\SpiralWeave.xml"/>
+    <Include file="Underkeep\Underkeep.xml"/>
+
+</Ui>

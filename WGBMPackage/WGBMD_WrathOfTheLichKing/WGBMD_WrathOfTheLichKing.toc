@@ -1,6 +1,6 @@
 ## Title: WGBMD_WrathOfTheLichKing
 ## Version: 1.0
-## Author: Ikevink
+## Author: Flora
 ## Dependencies: WarGodBossMods
 ## LoadOnDemand: 1
 ## Interface: 90001

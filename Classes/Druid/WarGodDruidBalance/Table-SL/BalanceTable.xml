@@ -1,5 +1,6 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
+    <Script file="ForcedOnly.lua"/>
     <Script file="Bear.lua"/>
     <Script file="Cat.lua"/>
     <Script file="NoForm.lua"/>
@@ -8,6 +9,6 @@
     <Script file="ST.lua"/>
     <Script file="Utility.lua"/>
     <Script file="Vulnerability.lua"/>
-    <Script file="ForcedOnly.lua"/>
+
     <Script file="LastResort.lua"/>
 </Ui>

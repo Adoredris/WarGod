@@ -1,6 +1,6 @@
 ## Interface: 90001
 ## Title: WarGod Priest
-## Author: Ikevink
+## Author: Flora
 ## Version: 1.0
 ## Dependencies: WarGodClass, WarGodPriestBinds
 ## X-Child-Of: WarGod

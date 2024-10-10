@@ -5,7 +5,6 @@ local KS = LibStub("AceAddon-3.0"):NewAddon("WarGodDruidKindredSpirits", "AceCon
 local GetTime = GetTime
 local UnitName = UnitName
 local GetSpellInfo = C_Spell.GetSpellInfo
-local UnitBuff = UnitBuff
 
 local lastWhisperTime = 0
 

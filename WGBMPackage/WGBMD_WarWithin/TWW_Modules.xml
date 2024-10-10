@@ -7,4 +7,5 @@
     <Include file="Priory\Priory.xml"/>
     <Include file="Rookery\Rookery.xml"/>
     <Include file="Stonevault\Stonevault.xml"/>
+    <Include file="Delves\Delve_Modules.xml"/>
 </Ui>

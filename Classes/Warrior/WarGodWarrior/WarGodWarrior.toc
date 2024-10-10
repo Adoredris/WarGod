@@ -1,0 +1,12 @@
+## Interface: 90001
+## Title: WarGod Warrior
+## Author: Flora
+## Version: 1.0
+## Dependencies: WarGodClass, WarGodWarriorBinds
+## X-Child-Of: WarGod
+
+## LoadOnDemand: 1
+## LoadManagers: AddonLoader
+
+Warrior.lua
+Table\WarriorTable.xml
